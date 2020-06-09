@@ -5,6 +5,7 @@ using UnityEngine;
 public class SkulkHealth : Health
 {
     public ParticleSystem hurtParticles;
+    public ParticleSystem skulkBlood;
     public BoxCollider collider;
     Vector3 particleLocation;
 
@@ -18,14 +19,12 @@ public class SkulkHealth : Health
     protected override void Start()
     {
         base.Start();
-
     }
 
     // Update is called once per frame
     void Update()
     {
         particleLocation = transform.TransformPoint(collider.center);
-        
     }
 
     public override void TakeDamage(float amount)

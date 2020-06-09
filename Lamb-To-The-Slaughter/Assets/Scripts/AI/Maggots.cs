@@ -38,6 +38,10 @@ public class Maggots : MonoBehaviour //Lachlan
 
     void OnCollisionEnter(Collision collision)
     {
+        Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
+        maggotAgent.SetDestination(newPos);
+        timer = 0;
+
         if (collision.gameObject.tag == "Player")
         {
             hurtPlayer();

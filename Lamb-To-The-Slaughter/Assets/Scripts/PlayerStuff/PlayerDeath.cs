@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerDeath : MonoBehaviour
 {
@@ -18,13 +19,9 @@ public class PlayerDeath : MonoBehaviour
         Cursor.visible = true;
         Destroy(player);
     }
-
-    //void FixedUpdate()
-  //  {
-    //    if (player.GetComponent<Health>().currentHealth <= 0)
-      //  {
-        //    UI.SetActive(false);
-          //  deathScreen.SetActive(true);
-        //}
-    //}
+    
+    public void toMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 }
