@@ -14,6 +14,7 @@ public class WeaponSelect : MonoBehaviour
     public Weapon startingSelectedWeapon;
     public Animator anim;
     public GameObject fireParticles;
+    public ParticleSystem reloadSmoke;
     public Transform particlePos;
     public GunRecoil gunRecoil;
     bool smoothSet;
@@ -35,6 +36,8 @@ public class WeaponSelect : MonoBehaviour
     float originalCA;
     float originalLD;
     Color originalV;
+    Color targetV;
+    Color setV;
     float currentCAvalue;
 
 
@@ -114,9 +117,9 @@ public class WeaponSelect : MonoBehaviour
             selectedWeapon.Fire();
             Instantiate(fireParticles, particlePos.transform.position, particlePos.transform.rotation);
             fireParticles.transform.parent = particlePos.gameObject.transform;
-            AOEv.color.Override(Color.white);
-            AOEcA.intensity.Override(1f);
-            StartCoroutine(cameraShake.Shake(0.25f, 4f));
+            AOEv.color.Override(setV);
+            AOEcA.intensity.Override(0.5f);
+            StartCoroutine(cameraShake.Shake(0.25f, 5f));
             StartCoroutine(gunRecoil.Recoil(0.05f, 0.3f));
             ammoCount = ammoCount - 1;
             smoothSet = true;
@@ -156,7 +159,6 @@ public class WeaponSelect : MonoBehaviour
         AOEcA.intensity.value = Mathf.Lerp(AOEcA.intensity.value, originalCA, 5f * Time.deltaTime);
         AOElD.intensity.value = Mathf.Lerp(AOElD.intensity.value, originalLD, 5f * Time.deltaTime);
         AOEv.color.value = Color.Lerp(AOEv.color.value, originalV, 5f * Time.deltaTime);
-        //AOEv.color.Override(originalV);
     }
 
     private void Update()
@@ -166,9 +168,9 @@ public class WeaponSelect : MonoBehaviour
 
         anim.SetInteger("Reload", ammoCount);
 
-
         if (ammoCount < 1)
         {
+            reloadSmoke.Play();
             ammoCount = 5;
         }
 
@@ -291,7 +293,9 @@ public class WeaponSelect : MonoBehaviour
         originalCA = AOEcA.intensity.value;
         originalLD = AOElD.intensity.value;
         originalV = AOEv.color.value;
-        Debug.Log(originalV);
+
+        targetV = Color.white;
+        setV = (originalV + targetV) / 2;
     }
 
 }
