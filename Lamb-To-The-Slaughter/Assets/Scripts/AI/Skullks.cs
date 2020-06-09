@@ -11,14 +11,17 @@ public class Skullks : MonoBehaviour //Lachlan
 
     //Components for the enemy + know where player is
     public Transform player;
+    public GameObject playerG;
     public NavMeshAgent skullkAgent;
     private Rigidbody skullkRB;
+    public BoxCollider boxCol;
 
     void OnEnable()
     {
         // Gets the enemy, Finds and targets the players location.
         skullkAgent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
+        playerG = GameObject.FindGameObjectWithTag("Player");
         player = GameObject.FindWithTag("Player").transform;
         skullkRB = gameObject.GetComponent<Rigidbody>();
     }
@@ -31,30 +34,20 @@ public class Skullks : MonoBehaviour //Lachlan
     //Update animation depending on if its moving
     void skulkMoving()
     {
-
         skullkAgent.destination = player.position;
     }
 
-    void OnCollisionEnter(Collision collision)
+    public void OnCollisionEnter(Collision collision)
     {
-        //When hits the player
         if (collision.gameObject.tag == "Player")
         {
-            damagePlayer();
+            playerG.GetComponent<Health>().TakeDamage(10f);
+            player.GetComponent<Health>().TakeDamage(10f);
         }
     }
 
-    //Deals damage to the player 
-    void damagePlayer()
+    public void OnTriggerEnter(Collider other)
     {
-        skullkAgent.isStopped = true;
-        player.GetComponent<Health>().TakeDamage(10f);
-        skullkAgent.isStopped = false;
-    }
-
-    //When the enemy is injured spawn particles
-    void hurt()
-    {
-        
+        player.GetComponent<Health>().TakeDamage(1f);
     }
 }

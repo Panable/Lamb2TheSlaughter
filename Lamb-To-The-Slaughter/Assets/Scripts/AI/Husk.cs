@@ -45,7 +45,7 @@ public class Husk : MonoBehaviour //Lachlan
 
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionStay(Collision collision)
     {
         //When hits the player damage them and take a sec to chill out cause it's a strong boi
         if (collision.gameObject.tag == "Player")
@@ -68,7 +68,7 @@ public class Husk : MonoBehaviour //Lachlan
     {
         huskAgent.isStopped = true;
         //Add Damage To Player Here
-        player.GetComponent<Health>().TakeDamage(15f);
+        player.GetComponent<Health>().TakeDamage(5f);
         huskAgent.isStopped = false;
     }
 
