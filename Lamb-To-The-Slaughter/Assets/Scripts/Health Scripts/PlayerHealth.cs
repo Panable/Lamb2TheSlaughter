@@ -17,11 +17,15 @@ public class PlayerHealth : Health
     public GameObject deathScreen;
     public Camera deathCamera;
 
+    WeaponSelect ws;
+
     //UI Variables
     public float healthValue;
 
     public override void OnDeath()
     {
+        ws.AOEcA.intensity.Override(0.161f);
+        ws.AOEv.color.Override(ws.originalV);
         deathScreen.SetActive(true);
         Destroy(player);
         Instantiate(deathCamera);

@@ -13,6 +13,8 @@ public class PauseMenu : MonoBehaviour
     public GameObject gameplayUI;
     bool pauseMenuEnabled;
 
+    WeaponSelect ws;
+
     // Update is called once per frame
     void Update()
     {
@@ -20,6 +22,9 @@ public class PauseMenu : MonoBehaviour
         {
             if (pauseMenuEnabled == false)
             {
+                ws.AOEcA.intensity.Override(0.161f);
+                ws.AOEv.color.Override(ws.originalV);
+
                 gameplayUI.SetActive(false);
                 Time.timeScale = 0;
                 pauseMenu.SetActive(true);
@@ -67,5 +72,10 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
         //Application.Quit();
         //Debug.Log("Quit Game");
+    }
+
+    private void Start()
+    {
+        ws = GameObject.FindGameObjectWithTag("Player").GetComponent<WeaponSelect>();
     }
 }

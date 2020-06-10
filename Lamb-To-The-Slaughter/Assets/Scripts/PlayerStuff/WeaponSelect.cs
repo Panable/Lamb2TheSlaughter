@@ -16,8 +16,6 @@ public class WeaponSelect : MonoBehaviour
     public GameObject fireParticles;
     public Transform particlePos;
     public GunRecoil gunRecoil;
-    bool smoothSet;
-
 
     [HideInInspector]
     public List<BaseWeapon> AvaliableWeapons = new List<BaseWeapon>();
@@ -29,13 +27,12 @@ public class WeaponSelect : MonoBehaviour
     float AOEforce;
     float AOEradius;
     public UnityEngine.Rendering.Universal.ChromaticAberration AOEcA;
-    public UnityEngine.Rendering.Universal.LensDistortion AOElD;
     public UnityEngine.Rendering.Universal.Vignette AOEv;
     public UnityEngine.Rendering.VolumeProfile vp;
     float originalCA;
-    float originalLD;
-    Color originalV;
-    float currentCAvalue;
+    public Color originalV;
+    Color targetV;
+    Color setV;
 
 
     private void Start()
@@ -115,7 +112,7 @@ public class WeaponSelect : MonoBehaviour
             Instantiate(fireParticles, particlePos.transform.position, particlePos.transform.rotation);
             fireParticles.transform.parent = particlePos.gameObject.transform;
             AOEv.color.Override(Color.white);
-            AOEcA.intensity.Override(1f);
+            AOEcA.intensity.Override(0.5f);
             StartCoroutine(cameraShake.Shake(0.25f, 4f));
             StartCoroutine(gunRecoil.Recoil(0.05f, 0.3f));
         }
@@ -133,7 +130,6 @@ public class WeaponSelect : MonoBehaviour
 
         StartCoroutine(cameraShake.Shake(0.25f, 5f));
         AOEcA.intensity.Override(1f);
-        AOElD.intensity.Override(0.3f);
         AOEv.color.Override(Color.white);
 
         Collider[] nearbyRb = Physics.OverlapSphere(transform.position, AOEradius);
@@ -149,12 +145,10 @@ public class WeaponSelect : MonoBehaviour
         Invoke("AOEgraphicsReset", 0.1f);
     }
 
-    void AOEgraphicsReset()
+    public void AOEgraphicsReset()
     {
         AOEcA.intensity.value = Mathf.Lerp(AOEcA.intensity.value, originalCA, 5f * Time.deltaTime);
-        AOElD.intensity.value = Mathf.Lerp(AOElD.intensity.value, originalLD, 5f * Time.deltaTime);
-        AOEv.color.value = Color.Lerp(AOEv.color.value, originalV, 5f * Time.deltaTime);
-        //AOEv.color.Override(originalV);
+        AOEv.color.value = Color.Lerp(AOEv.color.value, setV, 5f * Time.deltaTime);
     }
 
     private void Update()
@@ -262,7 +256,6 @@ public class WeaponSelect : MonoBehaviour
     void FindPostProcessEffects()
     {
         ChromaticAberration cA;
-        LensDistortion lD;
         Vignette v;
 
         if (vp.TryGet<ChromaticAberration>(out cA))
@@ -270,20 +263,15 @@ public class WeaponSelect : MonoBehaviour
             AOEcA = cA;
         }
 
-        if (vp.TryGet<LensDistortion>(out lD))
-        {
-            AOElD = lD;
-        }
-
         if (vp.TryGet<Vignette>(out v))
         {
             AOEv = v;
         }
 
-        originalCA = AOEcA.intensity.value;
-        originalLD = AOElD.intensity.value;
+        originalCA = 0.161f;
         originalV = AOEv.color.value;
-        Debug.Log(originalV);
+        setV = (originalV + targetV) / 2;
+        
     }
 
     public void StartWeaponCoroutine(IEnumerator coroutineMethod)
