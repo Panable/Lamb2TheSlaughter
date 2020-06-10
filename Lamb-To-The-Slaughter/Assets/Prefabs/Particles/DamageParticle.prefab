@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1426344824135656052}
   - component: {fileID: 1426344824135655946}
   - component: {fileID: 1426344824135656053}
-  - component: {fileID: -8495963597531525683}
   m_Layer: 8
   m_Name: DamageParticle
   m_TagString: Untagged
@@ -221,8 +220,8 @@ ParticleSystem:
         m_RotationOrder: 4
     startColor:
       serializedVersion: 2
-      minMaxState: 2
-      minColor: {r: 0, g: 0, b: 0, a: 1}
+      minMaxState: 1
+      minColor: {r: 0.9245283, g: 0.047970813, b: 0.047970813, a: 1}
       maxColor: {r: 0.31132078, g: 0.071956225, b: 0.071956225, a: 1}
       maxGradient:
         serializedVersion: 2
@@ -4813,16 +4812,3 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &-8495963597531525683
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1426344824135656055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd0593d54f5824055952e582ca6b5540, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timer: 2
