@@ -162,7 +162,17 @@ public class WeaponSelect : MonoBehaviour
         Inputs();
         AOEgraphicsReset();
 
+<<<<<<< HEAD
         selectedWeapon.Update();
+=======
+        anim.SetInteger("Reload", ammoCount);
+
+
+        if (ammoCount < 1)
+        {
+            ammoCount = 5;
+        }
+>>>>>>> parent of b98af111... Check Description
 
         GravityBomb();
         ExplosiveBomb();
@@ -284,11 +294,14 @@ public class WeaponSelect : MonoBehaviour
         originalLD = AOElD.intensity.value;
         originalV = AOEv.color.value;
         Debug.Log(originalV);
+<<<<<<< HEAD
     }
 
     public void StartWeaponCoroutine(IEnumerator coroutineMethod)
     {
         StartCoroutine(coroutineMethod);
+=======
+>>>>>>> parent of b98af111... Check Description
     }
 
 }
