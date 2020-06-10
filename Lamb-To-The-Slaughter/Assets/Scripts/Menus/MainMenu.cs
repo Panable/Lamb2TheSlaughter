@@ -13,6 +13,7 @@ public class MainMenu : MonoBehaviour //Lachlan
 
     void Awake()
     {
+        Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Confined;
         main = GetComponent<AudioSource>();
     }

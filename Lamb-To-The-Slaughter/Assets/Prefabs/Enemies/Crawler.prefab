@@ -206,18 +206,18 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1
-  m_Speed: 7
-  m_Acceleration: 6
-  avoidancePriority: 60
-  m_AngularSpeed: 100
-  m_StoppingDistance: 0
+  m_Speed: 6.2
+  m_Acceleration: 300
+  avoidancePriority: 80
+  m_AngularSpeed: 360
+  m_StoppingDistance: 0.04
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 1
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 1
 --- !u!114 &8505063144744430143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,7 +230,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d270bac97f3c14c5ca315ea0dea79525, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Injured: {fileID: 4933148978096647423, guid: f0911f7fe556f4b249fab1a5968f1e97, type: 3}
   player: {fileID: 0}
   agent: {fileID: 8505063144744430140}
 --- !u!114 &5377038534910262343

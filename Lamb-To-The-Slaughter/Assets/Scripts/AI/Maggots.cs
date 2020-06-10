@@ -36,8 +36,12 @@ public class Maggots : MonoBehaviour //Lachlan
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionStay(Collision collision)
     {
+        Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
+        maggotAgent.SetDestination(newPos);
+        timer = 0;
+
         if (collision.gameObject.tag == "Player")
         {
             hurtPlayer();
@@ -46,7 +50,7 @@ public class Maggots : MonoBehaviour //Lachlan
 
     void hurtPlayer()
     {
-        player.GetComponent<Health>().TakeDamage(20f);
+        player.GetComponent<Health>().TakeDamage(6f);
     }
 
     //Function spawns particles that indicate the enemy has been hit

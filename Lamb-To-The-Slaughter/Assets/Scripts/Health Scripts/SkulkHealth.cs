@@ -7,6 +7,7 @@ public class SkulkHealth : Health
     public ParticleSystem hurtParticles;
     public BoxCollider collider;
     Vector3 particleLocation;
+    public GameObject player;
 
     public override void OnDeath()
     {
@@ -18,14 +19,21 @@ public class SkulkHealth : Health
     protected override void Start()
     {
         base.Start();
-
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
         particleLocation = transform.TransformPoint(collider.center);
-        
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            player.GetComponent<Health>().TakeDamage(2f);
+        }
     }
 
     public override void TakeDamage(float amount)

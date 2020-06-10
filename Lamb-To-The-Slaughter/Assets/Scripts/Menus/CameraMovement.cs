@@ -44,7 +44,7 @@ public class CameraMovement : MonoBehaviour //Ansaar
     void Update()
     {
         PositionCount();
-        Debug.Log(posCount);
+        //Debug.Log(posCount);
 
 
         if (posCount == 5)
