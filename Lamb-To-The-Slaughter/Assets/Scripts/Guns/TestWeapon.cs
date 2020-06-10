@@ -11,6 +11,7 @@ public class TestWeapon : BaseWeapon
         public static float Base_Damage = 1;
         public static float Base_Range = 20;
         public static int Base_Ammo = 10;
+        public static float Weapon_Delay = 0.4f;
 
 
         public float Damage
@@ -26,6 +27,13 @@ public class TestWeapon : BaseWeapon
             get
             {
                 return Base_Ammo;
+            }
+        }
+        public float WeaponDelay
+        {
+            get
+            {
+                return Weapon_Delay;
             }
         }
 
@@ -62,14 +70,8 @@ public class TestWeapon : BaseWeapon
     }
     public static Transform target;
 
-    public TestWeapon() : base(new WeaponAttributes())
+    public TestWeapon(WeaponSelect weaponSelect) : base(new WeaponAttributes(), weaponSelect)
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-    }
-
-    public TestWeapon(WeaponSelect weaponSelect) : base(new WeaponAttributes())
-    {
-        this.weaponSelect = weaponSelect;
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
@@ -83,9 +85,8 @@ public class TestWeapon : BaseWeapon
 
     public override void Fire()
     {
+        base.Fire();
         //Debug.Log("tryfire");
-        if (reloading)
-            return;
 
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
@@ -118,15 +119,10 @@ public class TestWeapon : BaseWeapon
     }
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
+        base.Update();
 
     }
 }

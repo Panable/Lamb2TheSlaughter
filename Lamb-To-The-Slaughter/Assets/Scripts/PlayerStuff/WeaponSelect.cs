@@ -109,7 +109,7 @@ public class WeaponSelect : MonoBehaviour
 
     private void Inputs()
     {
-        if (Input.GetButtonDown("Fire1") && selectedWeapon != null)
+        if (Input.GetButtonDown("Fire1") && selectedWeapon != null && selectedWeapon.current_ammo > 0 && !selectedWeapon.reloading && selectedWeapon.canShoot)
         {
             selectedWeapon.Fire();
             Instantiate(fireParticles, particlePos.transform.position, particlePos.transform.rotation);
@@ -118,8 +118,6 @@ public class WeaponSelect : MonoBehaviour
             AOEcA.intensity.Override(1f);
             StartCoroutine(cameraShake.Shake(0.25f, 4f));
             StartCoroutine(gunRecoil.Recoil(0.05f, 0.3f));
-            ammoCount = ammoCount - 1;
-            smoothSet = true;
         }
 
         if (Input.GetMouseButtonDown(1) && selectedWeapon != null)
@@ -164,13 +162,7 @@ public class WeaponSelect : MonoBehaviour
         Inputs();
         AOEgraphicsReset();
 
-        anim.SetInteger("Reload", ammoCount);
-
-
-        if (ammoCount < 1)
-        {
-            ammoCount = 5;
-        }
+        selectedWeapon.Update();
 
         GravityBomb();
         ExplosiveBomb();
@@ -292,6 +284,11 @@ public class WeaponSelect : MonoBehaviour
         originalLD = AOElD.intensity.value;
         originalV = AOEv.color.value;
         Debug.Log(originalV);
+    }
+
+    public void StartWeaponCoroutine(IEnumerator coroutineMethod)
+    {
+        StartCoroutine(coroutineMethod);
     }
 
 }

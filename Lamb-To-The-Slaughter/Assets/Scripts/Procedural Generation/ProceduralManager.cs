@@ -11,7 +11,7 @@ public class ProceduralManager : MonoBehaviour
     public static int numberOfLevelsToLoad = 3;
     public static bool procedurallyGenerating = true;
     public static int numberOfRoomsGenerated = 0;
-    public static int maxRooms = 20;
+    public static int maxRooms = 200;
     public static int maxDoorsPerRoom = 1;
 
     public static int roomLayer = 1 << 10;
