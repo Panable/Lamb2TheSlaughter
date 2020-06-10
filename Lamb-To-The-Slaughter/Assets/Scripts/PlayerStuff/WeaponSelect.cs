@@ -16,6 +16,7 @@ public class WeaponSelect : MonoBehaviour
     public GameObject fireParticles;
     public Transform particlePos;
     public GunRecoil gunRecoil;
+    public ParticleSystem reloadSmoke;
 
     [HideInInspector]
     public List<BaseWeapon> AvaliableWeapons = new List<BaseWeapon>();
@@ -23,7 +24,7 @@ public class WeaponSelect : MonoBehaviour
     int ammoCount = 5;
     public CameraShake cameraShake;
 
-    //AOE
+    //Graphics
     float AOEforce;
     float AOEradius;
     public UnityEngine.Rendering.Universal.ChromaticAberration AOEcA;
@@ -128,7 +129,7 @@ public class WeaponSelect : MonoBehaviour
         AOEradius = 15f;
         AOEforce = 50f;
 
-        StartCoroutine(cameraShake.Shake(0.25f, 5f));
+        StartCoroutine(cameraShake.Shake(0.5f, 10f));
         AOEcA.intensity.Override(1f);
         AOEv.color.Override(Color.white);
 
@@ -157,6 +158,11 @@ public class WeaponSelect : MonoBehaviour
         AOEgraphicsReset();
 
         selectedWeapon.Update();
+
+        if (selectedWeapon.current_ammo < 1)
+        {
+            reloadSmoke.Play();
+        }
 
         GravityBomb();
         ExplosiveBomb();
