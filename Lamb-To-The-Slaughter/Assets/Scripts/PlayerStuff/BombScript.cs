@@ -31,12 +31,15 @@ public class BombScript : MonoBehaviour
     public GameObject teleportBombIcon;
 
     Transform player;
-    public CameraShake cameraShake;
+    CameraShake cameraShake;
+    GameObject cam;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        cam = GameObject.FindGameObjectWithTag("MainCamera");
+        cameraShake = cam.GetComponent<CameraShake>();
         bombActive = false;
     }
 
@@ -81,7 +84,7 @@ public class BombScript : MonoBehaviour
         {
             Rigidbody forceRb = hit.GetComponent<Rigidbody>();
 
-            StartCoroutine(cameraShake.Shake(0.25f, 6f));
+            //StartCoroutine(cameraShake.Shake(0.25f, 1f));
             //Do damage
             rend.enabled = false;
             Invoke("DestroyBomb", 1f);
