@@ -9,6 +9,7 @@ public class BombScript : MonoBehaviour
     public float explosiveForce;
     public float explosiveRadius;
     public GameObject explosiveBombIcon;
+    public GameObject explosiveParticleSystem;
 
     //GasBombs
     public float gasDamage;
@@ -72,19 +73,17 @@ public class BombScript : MonoBehaviour
 
     private void ExplosiveBomb()
     {
+        MeshRenderer rend = GetComponent<MeshRenderer>();
+        explosiveParticleSystem.SetActive(true);
         //explosiveBombIcon.SetActive(true);
-        Collider[] nearbyRb = Physics.OverlapSphere(transform.position, explosiveRadius);
-        foreach (Collider hit in nearbyRb)
+        Collider[] nearbyEnemy = Physics.OverlapSphere(transform.position, explosiveRadius);
+        foreach (Collider hit in nearbyEnemy)
         {
             Rigidbody forceRb = hit.GetComponent<Rigidbody>();
 
-            if (forceRb != null)
-            {
-                forceRb.AddExplosionForce(explosiveForce, transform.position, explosiveRadius, 1.0f, ForceMode.Impulse);
-            }
-            StartCoroutine(cameraShake.Shake(0.15f, 4f));
+            StartCoroutine(cameraShake.Shake(0.25f, 6f));
             //Do damage
-            //instantiate particle system
+            rend.enabled = false;
             Invoke("DestroyBomb", 1f);
             //explosiveBombIcon.SetActive(false);
         }
