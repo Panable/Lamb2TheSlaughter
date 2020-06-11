@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public abstract class BaseWeapon
 {
-    protected RaycastHit raycastHit;
+    public RaycastHit raycastHit;
     public bool canShoot = true;
     protected LayerMask ignoreLayer;
     public bool reloading = false;
@@ -48,6 +48,7 @@ public abstract class BaseWeapon
         Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
             out raycastHit, weaponAttributes.Range);
 
+    
 
     }
 

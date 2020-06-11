@@ -17,6 +17,7 @@ public class WeaponSelect : MonoBehaviour
     public Transform particlePos;
     public GunRecoil gunRecoil;
     public ParticleSystem reloadSmoke;
+    public GameObject wallShot;
 
     [HideInInspector]
     public List<BaseWeapon> AvaliableWeapons = new List<BaseWeapon>();
@@ -110,12 +111,19 @@ public class WeaponSelect : MonoBehaviour
         if (Input.GetButtonDown("Fire1") && selectedWeapon != null && selectedWeapon.current_ammo > 0 && !selectedWeapon.reloading && selectedWeapon.canShoot)
         {
             selectedWeapon.Fire();
+
             Instantiate(fireParticles, particlePos.transform.position, particlePos.transform.rotation);
             fireParticles.transform.parent = particlePos.gameObject.transform;
             AOEv.color.Override(Color.white);
             AOEcA.intensity.Override(0.5f);
             StartCoroutine(cameraShake.Shake(0.25f, 4f));
             StartCoroutine(gunRecoil.Recoil(0.05f, 0.3f));
+
+            if (selectedWeapon.raycastHit.transform != null)
+            {
+                Debug.Log(selectedWeapon.raycastHit.transform);
+                Instantiate(wallShot, selectedWeapon.raycastHit.point, Quaternion.identity);
+            }
         }
 
         if (Input.GetMouseButtonDown(1) && selectedWeapon != null)
