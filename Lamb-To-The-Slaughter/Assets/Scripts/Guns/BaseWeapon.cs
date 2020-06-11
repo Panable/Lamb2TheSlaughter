@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public abstract class BaseWeapon
 {
+    protected RaycastHit raycastHit;
     public bool canShoot = true;
     protected LayerMask ignoreLayer;
     public bool reloading = false;
@@ -43,6 +44,11 @@ public abstract class BaseWeapon
             current_ammo--;
             weaponSelect.StartCoroutine(WeaponDelay());
         }
+
+        Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
+            out raycastHit, weaponAttributes.Range);
+
+
     }
 
     public IEnumerator WeaponDelay()
@@ -60,6 +66,14 @@ public abstract class BaseWeapon
         {
             weaponSelect.StartCoroutine(Reload());
         }
+
+        if (Input.GetKeyDown(KeyCode.R) && current_ammo < weaponAttributes.Ammo && !reloading && !Input.GetButton("Fire1"))
+        {
+            current_ammo = 0;
+            Debug.Log("tryreload");
+            weaponSelect.StartCoroutine(Reload());
+        }
+
     }
     public void Fire2()
     {

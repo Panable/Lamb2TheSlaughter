@@ -88,25 +88,21 @@ public class TestWeapon : BaseWeapon
         base.Fire();
         //Debug.Log("tryfire");
 
-        RaycastHit hit;
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
-            out hit, WeaponAttributes.Base_Range))
+        if (raycastHit.transform != null)
         {
             //Debug.Log(hit.transform.name);
-            if (hit.transform.tag == "Enemy")
+            if (raycastHit.transform.tag == "Enemy")
             {
-                Debug.Log(hit.transform.name);
-                if (hit.distance <= weaponSelect.meleeRange)
+                Debug.Log(raycastHit.transform.name);
+                if (raycastHit.distance <= weaponSelect.meleeRange)
                 {
-                    weaponSelect.MeleeAttack(hit);
-                    hit.transform.GetComponent<Health>().TakeDamage(WeaponAttributes.Base_Damage);
+                    weaponSelect.MeleeAttack(raycastHit);
+                    raycastHit.transform.GetComponent<Health>().TakeDamage(WeaponAttributes.Base_Damage);
 
                 }
                 else
                 {
-                    current_ammo--;
-                    //Debug.Log("shot" + " " + hit.transform.name);
-                    hit.transform.GetComponent<Health>().TakeDamage(WeaponAttributes.Base_Damage);
+                    raycastHit.transform.GetComponent<Health>().TakeDamage(WeaponAttributes.Base_Damage);
                 }
             }
         }
