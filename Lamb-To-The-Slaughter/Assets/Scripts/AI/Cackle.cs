@@ -12,6 +12,7 @@ public class Cackle : MonoBehaviour //Lachlan
     public Transform player;
     public NavMeshAgent agent;
 
+
     void OnEnable()
     {
         // Gets the enemy, Finds and targets the players location.
