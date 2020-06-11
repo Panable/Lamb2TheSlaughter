@@ -121,8 +121,8 @@ public class WeaponSelect : MonoBehaviour
 
             if (selectedWeapon.raycastHit.transform != null)
             {
-                Debug.Log(selectedWeapon.raycastHit.transform);
-                Instantiate(wallShot, selectedWeapon.raycastHit.point, Quaternion.identity);
+                Vector3 wallNormal = (selectedWeapon.raycastHit.normal) * 90;
+                Instantiate(wallShot, selectedWeapon.raycastHit.point, Quaternion.Euler(wallNormal.x, wallNormal.y+ 90, wallNormal.z));
             }
         }
 
