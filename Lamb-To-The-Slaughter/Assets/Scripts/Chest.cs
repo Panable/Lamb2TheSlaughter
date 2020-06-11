@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class Chest : MonoBehaviour
 {
@@ -10,11 +12,15 @@ public class Chest : MonoBehaviour
     public bool toolAccessible;
     int num;
     GameObject activeTool;
+    public GameObject medPack;
+    public TMP_Text activeGuide;
 
     public GameObject[] chestContents;
     // Start is called before the first frame update
     void Start()
     {
+        activeGuide.gameObject.SetActive(false);
+
         anim = GetComponent<Animator>();
         col = GetComponent<SphereCollider>();
 
@@ -38,14 +44,18 @@ public class Chest : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+
        if (other.tag == "Player" && Input.GetKeyDown(KeyCode.E))
         {
             anim.SetBool("openChest", true);
             Invoke("ToolKillDelay", 0.2f);
+
         }
 
        if (toolAccessible && Input.GetKeyDown(KeyCode.E))
         {
+            activeGuide.gameObject.SetActive(false);
+
             if (activeTool.tag == "Bomb_Explosive")
             {
                 //Increase inventory value
@@ -72,7 +82,26 @@ public class Chest : MonoBehaviour
                 Destroy(activeTool);
             }
 
+            //increase Medpack's inventory value as all chests have one.
+            Destroy(medPack);
+
             col.enabled = false;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            activeGuide.gameObject.SetActive(false);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            activeGuide.gameObject.SetActive(true);
         }
     }
 }
