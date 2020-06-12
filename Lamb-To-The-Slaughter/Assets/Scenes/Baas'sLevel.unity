@@ -920,6 +920,45 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &180398120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 180398118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85a7e36d1b7a2e14b8b8d712b34b4531, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  groundDistanceForGrounded: 0
+  maxGroundDistance: 10
+  groundDistance: 0
+  groundPosition: 0
+  isGrounded: 0
+  mouseSensitivity: 0
+  pitchRange: 0
+  damping: 0
+  dampingWhenChangingDirection: 0
+  dampingWhenStopping: 0
+  changingDirections: 0
+  speed: 0
+  movementSpeed: 0
+  maxSpeed: 0
+  playerCamera: {fileID: 0}
+  capsuleCollider: {fileID: 0}
+  rb: {fileID: 0}
+  explosionBomb: 0
+  teleportBomb: 0
+  gravityBomb: 0
+  gasBomb: 0
+  medpack: 0
+  keys: 0
+  player: {fileID: 0}
 --- !u!135 &180398125
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -22939,6 +22978,7 @@ MonoBehaviour:
   toolAccessible: 0
   medPack: {fileID: 467149440}
   activeGuide: {fileID: 653840694}
+  player: {fileID: 0}
   chestContents:
   - {fileID: 5086818891980767518}
   - {fileID: 1416186746612507402}

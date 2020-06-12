@@ -15,11 +15,15 @@ public class Chest : MonoBehaviour
     public GameObject medPack;
     public TMP_Text activeGuide;
 
+    //Inventory
+    public GameObject player;
+
     public GameObject[] chestContents;
     // Start is called before the first frame update
     void Start()
     {
         activeGuide.gameObject.SetActive(false);
+        player = GameObject.FindGameObjectWithTag("Player");
 
         anim = GetComponent<Animator>();
         col = GetComponent<SphereCollider>();
@@ -59,32 +63,37 @@ public class Chest : MonoBehaviour
             if (activeTool.tag == "Bomb_Explosive")
             {
                 //Increase inventory value
+                player.GetComponent<PlayerRBController>().explosionBomb++;
                 Destroy(activeTool);
             }
             else if (activeTool.tag == "Bomb_Teleport")
             {
                 //Increase inventory value
+                player.GetComponent<PlayerRBController>().teleportBomb++;
                 Destroy(activeTool);
             }
             else if (activeTool.tag == "Bomb_Gas")
             {
                 //Increase inventory value
+                player.GetComponent<PlayerRBController>().gasBomb++;
                 Destroy(activeTool);
             }
             else if (activeTool.tag == "Bomb_Gravity")
             {
                 //Increase inventory value
+                player.GetComponent<PlayerRBController>().gravityBomb++;
                 Destroy(activeTool);
             }
             else if (activeTool.tag == "MedPack")
             {
                 //Increase inventory value
+                player.GetComponent<PlayerRBController>().medpack++;
                 Destroy(activeTool);
             }
 
             //increase Medpack's inventory value as all chests have one.
             Destroy(medPack);
-
+            player.GetComponent<PlayerRBController>().medpack++;
             col.enabled = false;
         }
     }
