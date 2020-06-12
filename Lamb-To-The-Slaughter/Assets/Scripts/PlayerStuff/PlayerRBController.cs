@@ -40,25 +40,9 @@ public class PlayerRBController : MonoBehaviour
     public CapsuleCollider capsuleCollider;
     public Rigidbody rb;
 
-    //Inventory Variables
-    public int explosionBomb;
-    public int teleportBomb;
-    public int gravityBomb;
-    public int gasBomb;
-    public int medpack;
-    public int keys;
-    public GameObject player;
-
     void Start()
     {
         LockAndHideCursor();
-        keys = 0;
-        explosionBomb = 0;
-        teleportBomb = 0;
-        gravityBomb = 0;
-        gasBomb = 0;
-        medpack = 0;
-        player = GameObject.FindGameObjectWithTag("Player");
     }
 
 
@@ -68,8 +52,6 @@ public class PlayerRBController : MonoBehaviour
         CheckGroundDistance();
         GetInputs();
     }
-
-
 
     private void FixedUpdate()
     {
@@ -230,53 +212,5 @@ public class PlayerRBController : MonoBehaviour
             isGrounded = true;
         }
 
-    }
-
-    public void bombCheck()
-    {
-        if (explosionBomb <= 0)
-        {
-            //No bomb
-        }
-        else
-        {
-            //Instanitate bomb
-        }
-
-        if (gasBomb <= 0)
-        {
-            //No bomb
-        }
-        else
-        {
-            //Instanitate bomb
-        }
-
-        if (gravityBomb <= 0)
-        {
-            //No bomb
-        }
-        else
-        {
-            //Instanitate bomb
-        }
-
-        if (teleportBomb <= 0)
-        {
-            //No bomb
-        }
-        else
-        {
-            //Instanitate bomb
-        }
-
-        if (medpack <= 0)
-        {
-            //No medpack
-        }
-        else
-        {
-            player.GetComponent<PlayerHealth>().currentHealth += 50;
-        }
     }
 }

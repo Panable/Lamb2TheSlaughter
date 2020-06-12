@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class Health : MonoBehaviour
+public abstract class Health : MonoBehaviour //Dhan
 {
     public float maxHealth;
     public float currentHealth;
@@ -36,6 +36,13 @@ public abstract class Health : MonoBehaviour
 
     public abstract void OnDeath();
 
+    void Update()
+    {
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+    }
 
     public void SetHealth(float amount)
     {

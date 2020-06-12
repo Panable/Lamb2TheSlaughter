@@ -13,6 +13,10 @@ public class AudioManager : MonoBehaviour //Lachlan
     public Slider backgroundSlider, soundEffectsSlider;
     private float backgroundFloat, soundEffectsFloat;
 
+    //VolumeControl
+    public float BGMvolume = 0.8f;
+    public float SFXvolume = 0.75f;
+
     public AudioSource BGMAudio;
     public AudioSource[] soundEffectsAudio;
 

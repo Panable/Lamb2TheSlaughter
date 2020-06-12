@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Audio;
 
 public class Maggots : MonoBehaviour //Lachlan
 {
@@ -22,6 +23,11 @@ public class Maggots : MonoBehaviour //Lachlan
     //Variables for bouncyboi
     float bounceHeight;
     public GameObject mainBone;
+
+    //Bounce Audio
+    public AudioClip bounce;
+    public AudioSource audioSource;
+    private bool justBounced;
 
     //CollisionFix
     CapsuleCollider col;
@@ -53,6 +59,15 @@ public class Maggots : MonoBehaviour //Lachlan
         player.GetComponent<Health>().TakeDamage(6f);
     }
 
+    void BounceSound()
+    {
+        if (justBounced == true)
+        {
+            audioSource.PlayOneShot(bounce, 10f);
+            justBounced = false;
+        }
+    }
+
     //Function spawns particles that indicate the enemy has been hit
     void Enemyishurt()
     {
@@ -63,9 +78,14 @@ public class Maggots : MonoBehaviour //Lachlan
     void Update()
     {
         bouncyBoi();
+        NewBouncePos();
+        BounceSound();
 
         timer += Time.deltaTime;
+    }
 
+    public void NewBouncePos()
+    {
         if (timer >= wanderTimer)
         {
             Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
@@ -102,8 +122,13 @@ public class Maggots : MonoBehaviour //Lachlan
         }
         else
         {
+            if (!audioSource.isPlaying)
+            {
+                justBounced = true;
+            }
             col.center = originalCentre;
             maggotAgent.speed = 0f;
+
         }
     }
 

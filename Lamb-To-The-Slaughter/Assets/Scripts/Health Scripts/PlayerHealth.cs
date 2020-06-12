@@ -46,6 +46,11 @@ public class PlayerHealth : Health
         DamageOverlayControl();
 
         healthValue = base.currentHealth;
+
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
     }
 
     public override void TakeDamage(float amount)

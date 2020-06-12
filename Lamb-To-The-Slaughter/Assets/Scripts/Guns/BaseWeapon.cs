@@ -13,6 +13,10 @@ public abstract class BaseWeapon
     public bool aiming = false;
     WeaponSelect weaponSelect;
 
+    //SFX
+    public bool attack = false;
+    public bool reloadSFX = false;
+   
     public IWeaponAttributes weaponAttributes;
     public interface IWeaponAttributes
     {
@@ -41,6 +45,7 @@ public abstract class BaseWeapon
             return;
         else
         {
+            attack = true;
             current_ammo--;
             weaponSelect.StartCoroutine(WeaponDelay());
         }
@@ -62,7 +67,7 @@ public abstract class BaseWeapon
     public virtual void Update()
     {
         weaponSelect.anim.SetInteger("Reload", current_ammo);
-        Debug.Log("Current ammo = " + current_ammo);
+        //Debug.Log("Current ammo = " + current_ammo);
         if (current_ammo <= 0 && !reloading)
         {
             weaponSelect.StartCoroutine(Reload());
@@ -71,7 +76,7 @@ public abstract class BaseWeapon
         if (Input.GetKeyDown(KeyCode.R) && current_ammo < weaponAttributes.Ammo && !reloading && !Input.GetButton("Fire1"))
         {
             current_ammo = 0;
-            Debug.Log("tryreload");
+            //Debug.Log("tryreload");
             weaponSelect.StartCoroutine(Reload());
         }
 
@@ -94,8 +99,9 @@ public abstract class BaseWeapon
     public IEnumerator Reload()
     {
         reloading = true;
+        reloadSFX = true;
         Animator anim = weaponSelect.anim;
-        Debug.Log("Waiting 1s " + weaponAttributes.Ammo);
+        //Debug.Log("Waiting 1s " + weaponAttributes.Ammo);
         yield return new WaitForSeconds(1.1f);
         current_ammo = weaponAttributes.Ammo;
         reloading = false;

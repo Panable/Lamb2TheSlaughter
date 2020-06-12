@@ -17,6 +17,8 @@ public class Chest : MonoBehaviour
 
     //Inventory
     public GameObject player;
+    [Header("Tools")]
+
 
     public GameObject[] chestContents;
     // Start is called before the first frame update
@@ -62,38 +64,31 @@ public class Chest : MonoBehaviour
 
             if (activeTool.tag == "Bomb_Explosive")
             {
-                //Increase inventory value
-                player.GetComponent<PlayerRBController>().explosionBomb++;
+                player.GetComponent<Inventory>().explosionBomb++;
                 Destroy(activeTool);
             }
             else if (activeTool.tag == "Bomb_Teleport")
             {
-                //Increase inventory value
-                player.GetComponent<PlayerRBController>().teleportBomb++;
+                player.GetComponent<Inventory>().teleportBomb++;
                 Destroy(activeTool);
             }
             else if (activeTool.tag == "Bomb_Gas")
             {
-                //Increase inventory value
-                player.GetComponent<PlayerRBController>().gasBomb++;
+                player.GetComponent<Inventory>().gasBomb++;
                 Destroy(activeTool);
             }
             else if (activeTool.tag == "Bomb_Gravity")
             {
-                //Increase inventory value
-                player.GetComponent<PlayerRBController>().gravityBomb++;
+                player.GetComponent<Inventory>().gravityBomb++;
                 Destroy(activeTool);
             }
             else if (activeTool.tag == "MedPack")
             {
-                //Increase inventory value
-                player.GetComponent<PlayerRBController>().medpack++;
+                player.GetComponent<Inventory>().medpack++;
                 Destroy(activeTool);
             }
-
-            //increase Medpack's inventory value as all chests have one.
             Destroy(medPack);
-            player.GetComponent<PlayerRBController>().medpack++;
+            player.GetComponent<Inventory>().medpack++;
             col.enabled = false;
         }
     }

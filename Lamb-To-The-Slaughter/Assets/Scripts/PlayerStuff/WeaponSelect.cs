@@ -36,6 +36,8 @@ public class WeaponSelect : MonoBehaviour
     Color targetV;
     Color setV;
 
+    public GameObject player;
+
 
     private void Start()
     {
@@ -43,6 +45,7 @@ public class WeaponSelect : MonoBehaviour
         AssignAvaliableWeapons();
         AssignStartingWeapon();
         FindPostProcessEffects();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     //Instantiating
@@ -122,7 +125,7 @@ public class WeaponSelect : MonoBehaviour
             if (selectedWeapon.raycastHit.transform != null)
             {
                 Vector3 wallNormal = (selectedWeapon.raycastHit.normal) * 90;
-                Instantiate(wallShot, selectedWeapon.raycastHit.point, Quaternion.Euler(wallNormal.x, wallNormal.y+ 90, wallNormal.z));
+                Instantiate(wallShot, selectedWeapon.raycastHit.point, Quaternion.Euler(wallNormal.x, wallNormal.y + 90, wallNormal.z));
             }
         }
 
@@ -172,10 +175,12 @@ public class WeaponSelect : MonoBehaviour
             reloadSmoke.Play();
         }
 
+        //Tools
         GravityBomb();
         ExplosiveBomb();
         TeleportBomb();
         GasBomb();
+        MedPack();
 
         if (anim.GetBool("CanMelee") == true)
         {
@@ -210,14 +215,25 @@ public class WeaponSelect : MonoBehaviour
         anim.SetBool("CanMelee", true);
     }
 
+    void MedPack()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1) && player.GetComponent<Inventory>().medpack >= 1)
+        {
+                //Medpack Animation or visual indicator here if that's a thing.
+                player.GetComponent<Health>().currentHealth += 20;
+                player.GetComponent<Inventory>().medpack--;
+        }
+    }
+
     void GravityBomb()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (player.GetComponent<Inventory>().gravityBomb >= 1 && Input.GetKeyDown(KeyCode.Alpha2))
         {
-            //InstantiateBomb
+            //Instantiate Bomb Here
             anim.SetBool("GravityBomb", true);
+            player.GetComponent<Inventory>().gravityBomb--;
         }
-        else if (Input.GetKeyUp(KeyCode.Alpha1))
+        else if (Input.GetKeyUp(KeyCode.Alpha2))
         {
             anim.SetBool("GravityBomb", false);
         }
@@ -225,12 +241,13 @@ public class WeaponSelect : MonoBehaviour
 
     void ExplosiveBomb()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (player.GetComponent<Inventory>().explosionBomb >=1 && Input.GetKeyDown(KeyCode.Alpha3))
         {
-            //instantiateBomb
+            //instantiateBombs
             anim.SetBool("ExplosiveBomb", true);
+            player.GetComponent<Inventory>().explosionBomb--;
         }
-        else if (Input.GetKeyUp(KeyCode.Alpha2))
+        else if (Input.GetKeyUp(KeyCode.Alpha3))
         {
             anim.SetBool("ExplosiveBomb", false);
         }
@@ -238,12 +255,13 @@ public class WeaponSelect : MonoBehaviour
 
     void TeleportBomb()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha3))
+        if (player.GetComponent<Inventory>().teleportBomb >= 1 && Input.GetKeyDown(KeyCode.Alpha4))
         {
             //instantiateBomb
             anim.SetBool("TeleportBomb", true);
+            player.GetComponent<Inventory>().teleportBomb--;
         }
-        else if (Input.GetKeyUp(KeyCode.Alpha3))
+        else if (Input.GetKeyUp(KeyCode.Alpha4))
         {
             anim.SetBool("TeleportBomb", false);
         }
@@ -251,12 +269,13 @@ public class WeaponSelect : MonoBehaviour
 
     void GasBomb()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha4))
+        if (player.GetComponent<Inventory>().gasBomb >= 1 && Input.GetKeyDown(KeyCode.Alpha5))
         {
             //instantiateBomb
             anim.SetBool("GasBomb", true);
+            player.GetComponent<Inventory>().gasBomb--;
         }
-        else if (Input.GetKeyUp(KeyCode.Alpha4))
+        else if (Input.GetKeyUp(KeyCode.Alpha5))
         {
             anim.SetBool("GasBomb", false);
         }
