@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 using TMPro;
 
 public class Chest : MonoBehaviour
@@ -17,7 +18,8 @@ public class Chest : MonoBehaviour
 
     //Inventory
     public GameObject player;
-    [Header("Tools")]
+    public AudioSource audioSource;
+    public AudioClip chestCreak;
 
 
     public GameObject[] chestContents;
@@ -54,6 +56,7 @@ public class Chest : MonoBehaviour
        if (other.tag == "Player" && Input.GetKeyDown(KeyCode.E))
         {
             anim.SetBool("openChest", true);
+            audioSource.PlayOneShot(chestCreak, 60f);
             Invoke("ToolKillDelay", 0.2f);
 
         }

@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Video;
 using TMPro;
 
 public class LoadingManager : MonoBehaviour
@@ -10,13 +11,33 @@ public class LoadingManager : MonoBehaviour
     public GameObject mainMenuUI;
     public Slider slider;
     public TMP_Text progressText;
+    public RawImage rawImage;
+    public GameObject videoSquare;
+    public VideoPlayer video;
 
     public void LoadLevel(int sceneIndex)
     {
         StartCoroutine(LoadAsync(sceneIndex));
         mainMenuUI.SetActive(false);
         loadingScreen.SetActive(true);
+        videoSquare.SetActive(false);
+        StartCoroutine(prepareVideo());
     }
+
+    IEnumerator prepareVideo()
+    {
+        video.Prepare();
+        WaitForSeconds waitForSeconds = new WaitForSeconds(1);
+        while (!video.isPrepared)
+        {
+            yield return waitForSeconds;
+            break;
+        }
+        rawImage.texture = video.texture;
+        video.Play();
+        videoSquare.SetActive(true);
+    }
+
 
     IEnumerator LoadAsync (int sceneIndex)
     {
