@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class MaggHealth : Health
 {
     public ParticleSystem hurtParticles;
     public CapsuleCollider collider;
     Vector3 particleLocation;
+
+    public AudioSource audioSource;
+    public AudioClip cry_04;
 
     public override void OnDeath()
     {
@@ -18,6 +22,7 @@ public class MaggHealth : Health
     protected override void Start()
     {
         base.Start();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -34,6 +39,7 @@ public class MaggHealth : Health
 
         //add shit you want after damage is taken here
         Instantiate(hurtParticles, particleLocation, transform.localRotation);
+        audioSource.PlayOneShot(cry_04, 60f);
     }
 
 }

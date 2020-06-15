@@ -8,10 +8,10 @@ using UnityEngine.Rendering;
 public class ProceduralManager : MonoBehaviour
 {
     public static bool activateDestroy = false;
-    public static int numberOfLevelsToLoad = 3;
+    public static int numberOfLevelsToLoad = 9;
     public static bool procedurallyGenerating = true;
     public static int numberOfRoomsGenerated = 0;
-    public static int maxRooms = 200;
+    public static int maxRooms = 50;
     public static int maxDoorsPerRoom = 1;
 
     public static int roomLayer = 1 << 10;
