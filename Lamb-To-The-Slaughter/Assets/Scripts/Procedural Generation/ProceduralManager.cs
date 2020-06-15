@@ -8,29 +8,37 @@ using UnityEngine.Rendering;
 
 public class ProceduralManager : MonoBehaviour
 {
-    public static bool activateDestroy = false;
+    public static bool roomGenerating = false;
+    [Header("Procedural Settings")]
+    public static int numberOfRoomsToGenerate = 50;
+    /// <summary>
+    /// Sometimes we want proceduralmanager without actually generating anything
+    /// </summary>
+    public bool startGeneration = true;
     public static int numberOfLevelsToLoad = 7;
-    public static bool procedurallyGenerating = true;
-    public static int numberOfRoomsGenerated = 0;
-    public static int maxRooms = 50;
     public static int maxDoorsPerRoom = 1;
 
+    public static int numberOfRoomsGenerated = 0;
     public static int roomLayer = 1 << 10;
 
-    // Start is called before the first frame update
+    public static bool procedurallyGenerating = true;
 
+    //A Database of all prefabs
     public static List<Room> roomPrefabs = new List<Room>();
-    public static GameObject doorPrefab;
-    public static GameObject wallPrefab;
     public static GameObject spawnRoomPrefab;
+    public static Dictionary<char, Transform> doorPrefabs = new Dictionary<char, Transform>(); //Character corresponds to door prefab
 
+    /// <summary>
+    /// A database of all currently generated rooms. Used to check against collision
+    /// </summary>
     public static List<RoomManager> roomsGenerated = new List<RoomManager>();
+
+    /// <summary>
+    /// A list of rooms still left to generate from
+    /// </summary>
     public static List<RoomManager> roomsToGenerate = new List<RoomManager>();
-    public static Dictionary<char, Transform> doorPrefabs = new Dictionary<char, Transform>();
 
-    public static MeshFilter doormesh;
 
-    public bool startGeneration = true;
 
 
     private void Awake()
@@ -43,6 +51,9 @@ public class ProceduralManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Load Room Prefabs from Resources/Prefabs/Rooms/Room _
+    /// </summary>
     void LoadRoomPrefabs()
     {
         for (int i = 0; i < numberOfLevelsToLoad; i++)
@@ -50,10 +61,11 @@ public class ProceduralManager : MonoBehaviour
 
             roomPrefabs.Add(new Room("Prefabs/Rooms/Room " + i.ToString()));
         }
-        Debug.Log("room prefabs size is: " + roomPrefabs.Count);
     }
 
-
+    /// <summary>
+    /// loading door prefab into dictionary from Resources/Prefabs/Rooms/Doors
+    /// </summary>
     void LoadDoorPrefabs()
     {
         string path = "Prefabs/Rooms/Doors";
@@ -78,32 +90,57 @@ public class ProceduralManager : MonoBehaviour
         return percentage;
     }
 
+    /// <summary>
+    /// Begin formally procedurally generating.
+    /// </summary>
+    public void StartGeneration()
+    {
+        if (!startGeneration) return;
+
+        //instantiate spawnroom
+        GameObject spawnRoom = Instantiate(spawnRoomPrefab, Vector3.zero, Quaternion.identity);
+        RoomManager rm = spawnRoom.GetComponent<RoomManager>();
+        
+        //add spawnroom's roommanager to our lists
+        roomsGenerated.Add(rm);
+        roomsToGenerate.Add(rm);
+
+        //the generation continues in update after this!
+    }
 
     void Start()
     {
-        if (startGeneration)
-        {
-            GameObject spawnRoom = Instantiate(spawnRoomPrefab, Vector3.zero, Quaternion.identity);
-            RoomManager rm = spawnRoom.GetComponent<RoomManager>();
-            roomsGenerated.Add(rm);
-            roomsToGenerate.Add(rm);
-        }
+        StartGeneration();
     }
 
-    // Update is called once per frame
+    /// <summary>
+    /// When procedural is done, destroy all objects to free up memory.
+    /// </summary>
+    private void KillProcedural()
+    {
+        foreach (Room room in roomPrefabs)
+        {
+            room.DestroyAll();
+        }
+        Destroy(this);
+    }
+
     void Update()
     {
-        if (ProceduralManager.numberOfRoomsGenerated <= ProceduralManager.maxRooms && roomsToGenerate.Count > 0)
+        bool stillNeedToGenerateRooms = ProceduralManager.numberOfRoomsGenerated <= ProceduralManager.numberOfRoomsToGenerate;
+        bool stillRoomsToGenerate = roomsToGenerate.Count > 0;
+        if (stillNeedToGenerateRooms && stillRoomsToGenerate && !roomGenerating)
         {
-            Debug.Log("Trying to generate a new room");
+            //Shuffle the list, so we try to generate from a random room
             ProceduralManager.roomsToGenerate.Shuffle();
+
+
+
             ProceduralManager.roomsToGenerate[0].StartGeneration();
-        } else {
-            foreach (Room room in roomPrefabs)
-            {
-                room.DestroyAll();
-            }
-            Destroy(this);
+        }
+        else
+        {
+            KillProcedural();
         }
 
     }

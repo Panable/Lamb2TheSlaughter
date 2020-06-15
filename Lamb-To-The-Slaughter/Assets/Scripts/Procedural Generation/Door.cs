@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+/// <summary>
+/// Stores temporary instantiated objects, collider information, room manager information, and position of door orientations
+/// </summary>
 public class Door
 {
     GameObject prefab;

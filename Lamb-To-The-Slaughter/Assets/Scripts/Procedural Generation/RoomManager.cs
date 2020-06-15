@@ -5,18 +5,30 @@ using UnityEngine.Rendering;
 
 public class RoomManager : MonoBehaviour
 {
+    //is this the spawnroom
     public bool spawnRoom = false;
-    [SerializeField] bool forceGeneration = false;
-
-    public bool triedGeneration = false;
-    [SerializeField] public List<Transform> possibleDoorSpots = new List<Transform>();
-    public List<GameObject> roomsGenerated = new List<GameObject>();
-    public BoxCollider roomCollider;
-    public RoomCollider roomColliderScript;
     private int numberOfDoorsToBeGenerated = 3;
 
+    public bool triedGeneration = false;
 
-    // Start is called before the first frame update
+    public BoxCollider roomCollider;
+    public RoomCollider roomColliderScript;
+
+    /// <summary>
+    /// Force this room to generate
+    /// </summary>
+    [SerializeField] bool forceGeneration = false;
+
+    /// <summary>
+    /// Children of this room (other rooms that have spawned from this room)
+    /// </summary>
+    public List<GameObject> roomsGenerated = new List<GameObject>();
+
+
+    /// <summary>
+    /// Possible door spots for this room
+    /// </summary>
+    [SerializeField] public List<Transform> possibleDoorSpots = new List<Transform>();
 
     private void Awake()
     {
@@ -24,6 +36,9 @@ public class RoomManager : MonoBehaviour
         InstantiateCollider();
     }
 
+    /// <summary>
+    /// Get all the possible door spots and put them in a list
+    /// </summary>
     private void InstantiateDoorSpots()
     {
         foreach (Transform child in transform)
@@ -36,6 +51,9 @@ public class RoomManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Initialize room collider
+    /// </summary>
     public BoxCollider InstantiateCollider()
     {
         foreach (Transform child in transform)
@@ -59,18 +77,23 @@ public class RoomManager : MonoBehaviour
 
     void Start()
     {
-        if (ProceduralManager.numberOfRoomsGenerated >= ProceduralManager.maxRooms)
+        if (ProceduralManager.numberOfRoomsGenerated >= ProceduralManager.numberOfRoomsToGenerate)
         {
             Destroy(this);
             return;
         }
     }
 
+    /// <summary>
+    /// Start Generation of current room
+    /// </summary>
     public void StartGeneration()
     {
+        ProceduralManager.roomGenerating = true;
         InstantiateNumberOfDoorsToBeGenerated();
         RandomiseDoors();
         TryGenerateRooms();
+        ProceduralManager.roomGenerating = false;
         ProceduralManager.roomsToGenerate.Remove(this);
     }
 
@@ -100,49 +123,57 @@ public class RoomManager : MonoBehaviour
         possibleDoorSpots.Shuffle();
     }
 
+    /// <summary>
+    /// Try and generate # of rooms, cycling door spots if fail
+    /// </summary>
     void TryGenerateRooms()
     {
-
+        //generate amount of rooms 
         for (int doorSpotIndex = 0; doorSpotIndex < numberOfDoorsToBeGenerated; doorSpotIndex++)
         {
 
-            if (possibleDoorSpots.Count == 0 || ProceduralManager.numberOfRoomsGenerated >= ProceduralManager.maxRooms)
-            {
-                Debug.Log("no more doorspots to try");  
-                // Destroy(this);
+            if (possibleDoorSpots.Count == 0 || ProceduralManager.numberOfRoomsGenerated >= ProceduralManager.numberOfRoomsToGenerate)
                 return;
-            }
 
-
-
+            //try first doorspot 
             Transform currentDoorSpot = possibleDoorSpots[0];
-            Debug.Log("trying " + possibleDoorSpots[0].name);
+
+
+            //if we fail at generating, deincrement the index so we still try and generate the precalculated number of rooms
             if (!TryGenerateDoor(possibleDoorSpots[0]))
             {
                 doorSpotIndex--;
             }
 
+            //remove the current doorspot as we have already generated there or failed at generating there
             possibleDoorSpots.RemoveAt(0);
 
         }
-        Debug.Log("fin");
     }
 
+    /// <summary>
+    /// Begin generating doors at door location
+    /// </summary>
     bool TryGenerateDoor(Transform currentDoorLocation)
     {
 
         RoomGenerator roomGenerator = currentDoorLocation.GetComponent<RoomGenerator>();
 
-        if (roomGenerator.GenerateRoom(currentDoorLocation, this))
+        GameObject generatedRoom = roomGenerator.GenerateRoom(currentDoorLocation, this);
+
+        if (generatedRoom != null)
         {
+            generatedRoom.transform.name = ProceduralManager.numberOfRoomsGenerated.ToString() + " from " + currentDoorLocation.parent.transform.name;
+            roomsGenerated.Add(generatedRoom.gameObject);
+
+
+            ProceduralManager.roomsGenerated.Add(generatedRoom.GetComponent<RoomManager>());
+            ProceduralManager.roomsToGenerate.Add(generatedRoom.GetComponent<RoomManager>());
+
             ProceduralManager.numberOfRoomsGenerated++;
             return true;
         }
-        else
-        {
-            roomGenerator.InstantiateWall();
-            return false;
-        }
+        return false;
     }
 
 
