@@ -9,7 +9,6 @@ public class walltodoor : MonoBehaviour
     {
         MeshFilter md = GetComponent<MeshFilter>();
         //Destroy(spawnDoor.gameObject);
-        md.sharedMesh = ProceduralManager.doormesh.sharedMesh;
     }
 
     // Update is called once per frame
