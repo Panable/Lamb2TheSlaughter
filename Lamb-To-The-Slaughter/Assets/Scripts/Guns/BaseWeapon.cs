@@ -30,6 +30,14 @@ public abstract class BaseWeapon
 
     }
 
+    public RaycastHit ShootRaycast()
+    {
+        RaycastHit hit;
+        Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
+            out hit, weaponAttributes.Range);
+        return hit;
+    }
+
     public BaseWeapon(IWeaponAttributes weaponAttributes, WeaponSelect weaponSelect)
     {
         this.weaponSelect = weaponSelect;
@@ -50,8 +58,7 @@ public abstract class BaseWeapon
             weaponSelect.StartCoroutine(WeaponDelay());
         }
 
-        Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
-            out raycastHit, weaponAttributes.Range);
+        raycastHit = ShootRaycast();
 
     
 
