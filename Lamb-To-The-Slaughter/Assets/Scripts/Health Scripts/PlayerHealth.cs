@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerHealth : Health
 {
@@ -18,9 +19,13 @@ public class PlayerHealth : Health
     public Camera deathCamera;
 
     WeaponSelect ws;
+    public bool overDrive = false;
 
     //UI Variables
     public float healthValue;
+    public TMP_Text healthText;
+    string ogText;
+    public Gradient textColor;
 
     public override void OnDeath()
     {
@@ -38,6 +43,7 @@ public class PlayerHealth : Health
         player = GameObject.FindGameObjectWithTag("Player");
         base.Start();
         overlay.color = safeColour;
+        ws.AOEv.color.Override(ws.originalV); 
     }
 
     // Update is called once per frame
@@ -49,7 +55,17 @@ public class PlayerHealth : Health
 
         if (currentHealth > maxHealth)
         {
-            currentHealth = maxHealth;
+            overDrive = true;
+            healthText.color = textColor.Evaluate(1);
+            healthText.fontSize = 60;
+            healthText.SetText("Overdose");
+        }
+        else
+        {
+            overDrive = false;
+            healthText.color = textColor.Evaluate(0);
+            healthText.fontSize = 70;
+            healthText.SetText("Health");
         }
     }
 

@@ -22,8 +22,8 @@ public class WeaponSelect : MonoBehaviour
     [HideInInspector]
     public List<BaseWeapon> AvaliableWeapons = new List<BaseWeapon>();
     public BaseWeapon selectedWeapon;
-    int ammoCount = 5;
     public CameraShake cameraShake;
+    PlayerHealth ph;
 
     //Graphics
     float AOEforce;
@@ -35,6 +35,8 @@ public class WeaponSelect : MonoBehaviour
     public Color originalV;
     Color targetV;
     Color setV;
+    public Gradient glassColour;
+    public Material[] gunPower;
 
     public GameObject player;
 
@@ -46,6 +48,8 @@ public class WeaponSelect : MonoBehaviour
         AssignStartingWeapon();
         FindPostProcessEffects();
         player = GameObject.FindGameObjectWithTag("Player");
+        ph = player.GetComponent<PlayerHealth>();
+        AOEv.color.Override(originalV);
     }
 
     //Instantiating
@@ -159,6 +163,12 @@ public class WeaponSelect : MonoBehaviour
 
     public void AOEgraphicsReset()
     {
+        if (ph.overDrive)
+        {
+            AOEv.color.Override(new Color(0.307f, 0.49f, 0.433f));
+            AOEcA.intensity.Override(0.6f);
+        }
+
         AOEcA.intensity.value = Mathf.Lerp(AOEcA.intensity.value, originalCA, 5f * Time.deltaTime);
         AOEv.color.value = Color.Lerp(AOEv.color.value, setV, 5f * Time.deltaTime);
     }
@@ -167,6 +177,7 @@ public class WeaponSelect : MonoBehaviour
     {
         Inputs();
         AOEgraphicsReset();
+        AmmoGraphics();
 
         selectedWeapon.Update();
 
@@ -302,7 +313,7 @@ public class WeaponSelect : MonoBehaviour
         }
 
         originalCA = 0.161f;
-        originalV = AOEv.color.value;
+        originalV = new Color(0.207f, 0.032f, 0.032f);
         setV = (originalV + targetV) / 2;
         
     }
@@ -312,4 +323,15 @@ public class WeaponSelect : MonoBehaviour
         StartCoroutine(coroutineMethod);
     }
 
+    void AmmoGraphics()
+    {
+        float currentAmmo = selectedWeapon.current_ammo;
+
+        float scaledValue = currentAmmo / 10;
+
+        foreach(Material mat in gunPower)
+        {
+            mat.SetColor("_EmissionColor", glassColour.Evaluate(scaledValue));
+        }
+    }
 }

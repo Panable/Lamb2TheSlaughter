@@ -29,6 +29,7 @@ public class PlayerMovementCC : MonoBehaviour //Dhan
     public CharacterController cc;
     public Animator anim;
     WeaponSelect ws;
+    PlayerHealth ph;
 
     GameObject tpBomb;
     BombScript bombScript;
@@ -46,6 +47,7 @@ public class PlayerMovementCC : MonoBehaviour //Dhan
             playerCamera = GetComponent<Camera>();
 
         ws = GetComponent<WeaponSelect>();
+        ph = GetComponent<PlayerHealth>();
         movementSpeed = walkSpeed;
 
         tpBomb = GameObject.FindGameObjectWithTag("Bomb_Teleport");
@@ -80,6 +82,16 @@ public class PlayerMovementCC : MonoBehaviour //Dhan
         ScreamAttack();
         GPSmode();
 
+        if (ph.overDrive)
+        {
+            movementSpeed = 20;
+            jumpHeight = 15;
+        }
+        else
+        {
+            movementSpeed = walkSpeed;
+            jumpHeight = 10f;
+        }
     }
 
     public float GroundDistance()

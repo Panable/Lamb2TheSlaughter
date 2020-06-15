@@ -14,6 +14,7 @@ public class PauseMenu : MonoBehaviour
     bool pauseMenuEnabled;
 
     WeaponSelect ws;
+    PlayerHealth ph;
 
     // Update is called once per frame
     void Update()
@@ -77,5 +78,6 @@ public class PauseMenu : MonoBehaviour
     private void Start()
     {
         ws = GameObject.FindGameObjectWithTag("Player").GetComponent<WeaponSelect>();
+        ph = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
     }
 }
