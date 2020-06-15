@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿using Microsoft.Win32;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -35,6 +37,15 @@ public class WeaponSelect : MonoBehaviour
     public Color originalV;
     Color targetV;
     Color setV;
+
+
+    [Header("Bomb Prefabs")]
+    [SerializeField] Rigidbody gravityBomb;
+    [SerializeField] Rigidbody gasBomb;
+    [SerializeField] Rigidbody explosiveBomb;
+    [SerializeField] Rigidbody teleportBomb;
+    [SerializeField] Transform bombSpawner;
+    [SerializeField] float horizontalVelocity;
 
     public GameObject player;
 
@@ -176,10 +187,10 @@ public class WeaponSelect : MonoBehaviour
         }
 
         //Tools
-        GravityBomb();
-        ExplosiveBomb();
-        TeleportBomb();
-        GasBomb();
+        StartCoroutine(GravityBomb());
+        StartCoroutine(ExplosiveBomb());
+        StartCoroutine(TeleportBomb());
+        StartCoroutine(GasBomb());
         MedPack();
 
         if (anim.GetBool("CanMelee") == true)
@@ -215,23 +226,36 @@ public class WeaponSelect : MonoBehaviour
         anim.SetBool("CanMelee", true);
     }
 
+ 
+
     void MedPack()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1) && player.GetComponent<Inventory>().medpack >= 1)
         {
-                //Medpack Animation or visual indicator here if that's a thing.
-                player.GetComponent<Health>().currentHealth += 20;
-                player.GetComponent<Inventory>().medpack--;
+            //Medpack Animation or visual indicator here if that's a thing.
+            player.GetComponent<Health>().currentHealth += 20;
+            player.GetComponent<Inventory>().medpack--;
         }
     }
 
-    void GravityBomb()
+    public float timetowait;
+
+    bool throwingBomb = false;
+    IEnumerator GravityBomb()
     {
-        if (player.GetComponent<Inventory>().gravityBomb >= 1 && Input.GetKeyDown(KeyCode.Alpha2))
+        if (player.GetComponent<Inventory>().gravityBomb >= 1 && Input.GetKeyDown(KeyCode.Alpha2) && !throwingBomb)
         {
+            throwingBomb = true;
             //Instantiate Bomb Here
             anim.SetBool("GravityBomb", true);
             player.GetComponent<Inventory>().gravityBomb--;
+
+            Debug.Log("instantiating");
+            yield return new WaitForSeconds(timetowait);
+            Rigidbody rb = Instantiate<Rigidbody>(gravityBomb, bombSpawner.transform.position, Quaternion.identity);
+            rb.velocity = (bombSpawner.forward * horizontalVelocity);
+            throwingBomb = false;
+
         }
         else if (Input.GetKeyUp(KeyCode.Alpha2))
         {
@@ -239,13 +263,18 @@ public class WeaponSelect : MonoBehaviour
         }
     }
 
-    void ExplosiveBomb()
+    IEnumerator ExplosiveBomb()
     {
-        if (player.GetComponent<Inventory>().explosionBomb >=1 && Input.GetKeyDown(KeyCode.Alpha3))
+        if (player.GetComponent<Inventory>().explosionBomb >= 1 && Input.GetKeyDown(KeyCode.Alpha3) && !throwingBomb)
         {
+            throwingBomb = true;
             //instantiateBombs
             anim.SetBool("ExplosiveBomb", true);
             player.GetComponent<Inventory>().explosionBomb--;
+            yield return new WaitForSeconds(timetowait);
+            Rigidbody rb = Instantiate<Rigidbody>(explosiveBomb, explosiveBomb.transform.position, Quaternion.identity);
+            rb.velocity = (bombSpawner.forward * horizontalVelocity);
+            throwingBomb = false;
         }
         else if (Input.GetKeyUp(KeyCode.Alpha3))
         {
@@ -253,13 +282,18 @@ public class WeaponSelect : MonoBehaviour
         }
     }
 
-    void TeleportBomb()
+    IEnumerator TeleportBomb()
     {
-        if (player.GetComponent<Inventory>().teleportBomb >= 1 && Input.GetKeyDown(KeyCode.Alpha4))
+        if (player.GetComponent<Inventory>().teleportBomb >= 1 && Input.GetKeyDown(KeyCode.Alpha4) && !throwingBomb)
         {
+            throwingBomb = true;
             //instantiateBomb
             anim.SetBool("TeleportBomb", true);
             player.GetComponent<Inventory>().teleportBomb--;
+            yield return new WaitForSeconds(timetowait);
+            Rigidbody rb = Instantiate<Rigidbody>(teleportBomb, bombSpawner.transform.position, Quaternion.identity);
+            rb.velocity = (bombSpawner.forward * horizontalVelocity);
+            throwingBomb = false;
         }
         else if (Input.GetKeyUp(KeyCode.Alpha4))
         {
@@ -267,13 +301,18 @@ public class WeaponSelect : MonoBehaviour
         }
     }
 
-    void GasBomb()
+    IEnumerator GasBomb()
     {
-        if (player.GetComponent<Inventory>().gasBomb >= 1 && Input.GetKeyDown(KeyCode.Alpha5))
+        if (player.GetComponent<Inventory>().gasBomb >= 1 && Input.GetKeyDown(KeyCode.Alpha5) && !throwingBomb)
         {
+            throwingBomb = true;
             //instantiateBomb
             anim.SetBool("GasBomb", true);
             player.GetComponent<Inventory>().gasBomb--;
+            yield return new WaitForSeconds(timetowait);
+            Rigidbody rb = Instantiate<Rigidbody>(gasBomb, bombSpawner.transform.position, Quaternion.identity);
+            rb.velocity = (bombSpawner.forward * horizontalVelocity);
+            throwingBomb = false;
         }
         else if (Input.GetKeyUp(KeyCode.Alpha5))
         {
@@ -304,7 +343,7 @@ public class WeaponSelect : MonoBehaviour
         originalCA = 0.161f;
         originalV = AOEv.color.value;
         setV = (originalV + targetV) / 2;
-        
+
     }
 
     public void StartWeaponCoroutine(IEnumerator coroutineMethod)

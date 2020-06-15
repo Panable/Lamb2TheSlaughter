@@ -194,6 +194,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 17578174}
   m_CullTransparentMesh: 0
+--- !u!1 &30557131
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 30557132}
+  m_Layer: 9
+  m_Name: BombSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &30557132
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30557131}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.376, y: 1.098, z: 1.39}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 590265657}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &88985243
 GameObject:
   m_ObjectHideFlags: 0
@@ -964,12 +994,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 676a82337517745fb832bae4641050f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionBomb: 1
-  teleportBomb: 1
-  gravityBomb: 1
-  gasBomb: 1
-  medpack: 1
-  keys: 1
+  explosionBomb: 5
+  teleportBomb: 5
+  gravityBomb: 5
+  gasBomb: 5
+  medpack: 5
+  keys: 5
   explosionBombTXT: {fileID: 377331454}
   teleportBombTXT: {fileID: 811446493}
   gravityBombTXT: {fileID: 1193042178}
@@ -5627,6 +5657,55 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7568909950540034120, guid: 5aed813ac285e40ce89b00d8147ea010,
         type: 3}
+    - target: {fileID: 7165578120571475180, guid: e63fbca38a50e43f4becf9fac7c9c315,
+        type: 3}
+      propertyPath: gravityBomb
+      value: 
+      objectReference: {fileID: 2420543843966098445, guid: 56387a4ca0ab54031bc9432f5c33858d,
+        type: 3}
+    - target: {fileID: 7165578120571475180, guid: e63fbca38a50e43f4becf9fac7c9c315,
+        type: 3}
+      propertyPath: gasBomb
+      value: 
+      objectReference: {fileID: 1843920533222410956, guid: f03d0ef5374ad4e6fb379890d99fe403,
+        type: 3}
+    - target: {fileID: 7165578120571475180, guid: e63fbca38a50e43f4becf9fac7c9c315,
+        type: 3}
+      propertyPath: explosiveBomb
+      value: 
+      objectReference: {fileID: 6040659449490745225, guid: 9d9cfd9eb286944fbb058abf91591ca3,
+        type: 3}
+    - target: {fileID: 7165578120571475180, guid: e63fbca38a50e43f4becf9fac7c9c315,
+        type: 3}
+      propertyPath: teleportBomb
+      value: 
+      objectReference: {fileID: 4285444133242710370, guid: ca9c58fb78f6849fe89f531b3b9cb95c,
+        type: 3}
+    - target: {fileID: 7165578120571475180, guid: e63fbca38a50e43f4becf9fac7c9c315,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7165578120571475180, guid: e63fbca38a50e43f4becf9fac7c9c315,
+        type: 3}
+      propertyPath: horizontalVelocity
+      value: 11.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 7165578120571475180, guid: e63fbca38a50e43f4becf9fac7c9c315,
+        type: 3}
+      propertyPath: bombSpawner
+      value: 
+      objectReference: {fileID: 30557132}
+    - target: {fileID: 7165578120571475180, guid: e63fbca38a50e43f4becf9fac7c9c315,
+        type: 3}
+      propertyPath: timetowait
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7165578120571475180, guid: e63fbca38a50e43f4becf9fac7c9c315,
+        type: 3}
+      propertyPath: waitTime
+      value: 1.89
+      objectReference: {fileID: 0}
     - target: {fileID: 7200894263114823933, guid: e63fbca38a50e43f4becf9fac7c9c315,
         type: 3}
       propertyPath: m_Layer
@@ -8178,7 +8257,7 @@ PrefabInstance:
     - target: {fileID: 6820161156844684301, guid: 49438d56d98934b0fa6bc98afb06f330,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6820161156844684301, guid: 49438d56d98934b0fa6bc98afb06f330,
         type: 3}
@@ -11870,7 +11949,7 @@ Transform:
   - {fileID: 1800420627}
   - {fileID: 1051233523}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1265082853
 GameObject:
@@ -17515,6 +17594,8 @@ MonoBehaviour:
   regenHealth: 0
   regenRate: 0
   timeTillRegen: 0
+  cry: {fileID: 0}
+  audioSource: {fileID: 0}
   hurtParticles: {fileID: 1426344824135655946, guid: 48d77c6c4472d44ba8638099af421e30,
     type: 3}
 --- !u!4 &2048198176 stripped
@@ -24408,7 +24489,7 @@ Transform:
   - {fileID: 2498326037039216434}
   - {fileID: 4714682524264768745}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &5086818891980767518
 GameObject:
@@ -28738,7 +28819,7 @@ PrefabInstance:
     - target: {fileID: 3730866539523488723, guid: 2c68a1929bbd74ed7bdabde2fc95e2a4,
         type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 3730866539523488723, guid: 2c68a1929bbd74ed7bdabde2fc95e2a4,
         type: 3}

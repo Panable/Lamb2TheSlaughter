@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using UnityEngine.UI;
 
 public class BombScript : MonoBehaviour
@@ -46,23 +47,6 @@ public class BombScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (gameObject.tag == "Bomb_Explosive")
-        {
-            ExplosiveBomb();
-        }
-
-       if (gameObject.tag == "Bomb_Teleport")
-        {
-            tpLocation = gameObject.transform;
-            TeleportBomb();
-        }
-    }
-    private void OnCollisionStay(Collision collision)
-    {
         if (gameObject.tag == "Bomb_Gravity")
         {
             GravityBomb();
@@ -72,6 +56,24 @@ public class BombScript : MonoBehaviour
         {
             GasBomb();
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (gameObject.tag == "Bomb_Explosive")
+        {
+            ExplosiveBomb();
+        }
+
+        if (gameObject.tag == "Bomb_Teleport")
+        {
+            tpLocation = gameObject.transform;
+            TeleportBomb();
+        }
+    }
+    private void OnCollisionStay(Collision collision)
+    {
+
     }
 
     private void ExplosiveBomb()
@@ -86,6 +88,9 @@ public class BombScript : MonoBehaviour
 
             //StartCoroutine(cameraShake.Shake(0.25f, 1f));
             //Do damage
+            if (hit.tag == "Enemy")
+                hit.GetComponent<Health>().TakeDamage(explosiveForce);
+            
             rend.enabled = false;
             Invoke("DestroyBomb", 1f);
             //explosiveBombIcon.SetActive(false);
@@ -106,11 +111,12 @@ public class BombScript : MonoBehaviour
 
             if (enemyTransform.gameObject.tag == "Enemy")
             {
-                //decrease enemy health over time
+                enemyTransform.GetComponent<Health>().TakeDamage(gasDamage * Time.deltaTime);
             }
         }
         //gasBombIcon.SetActive(false);
     }
+
 
     private void GravityBomb()
     {
@@ -126,7 +132,7 @@ public class BombScript : MonoBehaviour
             if (enemy != null && enemy.tag == "Enemy")
             {
                 enemy.transform.position = Vector3.Lerp(enemy.transform.position, gameObject.transform.position, gravityForce);
-                bombRb.constraints = RigidbodyConstraints.FreezeAll;
+                //bombRb.constraints = RigidbodyConstraints.FreezeAll;
             }
         }
 
