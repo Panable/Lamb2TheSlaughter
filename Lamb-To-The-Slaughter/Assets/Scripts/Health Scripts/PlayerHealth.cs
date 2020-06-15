@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Rendering.Universal;
 
 public class PlayerHealth : Health
 {
@@ -12,7 +11,6 @@ public class PlayerHealth : Health
     Color hurtColour = new Color(1f, 1f, 1f, 0.4f);
     bool getDamage;
     public CameraShake cs;
-    public Color originalV;
 
     //for death screen
     public GameObject player;
@@ -20,10 +18,8 @@ public class PlayerHealth : Health
     public Camera deathCamera;
 
     WeaponSelect ws;
-    UnityEngine.Rendering.Universal.Vignette AOEv;
-    public UnityEngine.Rendering.VolumeProfile vp;
 
-    //UI Variable
+    //UI Variables
     public float healthValue;
 
     public override void OnDeath()
@@ -42,13 +38,6 @@ public class PlayerHealth : Health
         player = GameObject.FindGameObjectWithTag("Player");
         base.Start();
         overlay.color = safeColour;
-        Vignette v;
-        if (vp.TryGet<Vignette>(out v))
-        {
-            AOEv = v;
-        }
-
-        originalV = AOEv.color.value;
     }
 
     // Update is called once per frame
@@ -60,13 +49,7 @@ public class PlayerHealth : Health
 
         if (currentHealth > maxHealth)
         {
-            //currentHealth = maxHealth;
-            AOEv.color.Override(Color.cyan);
-            
-        }
-        else
-        {
-            AOEv.color.value = Color.Lerp(AOEv.color.value, originalV, 5f * Time.deltaTime);
+            currentHealth = maxHealth;
         }
     }
 
