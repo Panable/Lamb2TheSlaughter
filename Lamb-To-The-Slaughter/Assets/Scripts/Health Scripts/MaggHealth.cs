@@ -28,6 +28,7 @@ public class MaggHealth : Health
 
     public override void TakeDamage(float amount)
     {
+        Debug.Log("taking");
         //we are taking dmg here
         base.TakeDamage(amount);
 

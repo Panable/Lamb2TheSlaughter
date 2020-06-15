@@ -16,8 +16,11 @@ public abstract class BaseWeapon
     //SFX
     public bool attack = false;
     public bool reloadSFX = false;
-   
+
     public IWeaponAttributes weaponAttributes;
+
+    public WeaponStats stats;
+
     public interface IWeaponAttributes
     {
         float Damage { get; }
@@ -32,8 +35,10 @@ public abstract class BaseWeapon
 
     public BaseWeapon(IWeaponAttributes weaponAttributes, WeaponSelect weaponSelect)
     {
+        
         this.weaponSelect = weaponSelect;
-        current_ammo = weaponAttributes.Ammo;
+        stats = weaponSelect.weaponStats;
+        current_ammo = stats.ammo;
         ignoreLayer = LayerMask.NameToLayer("ignore");
         Debug.Log(ignoreLayer);
         this.weaponAttributes = weaponAttributes;
@@ -41,26 +46,27 @@ public abstract class BaseWeapon
 
     public virtual void Fire()
     {
-        if (reloading || current_ammo <= 0)
-            return;
-        else
-        {
-            attack = true;
-            current_ammo--;
-            weaponSelect.StartCoroutine(WeaponDelay());
-        }
+       // if (reloading || current_ammo <= 0)
+           // return;
+
+
+
+        attack = true;
+        current_ammo--;
+        weaponSelect.StartCoroutine(WeaponDelay());
+
 
         Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
-            out raycastHit, weaponAttributes.Range);
+            out raycastHit, stats.range);
 
-    
+
 
     }
 
     public IEnumerator WeaponDelay()
     {
         canShoot = false;
-        yield return new WaitForSeconds(weaponAttributes.WeaponDelay);
+        yield return new WaitForSeconds(stats.weaponDelay);
         canShoot = true;
     }
 
@@ -73,7 +79,7 @@ public abstract class BaseWeapon
             weaponSelect.StartCoroutine(Reload());
         }
 
-        if (Input.GetKeyDown(KeyCode.R) && current_ammo < weaponAttributes.Ammo && !reloading && !Input.GetButton("Fire1"))
+        if (Input.GetKeyDown(KeyCode.R) && current_ammo < stats.ammo && !reloading && !Input.GetButton("Fire1"))
         {
             current_ammo = 0;
             //Debug.Log("tryreload");
@@ -103,7 +109,7 @@ public abstract class BaseWeapon
         Animator anim = weaponSelect.anim;
         //Debug.Log("Waiting 1s " + weaponAttributes.Ammo);
         yield return new WaitForSeconds(1.1f);
-        current_ammo = weaponAttributes.Ammo;
+        current_ammo = stats.ammo;
         reloading = false;
     }
 

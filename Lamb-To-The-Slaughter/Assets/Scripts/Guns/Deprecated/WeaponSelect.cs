@@ -38,6 +38,8 @@ public class WeaponSelect : MonoBehaviour
 
     public GameObject player;
 
+    public WeaponStats weaponStats;
+
 
     private void Start()
     {
@@ -210,7 +212,7 @@ public class WeaponSelect : MonoBehaviour
 
     public float meleeRange = 3f;
 
-    public void MeleeAttack(RaycastHit hit)
+    public void MeleeAttack()
     {
         anim.SetBool("CanMelee", true);
     }
@@ -305,11 +307,6 @@ public class WeaponSelect : MonoBehaviour
         originalV = AOEv.color.value;
         setV = (originalV + targetV) / 2;
         
-    }
-
-    public void StartWeaponCoroutine(IEnumerator coroutineMethod)
-    {
-        StartCoroutine(coroutineMethod);
     }
 
 }

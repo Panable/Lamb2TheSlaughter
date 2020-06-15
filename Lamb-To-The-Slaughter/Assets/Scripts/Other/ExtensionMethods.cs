@@ -70,6 +70,21 @@ public static class ExtensionMethods
             list[n] = value;
         }
     }
+    public static Transform FindDeepChild(this Transform aParent, string aName)
+    {
+        if (aParent.childCount == 0)
+            return null;
+
+        foreach (Transform child in aParent)
+        {
+            if (child.name == aName)
+                return child;
+            var result = child.FindDeepChild(aName);
+            if (result != null)
+                return result;
+        }
+        return null;
+    }
 
 }
 
