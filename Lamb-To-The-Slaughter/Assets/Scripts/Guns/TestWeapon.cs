@@ -12,7 +12,7 @@ public class TestWeapon : BaseWeapon
         public static float Base_Range = 20;
         public static int Base_Ammo = 10;
         public static float Weapon_Delay = 0.4f;
-        public  bool shot;
+        public bool shot;
 
         public float Damage
         {
@@ -95,16 +95,9 @@ public class TestWeapon : BaseWeapon
             //Debug.Log(hit.transform.name);
             if (raycastHit.transform.tag == "Enemy")
             {
+                raycastHit.transform.GetComponent<Health>().TakeDamage(WeaponAttributes.Base_Damage);
                 //Debug.Log(raycastHit.transform.name);
-                if (raycastHit.distance <= weaponSelect.meleeRange)
-                {
-                    weaponSelect.MeleeAttack(raycastHit);
-                    raycastHit.transform.GetComponent<Health>().TakeDamage(WeaponAttributes.Base_Damage);
-                }
-                else
-                {
-                    raycastHit.transform.GetComponent<Health>().TakeDamage(WeaponAttributes.Base_Damage);
-                }
+
             }
         }
 
