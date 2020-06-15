@@ -16,6 +16,8 @@ public class Door
         this.prefab = prefab;
         instantiatedPrefab = GameObject.Instantiate<GameObject>(prefab);
         collider = instantiatedPrefab.GetComponent<RoomManager>().roomCollider;
+        if (collider == null)
+            Debug.LogError(prefab.name);
         roomManager = instantiatedPrefab.GetComponent<RoomManager>();
         //instantiatedPrefab.SetActive(false);
     }

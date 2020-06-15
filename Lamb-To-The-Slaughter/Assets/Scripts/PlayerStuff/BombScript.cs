@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
@@ -35,6 +36,9 @@ public class BombScript : MonoBehaviour
     CameraShake cameraShake;
     GameObject cam;
 
+    bool hitGround;
+    string bombTag;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -42,38 +46,44 @@ public class BombScript : MonoBehaviour
         cam = GameObject.FindGameObjectWithTag("MainCamera");
         cameraShake = cam.GetComponent<CameraShake>();
         bombActive = false;
+        bombTag = gameObject.tag;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (gameObject.tag == "Bomb_Gravity")
-        {
-            GravityBomb();
-        }
+        if (!hitGround) return;
 
-        if (gameObject.tag == "Bomb_Gas")
+        switch (bombTag)
         {
-            GasBomb();
+            case "Bomb_Gravity":
+                GravityBomb();
+                break;
+            case "Bomb_Gas":
+                GasBomb();
+                break;
+            case "Bomb_Explosive":
+                ExplosiveBomb();
+                break;
+            case "Bomb_Teleport":
+                TeleportBomb();
+                break;
+
         }
+        //if (gameObject.tag == "Bomb_Gravity")
+        //{
+        //    GravityBomb();
+        //}
+
+        //if (gameObject.tag == "Bomb_Gas")
+        //{
+        //    GasBomb();
+        //}
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (gameObject.tag == "Bomb_Explosive")
-        {
-            ExplosiveBomb();
-        }
-
-        if (gameObject.tag == "Bomb_Teleport")
-        {
-            tpLocation = gameObject.transform;
-            TeleportBomb();
-        }
-    }
-    private void OnCollisionStay(Collision collision)
-    {
-
+        hitGround = true;
     }
 
     private void ExplosiveBomb()
@@ -90,7 +100,7 @@ public class BombScript : MonoBehaviour
             //Do damage
             if (hit.tag == "Enemy")
                 hit.GetComponent<Health>().TakeDamage(explosiveForce);
-            
+
             rend.enabled = false;
             Invoke("DestroyBomb", 1f);
             //explosiveBombIcon.SetActive(false);
@@ -131,7 +141,7 @@ public class BombScript : MonoBehaviour
             Collider enemyCol = hit.GetComponent<Collider>();
             if (enemy != null && enemy.tag == "Enemy")
             {
-                enemy.transform.position = Vector3.Lerp(enemy.transform.position, gameObject.transform.position, gravityForce);
+                enemy.transform.position = Vector3.Lerp(enemy.transform.position, gameObject.transform.position, Time.deltaTime * gravityForce);
                 //bombRb.constraints = RigidbodyConstraints.FreezeAll;
             }
         }
@@ -141,6 +151,7 @@ public class BombScript : MonoBehaviour
 
     private void TeleportBomb()
     {
+        tpLocation = gameObject.transform;
         //teleportBombIcon.SetActive(true);
         tpParticleSystem.SetActive(true);
         bombActive = true;

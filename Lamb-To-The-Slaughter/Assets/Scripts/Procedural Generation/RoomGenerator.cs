@@ -80,18 +80,23 @@ public class RoomGenerator : MonoBehaviour
                 else
                 {
                     currentDoor = Instantiate(currentDoor);
-                    currentDoor.transform.name = ProceduralManager.numberOfRoomsGenerated.ToString();
+                    currentDoor.transform.name = ProceduralManager.numberOfRoomsGenerated.ToString() + " from " + spawnDoor.parent.transform.name; 
                     if (currentDoor != null)
                     {
-                        rm.roomsGenerated.Add(currentDoor);
+                        rm.roomsGenerated.Add(currentDoor.gameObject);
 
 
                         ProceduralManager.roomsGenerated.Add(currentDoor.GetComponent<RoomManager>());
                         ProceduralManager.roomsToGenerate.Add(currentDoor.GetComponent<RoomManager>());
                     }
-                    MeshFilter md = spawnDoor.GetComponent<MeshFilter>();
-                    //Destroy(spawnDoor.gameObject);
-                    md.sharedMesh = ProceduralManager.doormesh.sharedMesh;
+                    Quaternion rot = Quaternion.LookRotation(Vector3.up, currentDoor.transform.forward);
+                    if (rm.spawnRoom)
+                    {
+                        rot = Quaternion.LookRotation(Vector3.up, currentDoor.transform.right);
+                    }
+                    Transform doorReplace = Instantiate<Transform>(currentRoom.GetDoorPrefab(), spawnDoor.position, rot, spawnDoor.transform.parent);
+                    Destroy(spawnDoor.gameObject);
+                    //doorReplace.up = spawnDoor.up;
                     return true;
                 }
             }

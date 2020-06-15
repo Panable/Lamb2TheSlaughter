@@ -38,6 +38,14 @@ public abstract class BaseWeapon
         return hit;
     }
 
+    public RaycastHit ShootRaycastWithoutRange()
+    {
+        RaycastHit hit;
+        Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
+            out hit);
+        return hit;
+    }
+
     public BaseWeapon(IWeaponAttributes weaponAttributes, WeaponSelect weaponSelect)
     {
         this.weaponSelect = weaponSelect;

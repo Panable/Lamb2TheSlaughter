@@ -5,7 +5,7 @@ using UnityEngine.Rendering;
 
 public class RoomManager : MonoBehaviour
 {
-
+    public bool spawnRoom = false;
     [SerializeField] bool forceGeneration = false;
 
     public bool triedGeneration = false;
@@ -81,6 +81,7 @@ public class RoomManager : MonoBehaviour
     {
         if (ProceduralManager.numberOfRoomsGenerated == 0)
         {
+            spawnRoom = true;
             numberOfDoorsToBeGenerated = 4;
 
         }

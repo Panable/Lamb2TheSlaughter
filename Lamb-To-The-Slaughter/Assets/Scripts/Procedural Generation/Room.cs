@@ -4,17 +4,25 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.WSA;
 
 public class Room
 {
     public List<GameObject> doors;
     public List<Door> doorInfo = new List<Door>();
-    string RoomName;
+    char roomLetter;
+
     public Room(string folderPath)
     {
         doors = Resources.LoadAll<GameObject>(folderPath).ToList();
-        //GenerateDoorPool();
+        roomLetter = doors[0].name.ToCharArray()[0];
         GenerateDoorInfo();
+
+    }
+
+    public Transform GetDoorPrefab()
+    {
+        return ProceduralManager.doorPrefabs[roomLetter];
     }
 
     public void GenerateDoorInfo()

@@ -264,9 +264,10 @@ public class WeaponSelect : MonoBehaviour
             Debug.Log("instantiating");
             yield return new WaitForSeconds(timetowait);
             Rigidbody rb = Instantiate<Rigidbody>(gravityBomb, bombSpawner.transform.position, Quaternion.identity);
-            rb.velocity = (bombSpawner.forward * horizontalVelocity);
+            Vector3 location = selectedWeapon.ShootRaycastWithoutRange().point;
+            rb.velocity = ((location - rb.transform.position).normalized * horizontalVelocity);
             throwingBomb = false;
-
+            
         }
         else if (Input.GetKeyUp(KeyCode.Alpha2))
         {
@@ -283,8 +284,9 @@ public class WeaponSelect : MonoBehaviour
             anim.SetBool("ExplosiveBomb", true);
             player.GetComponent<Inventory>().explosionBomb--;
             yield return new WaitForSeconds(timetowait);
-            Rigidbody rb = Instantiate<Rigidbody>(explosiveBomb, explosiveBomb.transform.position, Quaternion.identity);
-            rb.velocity = (bombSpawner.forward * horizontalVelocity);
+            Rigidbody rb = Instantiate<Rigidbody>(explosiveBomb, bombSpawner.transform.position, Quaternion.identity);
+            Vector3 location = selectedWeapon.ShootRaycastWithoutRange().point;
+            rb.velocity = ((location - rb.transform.position).normalized * horizontalVelocity);
             throwingBomb = false;
         }
         else if (Input.GetKeyUp(KeyCode.Alpha3))
@@ -303,7 +305,8 @@ public class WeaponSelect : MonoBehaviour
             player.GetComponent<Inventory>().teleportBomb--;
             yield return new WaitForSeconds(timetowait);
             Rigidbody rb = Instantiate<Rigidbody>(teleportBomb, bombSpawner.transform.position, Quaternion.identity);
-            rb.velocity = (bombSpawner.forward * horizontalVelocity);
+            Vector3 location = selectedWeapon.ShootRaycastWithoutRange().point;
+            rb.velocity = ((location - rb.transform.position).normalized * horizontalVelocity);
             throwingBomb = false;
         }
         else if (Input.GetKeyUp(KeyCode.Alpha4))
@@ -322,7 +325,8 @@ public class WeaponSelect : MonoBehaviour
             player.GetComponent<Inventory>().gasBomb--;
             yield return new WaitForSeconds(timetowait);
             Rigidbody rb = Instantiate<Rigidbody>(gasBomb, bombSpawner.transform.position, Quaternion.identity);
-            rb.velocity = (bombSpawner.forward * horizontalVelocity);
+            Vector3 location = selectedWeapon.ShootRaycastWithoutRange().point;
+            rb.velocity = ((location - rb.transform.position).normalized * horizontalVelocity);
             throwingBomb = false;
         }
         else if (Input.GetKeyUp(KeyCode.Alpha5))

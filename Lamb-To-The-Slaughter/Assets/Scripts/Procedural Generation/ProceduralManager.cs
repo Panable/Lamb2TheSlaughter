@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Resources;
 using UnityEngine;
@@ -8,10 +9,10 @@ using UnityEngine.Rendering;
 public class ProceduralManager : MonoBehaviour
 {
     public static bool activateDestroy = false;
-    public static int numberOfLevelsToLoad = 9;
+    public static int numberOfLevelsToLoad = 7;
     public static bool procedurallyGenerating = true;
     public static int numberOfRoomsGenerated = 0;
-    public static int maxRooms = 100;
+    public static int maxRooms = 50;
     public static int maxDoorsPerRoom = 1;
 
     public static int roomLayer = 1 << 10;
@@ -25,19 +26,19 @@ public class ProceduralManager : MonoBehaviour
 
     public static List<RoomManager> roomsGenerated = new List<RoomManager>();
     public static List<RoomManager> roomsToGenerate = new List<RoomManager>();
+    public static Dictionary<char, Transform> doorPrefabs = new Dictionary<char, Transform>();
 
     public static MeshFilter doormesh;
 
     public bool startGeneration = true;
+
 
     private void Awake()
     {
 
         LoadRoomPrefabs();
         spawnRoomPrefab = Resources.Load<GameObject>("Prefabs/SpawnRoom");
-        doorPrefab = Resources.Load<GameObject>("Prefabs/Room Assets/Doorway");
-        wallPrefab = Resources.Load<GameObject>("Prefabs/Room Assets/Wall");
-        doormesh = Resources.Load<MeshFilter>("doormesh");
+        LoadDoorPrefabs();
 
 
     }
@@ -50,6 +51,18 @@ public class ProceduralManager : MonoBehaviour
             roomPrefabs.Add(new Room("Prefabs/Rooms/Room " + i.ToString()));
         }
         Debug.Log("room prefabs size is: " + roomPrefabs.Count);
+    }
+
+
+    void LoadDoorPrefabs()
+    {
+        string path = "Prefabs/Rooms/Doors";
+        Transform[] fetchedDoors = Resources.LoadAll<Transform>(path);
+        foreach (Transform door in fetchedDoors)
+        {
+            char[] nameOfDoor = door.name.ToCharArray();
+            doorPrefabs.Add(nameOfDoor[0], door);
+        }
     }
 
     /// <summary>
