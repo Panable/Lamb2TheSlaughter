@@ -927,7 +927,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 180398118}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 85a7e36d1b7a2e14b8b8d712b34b4531, type: 3}
   m_Name: 
@@ -4948,6 +4948,12 @@ PrefabInstance:
       propertyPath: healthDisplay
       value: 
       objectReference: {fileID: 550037553}
+    - target: {fileID: 183729777407970462, guid: e63fbca38a50e43f4becf9fac7c9c315,
+        type: 3}
+      propertyPath: vp
+      value: 
+      objectReference: {fileID: 11400000, guid: ea32cb5486db94f528318b981ba47556,
+        type: 2}
     - target: {fileID: 218324052013699459, guid: e63fbca38a50e43f4becf9fac7c9c315,
         type: 3}
       propertyPath: m_Layer
@@ -15589,7 +15595,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1767677899
 Transform:
   m_ObjectHideFlags: 0
@@ -17515,6 +17521,8 @@ MonoBehaviour:
   regenHealth: 0
   regenRate: 0
   timeTillRegen: 0
+  cry: {fileID: 0}
+  audioSource: {fileID: 0}
   hurtParticles: {fileID: 1426344824135655946, guid: 48d77c6c4472d44ba8638099af421e30,
     type: 3}
 --- !u!4 &2048198176 stripped
