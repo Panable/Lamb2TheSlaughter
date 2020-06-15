@@ -29,7 +29,6 @@ public abstract class Health : MonoBehaviour //Dhan
 
     public virtual void TakeDamage(float amount)
     {
-        Debug.Log(amount + transform.name);
         regenTimer = 0.00f;
         if ((currentHealth - amount) <= 0)
         {
