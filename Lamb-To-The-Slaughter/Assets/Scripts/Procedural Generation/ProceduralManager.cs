@@ -15,7 +15,7 @@ public class ProceduralManager : MonoBehaviour
     /// Sometimes we want proceduralmanager without actually generating anything
     /// </summary>
     public bool startGeneration = true;
-    public static int numberOfLevelsToLoad = 7;
+    public static int numberOfLevelsToLoad = 4;
     public static int maxDoorsPerRoom = 1;
 
     public static float numberOfRoomsGenerated = 0.0f;
@@ -134,15 +134,12 @@ public class ProceduralManager : MonoBehaviour
             //Shuffle the list, so we try to generate from a random room
             ProceduralManager.roomsToGenerate.Shuffle();
 
-
-
             ProceduralManager.roomsToGenerate[0].StartGeneration();
         }
         else
         {
             KillProcedural();
         }
-
 
     }
 }

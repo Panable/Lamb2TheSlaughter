@@ -12,6 +12,7 @@ public class RoomGenerator : MonoBehaviour
     public void Awake()
     {
 
+
     }
 
     /// <summary>
@@ -21,11 +22,12 @@ public class RoomGenerator : MonoBehaviour
     /// </summary>
     public GameObject GenerateRoom(Transform spawnDoor, RoomManager rm)
     {
+        
         Vector3 direction;
         float distance;
         bool colliding;
-
         roomPrefabsToTryGenerate.Shuffle();
+
         while (true)
         {
             //if we have no room prefabs left to generate from return null
@@ -44,6 +46,7 @@ public class RoomGenerator : MonoBehaviour
             possibleDoorSpots.Shuffle();
             do
             {
+                colliding = false;
                 //if out of door orientations remove the room from list of rooms to try and go back to the start of the 1st while loop
                 if (possibleDoorSpots.Count == 0) { roomPrefabsToTryGenerate.RemoveAt(0); break; }
 
@@ -67,6 +70,7 @@ public class RoomGenerator : MonoBehaviour
                 if (colliding)
                 {
                     possibleDoorSpots.RemoveAt(0);
+                    
 
                     //if out of door orientations, remove door spot and go back to 1st while loop
                     if (possibleDoorSpots.Count == 0)
@@ -88,7 +92,7 @@ public class RoomGenerator : MonoBehaviour
                     }
 
                     Transform doorReplace = Instantiate<Transform>(currentRoom.GetDoorPrefab(), spawnDoor.position, rot, spawnDoor.transform.parent);
-                    
+
                     //destory original doorway
                     Destroy(spawnDoor.gameObject);
 
@@ -112,5 +116,13 @@ public class RoomGenerator : MonoBehaviour
         ProceduralManager.roomPrefabs.ForEach(i => roomPrefabsToTryGenerate.Add(i));
     }
 
-    // Update is called once per frame
+    public bool force;
+
+    private void Update()
+    {
+        if (!force) return;
+        Transform spawnRoom = GetComponentInParent<Transform>();
+        RoomManager rm = GetComponentInParent<RoomManager>();
+        GenerateRoom(spawnRoom, rm);
+    }
 }

@@ -29,10 +29,7 @@ public class RoomCollider : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.transform.tag == "roomcollider")
-        {
-          
-        }
+       
     }
 
     private void OnTriggerExit(Collider other)
