@@ -5,7 +5,7 @@ using UnityEngine.Rendering.Universal;
 
 public class PlayerMovementCC : MonoBehaviour //Dhan
 {
-    
+
     [Header("Camera")]
     [SerializeField] private float mouseSensitivity = 2.0f;
     [SerializeField] private float pitchRange;
@@ -50,14 +50,11 @@ public class PlayerMovementCC : MonoBehaviour //Dhan
         ph = GetComponent<PlayerHealth>();
         movementSpeed = walkSpeed;
 
-        tpBomb = GameObject.FindGameObjectWithTag("Bomb_Teleport");
-        bombScript = tpBomb.GetComponent<BombScript>();
-
         ChromaticAberration cA;
 
         if (vp.TryGet<ChromaticAberration>(out cA))
         {
-            tPcA= cA;
+            tPcA = cA;
             Debug.Log("Yeet");
         }
 
@@ -70,7 +67,7 @@ public class PlayerMovementCC : MonoBehaviour //Dhan
         {
             anim.SetFloat("Speed", 1f);
         }
-        else if (Speed() < 0.1 )
+        else if (Speed() < 0.1)
         {
             anim.SetFloat("Speed", 0f);
         }
@@ -207,6 +204,8 @@ public class PlayerMovementCC : MonoBehaviour //Dhan
         }
     }
 
+    bool teleporting = false;
+
     void GPSmode()
     {
         if (Input.GetKey(KeyCode.Tab))
@@ -217,7 +216,10 @@ public class PlayerMovementCC : MonoBehaviour //Dhan
             {
                 anim.SetBool("Teleport", true);
                 tPcA.intensity.Override(1f);
-                Invoke("TeleportFunction", 0.4f);
+                teleporting = true;
+            } else
+            {
+                teleporting = false;
             }
         }
         else if (Input.GetKeyUp(KeyCode.Tab))
@@ -227,14 +229,14 @@ public class PlayerMovementCC : MonoBehaviour //Dhan
         }
     }
 
-    void TeleportFunction()
+    public void TeleportFunction(Vector3 teleportPosition)
     {
+        if (!teleporting) 
+            return;
+
         anim.SetBool("Teleport", false);
-        Vector3 bombPos = bombScript.tpLocation.position;
-        Debug.Log("From Player Perspective: " + bombScript.tpLocation.position);
-        Debug.Log(gameObject.transform.position);
         cc.enabled = false;
-        transform.position = bombPos;
+        transform.position = teleportPosition;
         cc.enabled = true;
         hasTeleported = true;
         Invoke("ChromaticAberrationReset", 1f);

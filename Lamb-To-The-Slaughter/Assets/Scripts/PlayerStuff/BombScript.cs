@@ -155,6 +155,7 @@ public class BombScript : MonoBehaviour
         //teleportBombIcon.SetActive(true);
         tpParticleSystem.SetActive(true);
         bombActive = true;
+        player.GetComponent<PlayerMovementCC>().TeleportFunction(tpLocation.position);
         tpLocation.position = gameObject.transform.position;
         //teleportBombIcon.SetActive(false);
     }
