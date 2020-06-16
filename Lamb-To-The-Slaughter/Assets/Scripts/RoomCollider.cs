@@ -20,7 +20,7 @@ public class RoomCollider : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.tag == "roomcollider")
+        if (other.transform.CompareTag("roomcollider"))
         {
             //Debug.Log("is Colliding");
             isColliding = true;
@@ -34,7 +34,7 @@ public class RoomCollider : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.transform.tag == "roomcollider")
+        if (other.CompareTag("roomcollider"))
         {
             isColliding = false;
         }

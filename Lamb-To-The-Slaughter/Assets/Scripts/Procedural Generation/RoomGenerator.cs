@@ -22,7 +22,7 @@ public class RoomGenerator : MonoBehaviour
     /// </summary>
     public GameObject GenerateRoom(Transform spawnDoor, RoomManager rm)
     {
-        
+
         Vector3 direction;
         float distance;
         bool colliding;
@@ -70,7 +70,7 @@ public class RoomGenerator : MonoBehaviour
                 if (colliding)
                 {
                     possibleDoorSpots.RemoveAt(0);
-                    
+
 
                     //if out of door orientations, remove door spot and go back to 1st while loop
                     if (possibleDoorSpots.Count == 0)
@@ -82,20 +82,16 @@ public class RoomGenerator : MonoBehaviour
                 else //we succeeded in generating a room
                 {
                     currentDoor = Instantiate(currentDoor);
+                    currentDoor.GetComponent<RoomManager>().currentRoom = currentRoom;
 
 
                     //change parent room's door way to match the room generated
-                    Quaternion rot = Quaternion.LookRotation(Vector3.up, currentDoor.transform.forward);
-                    if (rm.spawnRoom)
+                    if (!rm.spawnRoom)
                     {
-                        rot = Quaternion.LookRotation(Vector3.up, currentDoor.transform.right);
+                        Quaternion rot = spawnDoor.rotation;
+                        Transform doorReplace = Instantiate<Transform>(rm.GetComponent<RoomManager>().currentRoom.GetDoorPrefab(), spawnDoor.position, rot, spawnDoor.transform.parent);
+                        Destroy(spawnDoor.gameObject);
                     }
-
-                    Transform doorReplace = Instantiate<Transform>(currentRoom.GetDoorPrefab(), spawnDoor.position, rot, spawnDoor.transform.parent);
-
-                    //destory original doorway
-                    Destroy(spawnDoor.gameObject);
-
 
                     return currentDoor;
                 }

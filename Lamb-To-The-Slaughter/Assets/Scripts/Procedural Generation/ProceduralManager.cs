@@ -10,12 +10,12 @@ public class ProceduralManager : MonoBehaviour
 {
     public static bool roomGenerating = false;
     [Header("Procedural Settings")]
-    public static float numberOfRoomsToGenerate = 50.0f;
+    public static float numberOfRoomsToGenerate = 20.0f;
     /// <summary>
     /// Sometimes we want proceduralmanager without actually generating anything
     /// </summary>
     public bool startGeneration = true;
-    public static int numberOfLevelsToLoad = 4;
+    public static int numberOfLevelsToLoad = 9;
     public static int maxDoorsPerRoom = 1;
 
     public static float numberOfRoomsGenerated = 0.0f;
@@ -100,7 +100,7 @@ public class ProceduralManager : MonoBehaviour
         //instantiate spawnroom
         GameObject spawnRoom = Instantiate(spawnRoomPrefab, Vector3.zero, Quaternion.identity);
         RoomManager rm = spawnRoom.GetComponent<RoomManager>();
-        
+
         //add spawnroom's roommanager to our lists
         roomsGenerated.Add(rm);
         roomsToGenerate.Add(rm);
@@ -139,6 +139,7 @@ public class ProceduralManager : MonoBehaviour
         else
         {
             KillProcedural();
+            //mic drop
         }
 
     }

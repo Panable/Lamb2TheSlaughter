@@ -5,6 +5,7 @@ using UnityEngine.Rendering;
 
 public class RoomManager : MonoBehaviour
 {
+    public Room currentRoom;
     //is this the spawnroom
     public bool spawnRoom = false;
     private int numberOfDoorsToBeGenerated = 3;
@@ -45,7 +46,7 @@ public class RoomManager : MonoBehaviour
     {
         foreach (Transform child in transform)
         {
-            if (child.tag == "PossibleDoorLocation")
+            if (child.CompareTag("PossibleDoorLocation"))
             {
                 possibleDoorSpots.Add(child);
             }
@@ -60,7 +61,7 @@ public class RoomManager : MonoBehaviour
     {
         foreach (Transform child in transform)
         {
-            if (child.tag == "roomcollider")
+            if (child.CompareTag("roomcollider"))
             {
                 roomCollider = child.GetComponent<BoxCollider>();
                 roomColliderScript = child.GetComponent<RoomCollider>();
