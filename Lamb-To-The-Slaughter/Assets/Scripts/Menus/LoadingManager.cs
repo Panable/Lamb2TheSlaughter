@@ -15,6 +15,21 @@ public class LoadingManager : MonoBehaviour
     public GameObject videoSquare;
     public VideoPlayer video;
 
+    void LateUpdate()
+    {
+        LoadingBar();
+    }
+
+    public void LoadingBar()
+    {
+        float progress = (ProceduralManager.numberOfRoomsGenerated / ProceduralManager.numberOfRoomsToGenerate);
+        bool finished = progress >= 1;
+        if (finished)
+            Destroy(gameObject);    //you should probably change this
+        slider.value = progress;
+        progressText.text = progress * 100 + "%";
+    }
+
     public void LoadLevel(int sceneIndex)
     {
         StartCoroutine(LoadAsync(sceneIndex));

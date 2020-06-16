@@ -14,6 +14,11 @@ public class RoomGenerator : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Try and generate a room at a door with transform 'spawndoor' and roommanager 'rm'
+    /// Cycle through every room/every orientation until it fits (shuffle these so we get random one everytime)
+    /// return the generated room
+    /// </summary>
     public GameObject GenerateRoom(Transform spawnDoor, RoomManager rm)
     {
         Vector3 direction;
@@ -23,6 +28,7 @@ public class RoomGenerator : MonoBehaviour
         roomPrefabsToTryGenerate.Shuffle();
         while (true)
         {
+            //if we have no room prefabs left to generate from return null
             if (roomPrefabsToTryGenerate.Count == 0)
                 return null;
 
@@ -38,11 +44,14 @@ public class RoomGenerator : MonoBehaviour
             possibleDoorSpots.Shuffle();
             do
             {
-                if (possibleDoorSpots.Count == 0) { possibleDoorSpots.RemoveAt(0); break; }
+                //if out of door orientations remove the room from list of rooms to try and go back to the start of the 1st while loop
+                if (possibleDoorSpots.Count == 0) { roomPrefabsToTryGenerate.RemoveAt(0); break; }
 
+                //spawn the first door orientation in list
                 GameObject currentDoor = possibleDoorSpots[0].activateObj(spawnDoor.position, Quaternion.identity);
                 currentDoor.transform.forward = spawnDoor.up;
 
+                //check for collision
                 foreach (RoomManager managers in ProceduralManager.roomsGenerated)
                 {
                     bool inCollisionWithAGeneratedRoom = Physics.ComputePenetration(managers.roomCollider, ExtensionMethods.ColliderToWorldPoint(managers.roomCollider), managers.transform.rotation,
@@ -53,16 +62,20 @@ public class RoomGenerator : MonoBehaviour
                         break;
                     }
                 }
+
+                //if we are colliding remove door spot
                 if (colliding)
                 {
                     possibleDoorSpots.RemoveAt(0);
+
+                    //if out of door orientations, remove door spot and go back to 1st while loop
                     if (possibleDoorSpots.Count == 0)
                     {
                         roomPrefabsToTryGenerate.RemoveAt(0);
                         break;
                     }
                 }
-                else
+                else //we succeeded in generating a room
                 {
                     currentDoor = Instantiate(currentDoor);
 
@@ -75,6 +88,8 @@ public class RoomGenerator : MonoBehaviour
                     }
 
                     Transform doorReplace = Instantiate<Transform>(currentRoom.GetDoorPrefab(), spawnDoor.position, rot, spawnDoor.transform.parent);
+                    
+                    //destory original doorway
                     Destroy(spawnDoor.gameObject);
 
 

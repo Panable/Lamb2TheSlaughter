@@ -14,6 +14,8 @@ public class RoomManager : MonoBehaviour
     public BoxCollider roomCollider;
     public RoomCollider roomColliderScript;
 
+    public Transform entryDoor;
+
     /// <summary>
     /// Force this room to generate
     /// </summary>
@@ -73,7 +75,14 @@ public class RoomManager : MonoBehaviour
         return null;
     }
 
-
+    public void FindEntryDoor()
+    {
+        foreach (Transform child in transform)
+        {
+            if (child.tag == "DoorLocation")
+                entryDoor = child;
+        }
+    }
 
     void Start()
     {
@@ -156,20 +165,25 @@ public class RoomManager : MonoBehaviour
     /// </summary>
     bool TryGenerateDoor(Transform currentDoorLocation)
     {
-
         RoomGenerator roomGenerator = currentDoorLocation.GetComponent<RoomGenerator>();
 
+        //try and generate a room at the door location
         GameObject generatedRoom = roomGenerator.GenerateRoom(currentDoorLocation, this);
 
+        //if succeeded add the room to proceduralmanager otherwise return false
         if (generatedRoom != null)
         {
-            generatedRoom.transform.name = ProceduralManager.numberOfRoomsGenerated.ToString() + " from " + currentDoorLocation.parent.transform.name;
+            //set room name to room number
+            generatedRoom.transform.name = ProceduralManager.numberOfRoomsGenerated.ToString();
+
+            //add generated room to room manager list
             roomsGenerated.Add(generatedRoom.gameObject);
 
-
+            //add room generated to procedural manager list
             ProceduralManager.roomsGenerated.Add(generatedRoom.GetComponent<RoomManager>());
             ProceduralManager.roomsToGenerate.Add(generatedRoom.GetComponent<RoomManager>());
 
+            //increment number of rooms generated
             ProceduralManager.numberOfRoomsGenerated++;
             return true;
         }

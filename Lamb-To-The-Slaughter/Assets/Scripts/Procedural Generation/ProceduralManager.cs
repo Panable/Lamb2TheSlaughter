@@ -10,7 +10,7 @@ public class ProceduralManager : MonoBehaviour
 {
     public static bool roomGenerating = false;
     [Header("Procedural Settings")]
-    public static int numberOfRoomsToGenerate = 50;
+    public static float numberOfRoomsToGenerate = 50.0f;
     /// <summary>
     /// Sometimes we want proceduralmanager without actually generating anything
     /// </summary>
@@ -18,7 +18,7 @@ public class ProceduralManager : MonoBehaviour
     public static int numberOfLevelsToLoad = 7;
     public static int maxDoorsPerRoom = 1;
 
-    public static int numberOfRoomsGenerated = 0;
+    public static float numberOfRoomsGenerated = 0.0f;
     public static int roomLayer = 1 << 10;
 
     public static bool procedurallyGenerating = true;
@@ -142,6 +142,7 @@ public class ProceduralManager : MonoBehaviour
         {
             KillProcedural();
         }
+
 
     }
 }
