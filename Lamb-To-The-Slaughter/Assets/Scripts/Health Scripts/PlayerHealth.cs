@@ -12,12 +12,16 @@ public class PlayerHealth : Health
     Color hurtColour = new Color(1f, 1f, 1f, 0.4f);
     bool getDamage;
     public CameraShake cs;
+    [Header("Damage Delay Timer")]
+    public double delayTimer;
 
+    [Header("Other")]
     //for death screen
     public GameObject player;
     public GameObject deathScreen;
     public Camera deathCamera;
 
+    //When Health is over 100/overdrive function
     WeaponSelect ws;
     public bool overDrive = false;
 
@@ -29,8 +33,8 @@ public class PlayerHealth : Health
 
     public override void OnDeath()
     {
-        ws.AOEcA.intensity.Override(0.161f);
-        ws.AOEv.color.Override(ws.originalV);
+        //ws.AOEcA.intensity.Override(0.161f);
+        //ws.AOEv.color.Override(ws.originalV);
         deathScreen.SetActive(true);
         Destroy(player);
         Instantiate(deathCamera);
@@ -43,15 +47,21 @@ public class PlayerHealth : Health
         player = GameObject.FindGameObjectWithTag("Player");
         base.Start();
         overlay.color = safeColour;
-        ws.AOEv.color.Override(ws.originalV); 
+        //ws.AOEv.color.Override(ws.originalV); 
     }
 
     // Update is called once per frame
     void Update()
     {
         DamageOverlayControl();
+        deathCheck();
 
         healthValue = base.currentHealth;
+
+        if (delayTimer >= 0)
+        {
+            delayTimer -= Time.deltaTime;
+        }
 
         if (currentHealth > maxHealth)
         {
@@ -72,7 +82,11 @@ public class PlayerHealth : Health
     public override void TakeDamage(float amount)
     {
         //we are taking dmg here
-        base.TakeDamage(amount);
+        if (delayTimer <= 0)
+        {
+            base.TakeDamage(amount);
+            delayTimer = 0.2;
+        }
 
         //add shit you want after damage is taken here
         getDamage = true;
@@ -92,6 +106,14 @@ public class PlayerHealth : Health
         if (!getDamage)
         {
             overlay.color = Color.Lerp(overlay.color, safeColour, 5 * Time.deltaTime);
+        }
+    }
+
+    void deathCheck()
+    {
+        if (currentHealth <= 0)
+        {
+            OnDeath();
         }
     }
 }
