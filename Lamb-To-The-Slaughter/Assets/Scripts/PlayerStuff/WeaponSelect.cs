@@ -135,7 +135,8 @@ public class WeaponSelect : MonoBehaviour
             AOEv.color.Override(Color.white);
             AOEcA.intensity.Override(0.5f);
             StartCoroutine(cameraShake.Shake(0.25f, 4f));
-            StartCoroutine(gunRecoil.Recoil(0.05f, 0.3f));
+            gunRecoil.StartRecoil();
+            //StartCoroutine(gunRecoil.Recoil(0.05f, 0.3f));
 
             if (selectedWeapon.raycastHit.transform != null)
             {

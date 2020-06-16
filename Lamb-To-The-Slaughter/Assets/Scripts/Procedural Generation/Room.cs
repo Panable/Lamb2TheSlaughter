@@ -16,7 +16,7 @@ public class Room
     /// All door orientation prefab objects
     /// </summary>
     public List<GameObject> doors;
-    
+
     /// <summary>
     /// Stores all door orientation prefab objects plus extra stuff
     /// </summary>

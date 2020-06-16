@@ -9,9 +9,9 @@ public class TestWeapon : BaseWeapon
     public struct WeaponAttributes : IWeaponAttributes
     {
         public static float Base_Damage = 1;
-        public static float Base_Range = 20;
+        public static float Base_Range = 200;
         public static int Base_Ammo = 10;
-        public static float Weapon_Delay = 0.4f;
+        public static float Weapon_Delay = 0.15f;
         public bool shot;
 
         public float Damage
