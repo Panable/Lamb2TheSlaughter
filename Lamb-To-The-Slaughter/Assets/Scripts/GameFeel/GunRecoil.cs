@@ -49,7 +49,6 @@ public class GunRecoil : MonoBehaviour
     }
     public void ReturnPos()
     {
-        Debug.Log("returning");
         slerpIndex += Time.deltaTime * slerpSpeed;
         currentPos = Vector3.Slerp(currentPos, originalPos, slerpIndex);
         if (slerpIndex >= 1)
