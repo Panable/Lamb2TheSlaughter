@@ -34,6 +34,7 @@ public class RoomGenerator : MonoBehaviour
             if (roomPrefabsToTryGenerate.Count == 0)
                 return null;
 
+            //reset colliding to false 
             colliding = false;
 
             //select first room in shuffled list to try
