@@ -679,7 +679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80dfd7ebd9789ae4f8d97ea4b247eb84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceGeneration: 0
+  force: 0
 --- !u!1 &398380025199612028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1074,7 +1074,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80dfd7ebd9789ae4f8d97ea4b247eb84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceGeneration: 0
+  force: 0
 --- !u!1 &398380025260799869
 GameObject:
   m_ObjectHideFlags: 0
@@ -1373,7 +1373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80dfd7ebd9789ae4f8d97ea4b247eb84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceGeneration: 0
+  force: 0
 --- !u!1 &398380025351881079
 GameObject:
   m_ObjectHideFlags: 0
@@ -1670,7 +1670,7 @@ GameObject:
   - component: {fileID: 8549724987048591122}
   m_Layer: 0
   m_Name: P_Doorway
-  m_TagString: Untagged
+  m_TagString: DoorLocation
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2432,7 +2432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80dfd7ebd9789ae4f8d97ea4b247eb84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceGeneration: 0
+  force: 0
 --- !u!1 &398380026009603322
 GameObject:
   m_ObjectHideFlags: 0
@@ -2731,7 +2731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80dfd7ebd9789ae4f8d97ea4b247eb84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceGeneration: 0
+  force: 0
 --- !u!1 &398380026045787579
 GameObject:
   m_ObjectHideFlags: 0
@@ -2841,7 +2841,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80dfd7ebd9789ae4f8d97ea4b247eb84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceGeneration: 0
+  force: 0
 --- !u!1 &398380026130111599
 GameObject:
   m_ObjectHideFlags: 0
@@ -3422,7 +3422,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80dfd7ebd9789ae4f8d97ea4b247eb84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceGeneration: 0
+  force: 0
 --- !u!1 &398380026544027436
 GameObject:
   m_ObjectHideFlags: 0
@@ -4003,7 +4003,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80dfd7ebd9789ae4f8d97ea4b247eb84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceGeneration: 0
+  force: 0
 --- !u!1 &1217373610186800534
 GameObject:
   m_ObjectHideFlags: 0
@@ -4398,7 +4398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80dfd7ebd9789ae4f8d97ea4b247eb84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceGeneration: 0
+  force: 0
 --- !u!1 &1217373610783477326
 GameObject:
   m_ObjectHideFlags: 0
@@ -5357,7 +5357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80dfd7ebd9789ae4f8d97ea4b247eb84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceGeneration: 0
+  force: 0
 --- !u!1 &4599689095762724378
 GameObject:
   m_ObjectHideFlags: 0
@@ -5653,7 +5653,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80dfd7ebd9789ae4f8d97ea4b247eb84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceGeneration: 0
+  force: 0
 --- !u!1 &4599689096395745471
 GameObject:
   m_ObjectHideFlags: 0
@@ -5947,12 +5947,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 376f6b0855c0f18429dcac6c49b8bb61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceGeneration: 0
+  spawnRoom: 0
   triedGeneration: 0
-  possibleDoorSpots: []
-  roomsGenerated: []
   roomCollider: {fileID: 0}
   roomColliderScript: {fileID: 0}
+  entryDoor: {fileID: 0}
+  forceGeneration: 0
+  roomsGenerated: []
+  possibleDoorSpots: []
 --- !u!1 &8549724987835363692
 GameObject:
   m_ObjectHideFlags: 0

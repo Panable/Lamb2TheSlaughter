@@ -15,7 +15,7 @@ public class ProceduralManager : MonoBehaviour
     /// Sometimes we want proceduralmanager without actually generating anything
     /// </summary>
     public bool startGeneration = true;
-    public static int numberOfLevelsToLoad = 4;
+    public static int numberOfLevelsToLoad = 9;
     public static int maxDoorsPerRoom = 1;
 
     public static float numberOfRoomsGenerated = 0.0f;
