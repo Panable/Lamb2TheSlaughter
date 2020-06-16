@@ -5,6 +5,7 @@ using System.Linq;
 using System.Resources;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.AI;
 
 public class ProceduralManager : MonoBehaviour
 {
@@ -38,7 +39,7 @@ public class ProceduralManager : MonoBehaviour
     /// </summary>
     public static List<RoomManager> roomsToGenerate = new List<RoomManager>();
 
-
+    public NavMeshSurface[] surfaces;
 
 
     private void Awake()
@@ -122,7 +123,15 @@ public class ProceduralManager : MonoBehaviour
         {
             room.DestroyAll();
         }
+
         Destroy(this);
+
+        /// roomsGenerated.CopyTo(surfaces)
+        /// need to make unityAI.surfaces array be equal to the rooms generated/prefabs spawned.
+        for (int i = 0; i < surfaces.Length; i++)
+        {
+            surfaces[i].BuildNavMesh();
+        }
     }
 
     void Update()
