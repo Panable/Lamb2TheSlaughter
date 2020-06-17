@@ -229,17 +229,18 @@ public class PlayerMovementCC : MonoBehaviour //Dhan
         }
     }
 
-    public void TeleportFunction(Vector3 teleportPosition)
+    public void TeleportFunction(GameObject bomb)
     {
         if (!teleporting) 
             return;
 
         anim.SetBool("Teleport", false);
         cc.enabled = false;
-        transform.position = teleportPosition;
+        transform.position = bomb.transform.position;
         cc.enabled = true;
         hasTeleported = true;
         Invoke("ChromaticAberrationReset", 1f);
+        Destroy(bomb);
     }
 
     void ChromaticAberrationReset()

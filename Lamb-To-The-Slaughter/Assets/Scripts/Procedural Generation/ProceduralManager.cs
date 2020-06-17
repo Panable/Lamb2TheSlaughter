@@ -9,9 +9,10 @@ using UnityEngine.AI;
 
 public class ProceduralManager : MonoBehaviour
 {
+
     public static bool roomGenerating = false;
     [Header("Procedural Settings")]
-    public static float numberOfRoomsToGenerate = 20.0f;
+    public static int numberOfRoomsToGenerate = 20;
     /// <summary>
     /// Sometimes we want proceduralmanager without actually generating anything
     /// </summary>
@@ -38,9 +39,6 @@ public class ProceduralManager : MonoBehaviour
     /// A list of rooms still left to generate from
     /// </summary>
     public static List<RoomManager> roomsToGenerate = new List<RoomManager>();
-
-    public NavMeshSurface[] surfaces;
-
 
     private void Awake()
     {
@@ -128,10 +126,6 @@ public class ProceduralManager : MonoBehaviour
 
         /// roomsGenerated.CopyTo(surfaces)
         /// need to make unityAI.surfaces array be equal to the rooms generated/prefabs spawned.
-        for (int i = 0; i < surfaces.Length; i++)
-        {
-            surfaces[i].BuildNavMesh();
-        }
     }
 
     void Update()
@@ -147,9 +141,22 @@ public class ProceduralManager : MonoBehaviour
         }
         else
         {
+            Debug.Log("Kiling");
             KillProcedural();
+            GenerateNavmeshes();
             //mic drop
         }
 
     }
+
+    public void GenerateNavmeshes()
+    {
+        foreach (RoomManager rm in ProceduralManager.roomsGenerated)
+        {
+            if (rm.spawnRoom) continue;
+            Debug.Log(rm);
+            rm.GetComponent<NavMeshSurface>().BuildNavMesh();
+        }
+    }
 }
+    
