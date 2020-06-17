@@ -21,8 +21,7 @@ public class ProceduralEnemySelection : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        chanceValue = Random.Range(0, 11);
-        //s`Debug.Log("CV: " + chanceValue);
+        chanceValue = Random.Range(1, 11);
 
         if (chanceValue >= SkulkChance.x && chanceValue <= SkulkChance.y)
         {
