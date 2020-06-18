@@ -143,7 +143,7 @@ public class ProceduralManager : MonoBehaviour
         {
             Debug.Log("Kiling");
             KillProcedural();
-            GenerateNavmeshes();
+            //GenerateNavmeshes();
             //mic drop
         }
 
