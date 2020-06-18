@@ -4,44 +4,19 @@ using UnityEngine;
 
 public class ProceduralEnemySelection : MonoBehaviour
 {
-    public GameObject Skulk;
-    public GameObject Magg;
-    public GameObject Crawler;
-    public GameObject Husk;
-
-    public Vector2Int SkulkChance;
-    public Vector2Int MaggChance;
-    public Vector2Int CrawlerChance;
-    public Vector2Int HuskChance;
-
     int chanceValue;
     bool hasSpawned = false;
+
+    public GameObject[] Enemies;
 
 
     // Start is called before the first frame update
     void Awake()
     {
-        chanceValue = Random.Range(1, 11);
+        chanceValue = Random.Range(0, 9);
 
-        if (chanceValue >= SkulkChance.x && chanceValue <= SkulkChance.y)
-        {
-            Instantiate(Skulk, gameObject.transform.position, Quaternion.identity);
-            hasSpawned = true;
-        }
-        else if (chanceValue > MaggChance.x && chanceValue <= MaggChance.y)
-        {
-            Instantiate(Magg, gameObject.transform.position, Quaternion.identity);
-            hasSpawned = true;
-        }
-        else if (chanceValue > HuskChance.x && chanceValue <= HuskChance.y)
-        {
-            Instantiate(Husk, gameObject.transform.position, Quaternion.identity);
-        }
-        else if (chanceValue > CrawlerChance.x && chanceValue <= CrawlerChance.y)
-        {
-            Instantiate(Crawler, gameObject.transform.position, Quaternion.identity);
-            hasSpawned = true;
-        }
+        Instantiate(Enemies[chanceValue], transform.position, Quaternion.identity);
+        hasSpawned = true;
 
         if (hasSpawned)
         {
