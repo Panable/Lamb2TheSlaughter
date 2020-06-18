@@ -76,7 +76,6 @@ public class PlayerMovementCC : MonoBehaviour //Dhan
         CameraMovement();
         Inputs();
         Movement();
-        ScreamAttack();
         GPSmode();
 
         if (ph.overDrive)
@@ -190,18 +189,6 @@ public class PlayerMovementCC : MonoBehaviour //Dhan
         RotateY = Mathf.Clamp(RotateY, -pitchRange, pitchRange);
         //applies rotation to camera
         playerCamera.transform.localRotation = Quaternion.Euler(RotateY, 0, 0);
-    }
-
-    void ScreamAttack()
-    {
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            anim.SetBool("screamAttack", true);
-        }
-        else if (Input.GetKeyUp(KeyCode.Mouse1))
-        {
-            anim.SetBool("screamAttack", false);
-        }
     }
 
     bool teleporting = false;
