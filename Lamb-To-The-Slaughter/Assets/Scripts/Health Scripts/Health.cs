@@ -41,7 +41,10 @@ public abstract class Health : MonoBehaviour //Dhan
         }
     }
 
-    public abstract void OnDeath();
+    public virtual void OnDeath()
+    {
+        Destroy(gameObject);
+    }
 
     public void SetHealth(float amount)
     {

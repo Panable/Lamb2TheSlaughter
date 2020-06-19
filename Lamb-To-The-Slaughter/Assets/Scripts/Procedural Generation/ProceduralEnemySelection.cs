@@ -7,18 +7,19 @@ public class ProceduralEnemySelection : MonoBehaviour
     int chanceValue;
     bool hasSpawned = false;
 
-    public bool InitiateSpawn = false;
+    //public bool InitiateSpawn = false;
 
     public GameObject[] Enemies;
 
+    private void Start()
+    {
+
+    }
 
     // Start is called before the first frame update
     void Update()
     {
-        if (InitiateSpawn)
-        {
-            Spawn();
-        }
+
     }
 
     // Update is called once per frame
@@ -27,7 +28,7 @@ public class ProceduralEnemySelection : MonoBehaviour
         chanceValue = Random.Range(0, 9);
         float sizeValue = Random.Range(1f, 1.3f);
 
-        GameObject enemy = Instantiate(Enemies[chanceValue], transform.position, Quaternion.identity);
+        GameObject enemy = Instantiate(Enemies[chanceValue], transform.position, Quaternion.identity, transform.parent);
         enemy.transform.localScale *= sizeValue;
         hasSpawned = true;
 
@@ -37,3 +38,4 @@ public class ProceduralEnemySelection : MonoBehaviour
         }
     }
 }
+    

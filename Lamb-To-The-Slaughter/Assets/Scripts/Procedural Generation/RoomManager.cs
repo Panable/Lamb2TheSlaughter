@@ -52,6 +52,16 @@ public class RoomManager : MonoBehaviour
         }
     }
 
+    public void FindChests()
+    {
+        transform.parent.Find("Chest").gameObject.SetActive(true);
+    }
+
+    public void LockDoors()
+    {
+        
+    }
+
     /// <summary>
     /// Get all the possible door spots and put them in a list
     /// </summary>
@@ -196,9 +206,15 @@ public class RoomManager : MonoBehaviour
     }
 
     [SerializeField] bool destroyDoors = false;
+    [SerializeField] bool activateChests = false;
 
     void Update()
     {
+        if (activateChests)
+        {
+            FindChests();
+        }
+
         if (destroyDoors)
         {
             InstantiateDoorLocations();

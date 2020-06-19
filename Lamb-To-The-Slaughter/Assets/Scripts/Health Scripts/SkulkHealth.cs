@@ -9,12 +9,6 @@ public class SkulkHealth : Health
     Vector3 particleLocation;
     public GameObject player;
 
-    public override void OnDeath()
-    {
-        Instantiate(hurtParticles, particleLocation, transform.localRotation);
-        Destroy(gameObject);
-    }
-
     // Start is called before the first frame update
     protected override void Start()
     {

@@ -8,11 +8,6 @@ public class HuskHealth : Health
     public BoxCollider collider;
     Vector3 particleLocation;
 
-    public override void OnDeath()
-    {
-        Destroy(gameObject);
-    }
-
     // Start is called before the first frame update
     protected override void Start()
     {

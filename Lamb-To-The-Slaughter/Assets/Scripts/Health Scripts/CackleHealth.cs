@@ -6,11 +6,6 @@ public class CackleHealth : Health
 {
     public ParticleSystem hurtParticles;
 
-    public override void OnDeath()
-    {
-        Destroy(gameObject);
-    }
-
     // Start is called before the first frame update
     protected override void Start()
     {

@@ -12,11 +12,6 @@ public class MaggHealth : Health
     public AudioSource audioSource;
     public AudioClip cry_04;
 
-    public override void OnDeath()
-    {
-        Instantiate(hurtParticles, particleLocation, transform.localRotation);
-        Destroy(gameObject);
-    }
 
     // Start is called before the first frame update
     protected override void Start()

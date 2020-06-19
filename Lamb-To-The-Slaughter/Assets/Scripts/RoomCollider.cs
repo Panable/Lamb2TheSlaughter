@@ -1,16 +1,57 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 public class RoomCollider : MonoBehaviour
 {
+    RoomManager rm;
+    bool spawnedEnemies = false;
+    bool enemiesLocated = false;
+    public List<ProceduralEnemySelection> enemySpawners;
 
-    public bool isColliding;
+    public void InitiateBattle()
+    {
+        LockDoors();
+        SpawnEnemies();
+    }
+
+    public void LockDoors()
+    {
+
+    }
+
+    public void UnlockDoors()
+    {
+        Debug.Log("BEEP BEEP, UNLOCKING DOOR");
+    }
+
+    public void SpawnEnemies()
+    {
+        FindEnemySpawners();
+        foreach (ProceduralEnemySelection spawner in enemySpawners)
+        {
+            spawner.Spawn();
+        }
+        spawnedEnemies = true;
+        StartCoroutine(CheckForEnemies());
+    }
+
+    public void FindEnemySpawners()
+    {
+        foreach (Transform child in transform.parent)
+        {
+            if (child.CompareTag("EnemySpawner"))
+            {
+                enemySpawners.Add(child.GetComponent<ProceduralEnemySelection>());
+            }
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-
+        rm = GetComponent<RoomManager>();
     }
 
     // Update is called once per frame
@@ -18,26 +59,49 @@ public class RoomCollider : MonoBehaviour
     {
 
     }
+
+    IEnumerator CheckForEnemies()
+    {
+        enemiesLocated = true;
+        while (enemiesLocated)
+        {
+            enemiesLocated = false;
+            foreach (Transform child in transform.parent)
+            {
+                if (child.CompareTag("Enemy"))
+                {
+                    enemiesLocated = true;
+                    break;
+                }
+            }
+            if (!enemiesLocated)
+            {
+                UnlockDoors();
+                StopAllCoroutines();
+            }
+
+
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.CompareTag("roomcollider"))
+        if (spawnedEnemies) return;
+        if (other.CompareTag("Player"))
         {
-            //Debug.Log("is Colliding");
-            isColliding = true;
+            InitiateBattle();
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-       
+
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("roomcollider"))
-        {
-            isColliding = false;
-        }
+
     }
 
 }

@@ -128,6 +128,15 @@ public class ProceduralManager : MonoBehaviour
         /// need to make unityAI.surfaces array be equal to the rooms generated/prefabs spawned.
     }
 
+    private static void InstantiateAllDoorLocations()
+    {
+        foreach (RoomManager rm in roomsGenerated)
+        {
+            if (rm.spawnRoom) return;
+            rm.InstantiateDoorLocations();
+        }
+
+    }
 
     void Update()
     {
@@ -147,9 +156,11 @@ public class ProceduralManager : MonoBehaviour
         {
             procedurallyGenerating = false;
             Debug.Log("Kiling");
-            KillProcedural();
-            LoadingManager.EndLoadingBar();
 
+            KillProcedural();
+            InstantiateAllDoorLocations();
+
+            LoadingManager.EndLoadingBar();
         }
 
     }
