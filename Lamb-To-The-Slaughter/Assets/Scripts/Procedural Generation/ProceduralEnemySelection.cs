@@ -7,13 +7,18 @@ public class ProceduralEnemySelection : MonoBehaviour
     int chanceValue;
     bool hasSpawned = false;
 
+    public bool InitiateSpawn = false;
+
     public GameObject[] Enemies;
 
 
     // Start is called before the first frame update
-    void Awake()
+    void Update()
     {
-        Spawn();
+        if (InitiateSpawn)
+        {
+            Spawn();
+        }
     }
 
     // Update is called once per frame
