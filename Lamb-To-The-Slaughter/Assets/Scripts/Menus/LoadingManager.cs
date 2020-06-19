@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Video;
 using TMPro;
+using System.Runtime.CompilerServices;
 
 public class LoadingManager : MonoBehaviour
 {
@@ -15,19 +16,30 @@ public class LoadingManager : MonoBehaviour
     public GameObject videoSquare;
     public VideoPlayer video;
 
+
     void LateUpdate()
     {
         LoadingBar();
     }
 
+    public static bool finished = false;
+
     public void LoadingBar()
     {
-        float progress = (ProceduralManager.numberOfRoomsGenerated / ProceduralManager.numberOfRoomsToGenerate);
-        bool finished = progress >= 1;
+        float numberOfRoomsGenerated = (float)ProceduralManager.numberOfRoomsGenerated;
+        float totalNumberOfRoomsGenerating = (float)ProceduralManager.numberOfRoomsToGenerate;
+
         if (finished)
-            Destroy(gameObject);    //you should probably change this
+            Destroy(gameObject);
+
+        float progress = (numberOfRoomsGenerated / totalNumberOfRoomsGenerating);
         slider.value = progress;
         progressText.text = progress * 100 + "%";
+    }
+
+    public static void EndLoadingBar()
+    {
+        finished = true;
     }
 
     public void LoadLevel(int sceneIndex)
@@ -54,7 +66,7 @@ public class LoadingManager : MonoBehaviour
     }
 
 
-    IEnumerator LoadAsync (int sceneIndex)
+    IEnumerator LoadAsync(int sceneIndex)
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneIndex);
 
@@ -67,4 +79,3 @@ public class LoadingManager : MonoBehaviour
         }
     }
 }
-    

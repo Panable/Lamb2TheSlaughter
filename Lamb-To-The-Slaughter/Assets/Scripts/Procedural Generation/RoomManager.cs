@@ -31,12 +31,25 @@ public class RoomManager : MonoBehaviour
     /// <summary>
     /// Possible door spots for this room
     /// </summary>
-    [SerializeField] public List<Transform> possibleDoorSpots = new List<Transform>();
+    public List<Transform> possibleDoorSpots = new List<Transform>();
+
+    public List<Transform> doorLocations = new List<Transform>();
 
     private void Awake()
     {
         InstantiateDoorSpots();
         InstantiateCollider();
+    }
+
+    public void InstantiateDoorLocations ()
+    {
+        foreach (Transform child in transform)
+        {
+            if (child.CompareTag("DoorLocation"))
+            {
+                doorLocations.Add(child);
+            }
+        }
     }
 
     /// <summary>
@@ -82,15 +95,6 @@ public class RoomManager : MonoBehaviour
         {
             if (child.tag == "DoorLocation")
                 entryDoor = child;
-        }
-    }
-
-    void Start()
-    {
-        if (ProceduralManager.numberOfRoomsGenerated >= ProceduralManager.numberOfRoomsToGenerate)
-        {
-            Destroy(this);
-            return;
         }
     }
 
@@ -191,11 +195,19 @@ public class RoomManager : MonoBehaviour
         return false;
     }
 
+    [SerializeField] bool destroyDoors = false;
 
-
-    // Update is called once per frame
     void Update()
     {
+        if (destroyDoors)
+        {
+            InstantiateDoorLocations();
+            foreach (Transform door in doorLocations)
+            {
+                door.GetChild(0).gameObject.SetActive(true);    
+            }
+        }
+
         if (forceGeneration)
             StartGeneration();
     }

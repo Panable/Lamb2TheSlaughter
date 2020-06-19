@@ -20,7 +20,7 @@ public class ProceduralManager : MonoBehaviour
     public static int numberOfLevelsToLoad = 9;
     public static int maxDoorsPerRoom = 1;
 
-    public static float numberOfRoomsGenerated = 0.0f;
+    public static int numberOfRoomsGenerated = 0;
     public static int roomLayer = 1 << 10;
 
     public static bool procedurallyGenerating = true;
@@ -122,16 +122,20 @@ public class ProceduralManager : MonoBehaviour
             room.DestroyAll();
         }
 
-        Destroy(this);
+        //Destroy(this);
 
         /// roomsGenerated.CopyTo(surfaces)
         /// need to make unityAI.surfaces array be equal to the rooms generated/prefabs spawned.
     }
 
+
     void Update()
     {
+        if (!procedurallyGenerating) return;
+
         bool stillNeedToGenerateRooms = ProceduralManager.numberOfRoomsGenerated <= ProceduralManager.numberOfRoomsToGenerate;
         bool stillRoomsToGenerate = roomsToGenerate.Count > 0;
+
         if (stillNeedToGenerateRooms && stillRoomsToGenerate && !roomGenerating)
         {
             //Shuffle the list, so we try to generate from a random room
@@ -141,22 +145,12 @@ public class ProceduralManager : MonoBehaviour
         }
         else
         {
+            procedurallyGenerating = false;
             Debug.Log("Kiling");
             KillProcedural();
-            //GenerateNavmeshes();
-            //mic drop
+            LoadingManager.EndLoadingBar();
+
         }
 
-    }
-
-    public void GenerateNavmeshes()
-    {
-        foreach (RoomManager rm in ProceduralManager.roomsGenerated)
-        {
-            if (rm.spawnRoom) continue;
-            Debug.Log(rm);
-            rm.GetComponent<NavMeshSurface>().BuildNavMesh();
-        }
     }
 }
-    
