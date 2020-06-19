@@ -12,6 +12,9 @@ public class BloodMessages : MonoBehaviour
     void Awake()
     {
         bMplane = GameObject.FindGameObjectsWithTag("BloodMessage");
+
+        ShuffleArray(bMplane);
+
         int[] usedTextures = new int[bMtexture.Length];
         for (int i = 0; i < bMtexture.Length; i++)
         {
@@ -53,4 +56,16 @@ public class BloodMessages : MonoBehaviour
             messageAnchor.SetActive(false);
         }
     }
+
+    void ShuffleArray(GameObject[] planeAnchors)
+    {
+        for (int i = planeAnchors.Length - 1; i > 0; i--)
+        {
+            int r = Random.Range(0, i + 1);
+            GameObject tmp = planeAnchors[i];
+            planeAnchors[i] = planeAnchors[r];
+            planeAnchors[r] = tmp;
+        }
+    }
+
 }
