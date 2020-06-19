@@ -7,6 +7,9 @@ public class BloodMessages : MonoBehaviour
     public GameObject[] bMplane;
     public Texture[] bMtexture;
     Renderer bMplaneRenderer;
+    int voidMessages = 10;
+    GameObject[] temp;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -32,12 +35,20 @@ public class BloodMessages : MonoBehaviour
 
             bMplaneRenderer = messageAnchor.GetComponent<Renderer>();
             bMplaneRenderer.material.mainTexture = bMtexture[num];
+
+            messageAnchor.tag = "Untagged";
         }
+
+        //KillExcess();
     }
 
     // Update is called once per frame
-    void Update()
+    void KillExcess()
     {
-        
+        bMplane = GameObject.FindGameObjectsWithTag("BloodMessage");
+        foreach (GameObject messageAnchor in bMplane)
+        {
+            messageAnchor.SetActive(false);
+        }
     }
 }
