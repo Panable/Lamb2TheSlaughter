@@ -54,7 +54,7 @@ public class Resposdine : MonoBehaviour
 		anim = GetComponent<Animator>();
 		resAI = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player");
-		rH = GetComponent<RHealth>();
+		//rH = GetComponent<RHealth>(); health script required
 
 	    strikeCount = 0;
 		originPos = transform.position;
@@ -77,7 +77,7 @@ public class Resposdine : MonoBehaviour
 
 	void Update()
 	{
-		rHealth = rH.health; //health script required
+		//rHealth = rH.health; //health script required
 		//anim.SetInt(“health”, rHealth)
 	
 
@@ -114,7 +114,7 @@ public class Resposdine : MonoBehaviour
 			}
 		}
 
-		if (rH.isDead) //Health script required
+		//if (rH.isDead) //Health script required
 		{
 			//insert shader magic if we have time
 			deathParticles.Play();
