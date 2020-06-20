@@ -35,13 +35,15 @@ public class RoomManager : MonoBehaviour
 
     public List<Transform> doorLocations = new List<Transform>();
 
+    public List<Transform> chestLocations = new List<Transform>();
+
     private void Awake()
     {
         InstantiateDoorSpots();
         InstantiateCollider();
     }
 
-    public void InstantiateDoorLocations ()
+    public void InstantiateDoorLocations()
     {
         foreach (Transform child in transform)
         {
@@ -52,14 +54,33 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    public void FindChests()
+    public void InstantiateChests()
     {
-        transform.parent.Find("Chest").gameObject.SetActive(true);
+        foreach (Transform child in transform)
+        {
+            if (child.CompareTag("Chest"))
+            {
+                chestLocations.Add(child);
+                child.gameObject.SetActive(false);
+            }
+        }
     }
 
     public void LockDoors()
     {
-        
+        InstantiateDoorLocations();
+        foreach (Transform door in doorLocations)
+        {
+            door.GetChild(0).gameObject.SetActive(true);
+        }
+    }
+
+    public void UnlockDoors()
+    {
+        foreach (Transform door in doorLocations)
+        {
+            door.GetChild(0).gameObject.SetActive(false);
+        }
     }
 
     /// <summary>
@@ -212,7 +233,7 @@ public class RoomManager : MonoBehaviour
     {
         if (activateChests)
         {
-            FindChests();
+            InstantiateChests();
         }
 
         if (destroyDoors)
@@ -220,7 +241,7 @@ public class RoomManager : MonoBehaviour
             InstantiateDoorLocations();
             foreach (Transform door in doorLocations)
             {
-                door.GetChild(0).gameObject.SetActive(true);    
+                door.GetChild(0).gameObject.SetActive(true);
             }
         }
 
