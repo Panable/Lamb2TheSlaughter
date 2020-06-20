@@ -33,6 +33,6 @@ public class Inventory : MonoBehaviour //Lachlan
         gravityBombTXT.text = gravityBomb.ToString();
         gasBombTXT.text = gasBomb.ToString();
         medpackTXT.text = medpack.ToString();
-        keysTXT.text = keys.ToString();
+       // keysTXT.text = keys.ToString();
     }
 }

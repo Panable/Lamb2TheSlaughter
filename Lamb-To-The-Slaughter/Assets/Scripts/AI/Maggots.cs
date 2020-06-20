@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Audio;
 
@@ -25,8 +23,8 @@ public class Maggots : MonoBehaviour //Lachlan
     public GameObject mainBone;
 
     //Bounce Audio
-    public AudioClip bounce;
-    public AudioSource audioSource;
+    private AudioClip bounce;
+    private AudioSource audioSource;
     private bool justBounced;
 
     //CollisionFix
@@ -38,7 +36,9 @@ public class Maggots : MonoBehaviour //Lachlan
         col = gameObject.GetComponent<CapsuleCollider>();
         maggotAgent = GetComponent<NavMeshAgent>();
         maggotRB = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
         timer = wanderTimer;
+        bounce = Resources.Load<AudioClip>("Audio/SFX/Squish_03.wav");
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
@@ -63,7 +63,7 @@ public class Maggots : MonoBehaviour //Lachlan
     {
         if (justBounced == true)
         {
-            audioSource.PlayOneShot(bounce, 10f);
+            audioSource.PlayOneShot(bounce, 100f);
             justBounced = false;
         }
     }
