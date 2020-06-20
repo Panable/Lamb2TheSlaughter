@@ -6,9 +6,12 @@ using System.Resources;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.AI;
+using JetBrains.Annotations;
+using UnityEditor.PackageManager;
 
 public class ProceduralManager : MonoBehaviour
 {
+    public const float CHEST_PER_SINGLEROOM = 0.5f;
 
     public static bool roomGenerating = false;
     [Header("Procedural Settings")]
@@ -138,6 +141,25 @@ public class ProceduralManager : MonoBehaviour
 
     }
 
+    private static void InstantiateChests()
+    {
+        List<RoomManager> singleEntranceRooms = new List<RoomManager>();
+        foreach (RoomManager allRooms in roomsGenerated)
+        {
+            allRooms.InstantiateChests();
+            if (allRooms.roomsGenerated.Count <= 0)
+                singleEntranceRooms.Add(allRooms);
+        }
+        singleEntranceRooms.Shuffle();
+        
+        for (int i = 0; i < (singleEntranceRooms.Count * CHEST_PER_SINGLEROOM); i++)
+        {
+            singleEntranceRooms[i].chestLocations.Shuffle();
+            singleEntranceRooms[i].chestLocations[0].gameObject.SetActive(true);
+        }
+
+    }
+
     void Update()
     {
         if (!procedurallyGenerating) return;
@@ -159,6 +181,7 @@ public class ProceduralManager : MonoBehaviour
 
             KillProcedural();
             InstantiateAllDoorLocations();
+            InstantiateChests();
 
             LoadingManager.EndLoadingBar();
         }

@@ -12,26 +12,16 @@ public class RoomCollider : MonoBehaviour
 
     public void InitiateBattle()
     {
-        LockDoors();
+        rm.LockDoors();
         SpawnEnemies();
     }
 
-    public void LockDoors()
-    {
-
-    }
-
-    public void UnlockDoors()
-    {
-        Debug.Log("BEEP BEEP, UNLOCKING DOOR");
-    }
-
     public void SpawnEnemies()
-    {
+    { 
         FindEnemySpawners();
         foreach (ProceduralEnemySelection spawner in enemySpawners)
         {
-            spawner.Spawn();
+            StartCoroutine(spawner.Spawn());
         }
         spawnedEnemies = true;
         StartCoroutine(CheckForEnemies());
@@ -51,7 +41,8 @@ public class RoomCollider : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rm = GetComponent<RoomManager>();
+        rm = transform.parent.GetComponent<RoomManager>();
+        if (rm.spawnRoom) return;
     }
 
     // Update is called once per frame
@@ -62,6 +53,7 @@ public class RoomCollider : MonoBehaviour
 
     IEnumerator CheckForEnemies()
     {
+        Debug.Log("Checking");
         enemiesLocated = true;
         while (enemiesLocated)
         {
@@ -76,7 +68,7 @@ public class RoomCollider : MonoBehaviour
             }
             if (!enemiesLocated)
             {
-                UnlockDoors();
+                rm.UnlockDoors();
                 StopAllCoroutines();
             }
 
