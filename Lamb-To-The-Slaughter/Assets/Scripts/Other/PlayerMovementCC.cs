@@ -74,7 +74,6 @@ public class PlayerMovementCC : MonoBehaviour //Dhan
         {
             anim.SetFloat("Speed", 0f);
         }
-        anim.SetFloat("JumpHeight", GroundDistance());
 
         CameraMovement();
         Inputs();

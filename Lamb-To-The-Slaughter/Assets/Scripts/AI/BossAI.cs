@@ -115,5 +115,5 @@ public class BossAI : MonoBehaviour
 		agentDistance = Vector3.Distance(transform.position, destination);
 	}
 
-	void 
+	//void 
 }
