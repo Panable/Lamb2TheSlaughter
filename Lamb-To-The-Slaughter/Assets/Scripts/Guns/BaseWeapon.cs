@@ -16,7 +16,7 @@ public abstract class BaseWeapon
     //SFX
     public bool attack = false;
     public bool reloadSFX = false;
-   
+
     public IWeaponAttributes weaponAttributes;
     public interface IWeaponAttributes
     {
@@ -63,13 +63,25 @@ public abstract class BaseWeapon
         {
             attack = true;
             current_ammo--;
-            weaponSelect.StartCoroutine(WeaponDelay());
+            if (PlayerHealth.overDrive)
+                weaponSelect.StartCoroutine(OverdriveWeaponDelay());
+            else
+                weaponSelect.StartCoroutine(WeaponDelay());
         }
 
         raycastHit = ShootRaycast();
 
-    
 
+
+    }
+
+    public float weaponDelayOverdrive = 0.1f;
+
+    public IEnumerator OverdriveWeaponDelay()
+    {
+        canShoot = false;
+        yield return new WaitForSeconds(weaponDelayOverdrive);
+        canShoot = true;
     }
 
     public IEnumerator WeaponDelay()

@@ -80,7 +80,7 @@ public class PlayerMovementCC : MonoBehaviour //Dhan
         Movement();
         GPSmode();
 
-        if (ph.overDrive)
+        if (PlayerHealth.overDrive)
         {
             movementSpeed = 20;
             jumpHeight = 15;

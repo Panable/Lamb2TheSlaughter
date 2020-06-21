@@ -23,7 +23,7 @@ public class PlayerHealth : Health
 
     //When Health is over 100/overdrive function
     WeaponSelect ws;
-    public bool overDrive = false;
+    public static bool overDrive = false;
 
     //UI Variables
     public float healthValue;
