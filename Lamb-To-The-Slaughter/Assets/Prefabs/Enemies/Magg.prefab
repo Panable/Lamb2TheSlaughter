@@ -254,6 +254,7 @@ MonoBehaviour:
   wanderTimer: 1
   bounceThreshold: 1.5
   mainBone: {fileID: 2868519521809352724}
+  bounce: {fileID: 0}
 --- !u!195 &2007656147287985615
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -312,8 +313,7 @@ MonoBehaviour:
   hurtParticles: {fileID: 1426344824135655946, guid: 48d77c6c4472d44ba8638099af421e30,
     type: 3}
   collider: {fileID: 559131754791518287}
-  audioSource: {fileID: 0}
-  cry_04: {fileID: 0}
+  cryM: {fileID: 0}
 --- !u!54 &7364688317127307579
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -343,7 +343,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.541
+  m_Volume: 0.62
   m_Pitch: 1
   Loop: 0
   Mute: 0

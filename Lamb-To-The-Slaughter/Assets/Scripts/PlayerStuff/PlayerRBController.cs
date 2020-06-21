@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 [ExecuteInEditMode]
-public class PlayerRBController : MonoBehaviour
+public class PlayerRBController : MonoBehaviour //Dhan
 {
     [SerializeField] public LayerMask groundLayer;
 

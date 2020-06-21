@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Assertions.Must;
 using UnityEngine.UI;
 
-public class BombScript : MonoBehaviour
+public class BombScript : MonoBehaviour //Ansaar
 {
     //ExplosiveBombs
     public float explosiveForce;
