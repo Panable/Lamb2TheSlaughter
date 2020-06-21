@@ -6,6 +6,8 @@ using UnityEngine.Rendering.Universal;
 public class PlayerMovementCC : MonoBehaviour //Dhan
 {
 
+    public static Transform player;
+
     [Header("Camera")]
     [SerializeField] private float mouseSensitivity = 2.0f;
     [SerializeField] private float pitchRange;
@@ -26,7 +28,7 @@ public class PlayerMovementCC : MonoBehaviour //Dhan
     [SerializeField] float strafeDirection;
     float verticalVelocity = 0.0f;
 
-    public CharacterController cc;
+    public static CharacterController cc;
     public Animator anim;
     WeaponSelect ws;
     PlayerHealth ph;
@@ -40,6 +42,7 @@ public class PlayerMovementCC : MonoBehaviour //Dhan
     // Start is called before the first frame update
     void Start()
     {
+        player = transform;
         LockAndHideCursor();
         if (cc == null)
             cc = GetComponent<CharacterController>();

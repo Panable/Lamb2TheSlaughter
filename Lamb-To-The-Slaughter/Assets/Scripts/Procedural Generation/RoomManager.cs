@@ -37,6 +37,7 @@ public class RoomManager : MonoBehaviour
 
     public List<Transform> chestLocations = new List<Transform>();
 
+
     private void Awake()
     {
         InstantiateDoorSpots();
@@ -73,6 +74,9 @@ public class RoomManager : MonoBehaviour
         {
             door.GetChild(0).gameObject.SetActive(true);
         }
+        PlayerMovementCC.cc.enabled = false;
+        PlayerMovementCC.player.Translate(PlayerMovementCC.player.forward * 5);
+        PlayerMovementCC.cc.enabled = true;
     }
 
     public void UnlockDoors()
@@ -155,7 +159,7 @@ public class RoomManager : MonoBehaviour
         }
         else if (numberOfDoorsToBeGenerated == 0)
         {
-            Destroy(this);
+            
         }
 
     }
@@ -224,6 +228,13 @@ public class RoomManager : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public float FindDistanceToSpawnRoom()
+    {
+        Vector3 roomPosition = transform.position;
+        Vector3 spawnPosition = ProceduralManager.spawnRoom.transform.position;
+        return Vector3.Distance(spawnPosition, roomPosition);
     }
 
     [SerializeField] bool destroyDoors = false;

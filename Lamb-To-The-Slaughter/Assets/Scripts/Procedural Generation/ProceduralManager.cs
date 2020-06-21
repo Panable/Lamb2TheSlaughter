@@ -8,9 +8,12 @@ using UnityEngine.Rendering;
 using UnityEngine.AI;
 using JetBrains.Annotations;
 using UnityEditor.PackageManager;
+using System;
 
 public class ProceduralManager : MonoBehaviour
 {
+    public static GameObject spawnRoom;
+
     public const float CHEST_PER_SINGLEROOM = 0.5f;
 
     public static bool roomGenerating = false;
@@ -31,6 +34,7 @@ public class ProceduralManager : MonoBehaviour
     //A Database of all prefabs
     public static List<Room> roomPrefabs = new List<Room>();
     public static GameObject spawnRoomPrefab;
+    public static GameObject bossRoomPrefab;
     public static Dictionary<char, Transform> doorPrefabs = new Dictionary<char, Transform>(); //Character corresponds to door prefab
 
     /// <summary>
@@ -47,7 +51,7 @@ public class ProceduralManager : MonoBehaviour
     {
 
         LoadRoomPrefabs();
-        spawnRoomPrefab = Resources.Load<GameObject>("Prefabs/SpawnRoom");
+
         LoadDoorPrefabs();
 
 
@@ -60,9 +64,11 @@ public class ProceduralManager : MonoBehaviour
     {
         for (int i = 0; i < numberOfLevelsToLoad; i++)
         {
-
             roomPrefabs.Add(new Room("Prefabs/Rooms/Room " + i.ToString()));
         }
+
+        spawnRoomPrefab = Resources.Load<GameObject>("Prefabs/SpawnRoom");
+        bossRoomPrefab = Resources.Load<GameObject>("Prefabs/BossRoom/BossRoom");
     }
 
     /// <summary>
@@ -100,7 +106,7 @@ public class ProceduralManager : MonoBehaviour
         if (!startGeneration) return;
 
         //instantiate spawnroom
-        GameObject spawnRoom = Instantiate(spawnRoomPrefab, Vector3.zero, Quaternion.identity);
+        spawnRoom = Instantiate(spawnRoomPrefab, Vector3.zero, Quaternion.identity);
         RoomManager rm = spawnRoom.GetComponent<RoomManager>();
 
         //add spawnroom's roommanager to our lists
@@ -118,6 +124,34 @@ public class ProceduralManager : MonoBehaviour
     /// <summary>
     /// When procedural is done, destroy all objects to free up memory.
     /// </summary>
+    void Update()
+    {
+        if (!procedurallyGenerating) return;
+
+        bool stillNeedToGenerateRooms = ProceduralManager.numberOfRoomsGenerated <= ProceduralManager.numberOfRoomsToGenerate;
+        bool stillRoomsToGenerate = roomsToGenerate.Count > 0;
+
+        if (stillNeedToGenerateRooms && stillRoomsToGenerate && !roomGenerating)
+        {
+            //Shuffle the list, so we try to generate from a random room
+            ProceduralManager.roomsToGenerate.Shuffle();
+
+            ProceduralManager.roomsToGenerate[0].StartGeneration();
+        }
+        else
+        {
+            procedurallyGenerating = false;
+            Debug.Log("Kiling");
+
+            KillProcedural();
+            InstantiateAllDoorLocations();
+            InstantiateChests();
+            GenerateBossRoom();
+
+            LoadingManager.EndLoadingBar();
+        }
+
+    }
     private void KillProcedural()
     {
         foreach (Room room in roomPrefabs)
@@ -151,7 +185,7 @@ public class ProceduralManager : MonoBehaviour
                 singleEntranceRooms.Add(allRooms);
         }
         singleEntranceRooms.Shuffle();
-        
+
         for (int i = 0; i < (singleEntranceRooms.Count * CHEST_PER_SINGLEROOM); i++)
         {
             singleEntranceRooms[i].chestLocations.Shuffle();
@@ -160,31 +194,43 @@ public class ProceduralManager : MonoBehaviour
 
     }
 
-    void Update()
+    public static GameObject bossroomcurrent;
+
+    private static void GenerateBossRoom()
     {
-        if (!procedurallyGenerating) return;
+        Vector3 spawnRoomPos = spawnRoom.transform.position;
 
-        bool stillNeedToGenerateRooms = ProceduralManager.numberOfRoomsGenerated <= ProceduralManager.numberOfRoomsToGenerate;
-        bool stillRoomsToGenerate = roomsToGenerate.Count > 0;
+        List<RoomManager> roommanager = new List<RoomManager>();
+        List<float> distanceToSpawnRoom = new List<float>();
 
-        if (stillNeedToGenerateRooms && stillRoomsToGenerate && !roomGenerating)
+        foreach (RoomManager allRooms in roomsGenerated)
         {
-            //Shuffle the list, so we try to generate from a random room
-            ProceduralManager.roomsToGenerate.Shuffle();
-
-            ProceduralManager.roomsToGenerate[0].StartGeneration();
+            if (allRooms.spawnRoom) continue;
+            float distance = allRooms.FindDistanceToSpawnRoom();
+            roommanager.Add(allRooms);
+            distanceToSpawnRoom.Add(distance);
         }
-        else
+        IEnumerable<RoomManager> sortedByDistance = roommanager
+              .Select((value, index) => new { Index = index, Value = value })
+                .OrderBy(o => distanceToSpawnRoom[o.Index])
+             .Select(o => o.Value);
+        List<RoomManager> roomsSortedByDistance = sortedByDistance.ToList();
+        roomsSortedByDistance.Reverse();
+
+        bossroomcurrent = Instantiate(bossRoomPrefab);
+        foreach (RoomManager currentRoom in roomsSortedByDistance)
         {
-            procedurallyGenerating = false;
-            Debug.Log("Kiling");
+            foreach (Transform spot in currentRoom.possibleDoorSpots)
+            {
+                if (spot == null) break;
+                if (spot.GetComponent<RoomGenerator>().GenerateBossRoom(bossroomcurrent, currentRoom))
+                    return;
 
-            KillProcedural();
-            InstantiateAllDoorLocations();
-            InstantiateChests();
-
-            LoadingManager.EndLoadingBar();
+            }
         }
+        Debug.Log("failed to find boss room");
+
 
     }
+
 }

@@ -19,7 +19,7 @@ public class RoomCollider : MonoBehaviour
     }
 
     public void SpawnEnemies()
-    { 
+    {
         FindEnemySpawners();
         foreach (ProceduralEnemySelection spawner in enemySpawners)
         {
@@ -44,13 +44,13 @@ public class RoomCollider : MonoBehaviour
     void Start()
     {
         rm = transform.parent.GetComponent<RoomManager>();
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-       
+
     }
 
     IEnumerator CheckForEnemies()
