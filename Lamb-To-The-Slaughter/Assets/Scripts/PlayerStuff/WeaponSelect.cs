@@ -40,6 +40,9 @@ public class WeaponSelect : MonoBehaviour
     public Gradient glassColour;
     public Material[] gunPower;
 
+    //Sound
+    public AudioSource audioSource;
+    public AudioClip heal;
 
     [Header("Bomb Prefabs")]
     [SerializeField] Rigidbody gravityBomb;
@@ -61,6 +64,7 @@ public class WeaponSelect : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         ph = player.GetComponent<PlayerHealth>();
         AOEv.color.Override(originalV);
+        audioSource = GetComponent<AudioSource>();
     }
 
     //Instantiating
@@ -126,6 +130,23 @@ public class WeaponSelect : MonoBehaviour
 
     private void Inputs()
     {
+        if (Input.GetButton("Fire1") && selectedWeapon != null && selectedWeapon.current_ammo > 0 && !selectedWeapon.reloading && selectedWeapon.canShoot && PlayerHealth.overDrive)
+        {
+            selectedWeapon.Fire();
+
+            Instantiate(fireParticles, particlePos.transform.position, particlePos.transform.rotation);
+            fireParticles.transform.parent = particlePos.gameObject.transform;
+            AOEv.color.Override(Color.white);
+            AOEcA.intensity.Override(0.5f);
+            StartCoroutine(cameraShake.Shake(0.25f, 4f));
+            gunRecoil.StartRecoil();
+
+            if (selectedWeapon.raycastHit.transform != null)
+            {
+                Vector3 wallNormal = (selectedWeapon.raycastHit.normal) * 90;
+                Instantiate(wallShot, selectedWeapon.raycastHit.point, Quaternion.Euler(wallNormal.x, wallNormal.y + 90, wallNormal.z));
+            }
+        }
         if (Input.GetButtonDown("Fire1") && selectedWeapon != null && selectedWeapon.current_ammo > 0 && !selectedWeapon.reloading && selectedWeapon.canShoot)
         {
             selectedWeapon.Fire();
@@ -175,7 +196,7 @@ public class WeaponSelect : MonoBehaviour
 
     public void AOEgraphicsReset()
     {
-        if (ph.overDrive)
+        if (PlayerHealth.overDrive)
         {
             AOEv.color.Override(new Color(0.307f, 0.49f, 0.433f));
             AOEcA.intensity.Override(0.6f);
@@ -199,7 +220,8 @@ public class WeaponSelect : MonoBehaviour
         }
 
         //Tools
-        if (!isBombThrowing()) {
+        if (!isBombThrowing())
+        {
             StartCoroutine(GravityBomb());
             StartCoroutine(ExplosiveBomb());
             StartCoroutine(TeleportBomb());
@@ -240,13 +262,13 @@ public class WeaponSelect : MonoBehaviour
         anim.SetBool("CanMelee", true);
     }
 
- 
+
 
     void MedPack()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1) && player.GetComponent<Inventory>().medpack >= 1)
         {
-            //Medpack Animation or visual indicator here if that's a thing.
+            audioSource.PlayOneShot(heal, 60f);
             player.GetComponent<Health>().currentHealth += 20;
             player.GetComponent<Inventory>().medpack--;
         }
@@ -373,7 +395,7 @@ public class WeaponSelect : MonoBehaviour
 
         float scaledValue = currentAmmo / 10;
 
-        foreach(Material mat in gunPower)
+        foreach (Material mat in gunPower)
         {
             mat.SetColor("_EmissionColor", glassColour.Evaluate(scaledValue));
         }

@@ -23,17 +23,18 @@ public class Husk : MonoBehaviour //Lachlan
         anim.SetBool("isMoving", false);
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         //Constantly looks and moves toward player
         transform.LookAt(player.position);
-        huskAgent.destination = player.position;
         skulkMoving();
     }
 
     //Update animation depending on if its moving
     void skulkMoving()
     {
+        huskAgent.destination = player.position;
+
         if (huskAgent.isStopped == false)
         {
             anim.SetBool("isMoving", true);
@@ -42,42 +43,45 @@ public class Husk : MonoBehaviour //Lachlan
         {
             anim.SetBool("isMoving", false);
         }
-
     }
 
     void OnCollisionStay(Collision collision)
     {
-        //When hits the player damage them and take a sec to chill out cause it's a strong boi
         if (collision.gameObject.tag == "Player")
         {
             damagePlayer();
-            Invoke("recover", 1.2f);
-        }
-
-        // When Hit By bullet
-        if (collision.gameObject.tag == "PBullet")
-        {
-            hurt();
             anim.SetBool("isMoving", false);
-            Invoke("recover", 1f);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            anim.SetBool("isAttacking", true);
+            Invoke("recover", 1.4f);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            anim.SetBool("isAttacking", false);
+            Invoke("recover", 1.4f);
         }
     }
 
     //Deals damage to the player and pushes back the enemy (like a tiny tiny bit)
     void damagePlayer()
     {
-        huskAgent.isStopped = true;
-        //Add Damage To Player Here
-        player.GetComponent<Health>().TakeDamage(5f);
-        huskAgent.isStopped = false;
+            player.GetComponent<Health>().TakeDamage(7f);
     }
 
-    //When the enemy is injured spawn particles, temp stop from moving, resume attack
+    //When the enemy is injured spawn particles
     void hurt()
     {
         Instantiate(Injured, transform.localPosition, transform.localRotation);
-        huskAgent.isStopped = true;
-        huskAgent.isStopped = false;
     }
 
     //For recover animation

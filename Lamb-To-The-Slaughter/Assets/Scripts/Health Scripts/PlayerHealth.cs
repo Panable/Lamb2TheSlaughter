@@ -23,13 +23,17 @@ public class PlayerHealth : Health
 
     //When Health is over 100/overdrive function
     WeaponSelect ws;
-    public bool overDrive = false;
+    public static bool overDrive = false;
 
     //UI Variables
     public float healthValue;
     public TMP_Text healthText;
     string ogText;
     public Gradient textColor;
+
+    //Audio
+    public AudioSource audioSourceP;
+    public AudioClip[] playerCries;
 
     public override void OnDeath()
     {
@@ -47,6 +51,7 @@ public class PlayerHealth : Health
         player = GameObject.FindGameObjectWithTag("Player");
         base.Start();
         overlay.color = safeColour;
+        audioSourceP = GetComponentInChildren<AudioSource>();
         //ws.AOEv.color.Override(ws.originalV); 
     }
 
@@ -84,6 +89,9 @@ public class PlayerHealth : Health
         //we are taking dmg here
         if (delayTimer <= 0)
         {
+            audioSourceP.clip = playerCries[Random.Range(0, playerCries.Length)];
+            audioSourceP.loop = false;
+            audioSourceP.Play();
             base.TakeDamage(amount);
             delayTimer = 0.2;
         }

@@ -11,7 +11,7 @@ public class TestWeapon : BaseWeapon
         public static float Base_Damage = 1;
         public static float Base_Range = 200;
         public static int Base_Ammo = 10;
-        public static float Weapon_Delay = 0.15f;
+        public static float Weapon_Delay = 0.3f;
         public bool shot;
 
         public float Damage

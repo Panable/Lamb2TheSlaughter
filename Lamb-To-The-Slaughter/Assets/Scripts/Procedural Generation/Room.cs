@@ -10,7 +10,7 @@ using UnityEngine.WSA;
 /// <summary>
 /// Stores all the door orientations, and the doorinfo
 /// </summary>
-public class Room
+public class Room //Dhan
 {
     /// <summary>
     /// All door orientation prefab objects

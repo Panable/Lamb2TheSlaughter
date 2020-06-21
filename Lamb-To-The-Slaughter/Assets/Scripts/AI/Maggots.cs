@@ -23,7 +23,7 @@ public class Maggots : MonoBehaviour //Lachlan
     public GameObject mainBone;
 
     //Bounce Audio
-    private AudioClip bounce;
+    public AudioClip bounce;
     private AudioSource audioSource;
     private bool justBounced;
 
@@ -38,7 +38,6 @@ public class Maggots : MonoBehaviour //Lachlan
         maggotRB = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
         timer = wanderTimer;
-        bounce = Resources.Load<AudioClip>("Audio/SFX/Squish_03.wav");
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
@@ -63,7 +62,7 @@ public class Maggots : MonoBehaviour //Lachlan
     {
         if (justBounced == true)
         {
-            audioSource.PlayOneShot(bounce, 100f);
+            audioSource.PlayOneShot(bounce, 10f);
             justBounced = false;
         }
     }
