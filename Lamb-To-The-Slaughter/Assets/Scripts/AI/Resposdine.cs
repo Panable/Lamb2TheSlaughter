@@ -46,20 +46,18 @@ public class Resposdine : MonoBehaviour
     float spawnTimer; //How long to spawn
 	float spawnDelay = 1f; //How fast to spawn
 	int skulkCount; //how many skulks are in the room
-	Rigidbody playerRb;
-
 
     void Awake()
 	{
 		anim = GetComponent<Animator>();
 		resAI = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player");
-		playerRb = player.GetComponent<Rigidbody>();
 		rH = GetComponent<ResHealth>();
 
-	    strikeCount = 0;
+		shootTimer = 2f;
+		strikeCount = 0;
 		AOEtimer = 15f;
-		maxShootingTime = 5f;
+		maxShootingTime = 10f;
 		meleeTrigger.radius = 17;
 		originPos = transform.position;
 		resAI.isStopped = false;
@@ -82,19 +80,30 @@ public class Resposdine : MonoBehaviour
 
 	void Update()
 	{
-		Debug.Log(AOEtimer);
+		//Debug.Log(AOEtimer);
+		Debug.Log("BATTLE STAGE: " + battleStage);
+		Debug.Log("MAX SHOOTING TIME: " + maxShootingTime);
 
 		rHealth = rH.health;
 
 		anim.SetFloat("health", rHealth);
 		anim.SetInteger("strikeCount", strikeCount);
-		anim.SetFloat("shootingDuration", maxShootingTime);
+		anim.SetFloat("shootDuration", maxShootingTime);
 		anim.SetBool("canMelee", canMelee);
+
+		if (canMelee)
+		{
+			Debug.Log("we doin this");
+			strikeCount += 1;
+			canMelee = false;
+		}
 
 		StageOne();
 
-		if (rHealth >= 50 && rHealth < 79)
+		if (rHealth >= 50 && rHealth < 81)
 		{
+			float originalStoppingDistance = resAI.stoppingDistance;
+			resAI.stoppingDistance = 30;
 			maxShootingTime -= Time.deltaTime;
 			if (maxShootingTime > 0)
 			{
@@ -102,6 +111,7 @@ public class Resposdine : MonoBehaviour
 			}
 			else if (maxShootingTime < 0.1f)
 			{
+				anim.SetBool("shootAttack", false);
 				StageTwo();
 			}
 		}
@@ -133,16 +143,20 @@ public class Resposdine : MonoBehaviour
 
 	void StageOne()
 	{
-		strikeCount = 1;
+		battleStage = 1;
+
+		if (strikeCount > battleStage)
+		{
+			strikeCount = 1;
+		}
 
 		resAI.destination = player.transform.position;
 
-		if (canMelee)
-		{
-			Invoke("PlayerPushback", 0.1f);
-			canMelee = false;
-		}
+		AOEattack();
+	}
 
+    void AOEattack()
+    {
 		AOEtimer -= Time.deltaTime;
 		if (AOEtimer < 0)
 		{
@@ -158,8 +172,19 @@ public class Resposdine : MonoBehaviour
 				transform.LookAt(player.transform.position);
 				anim.SetBool("AOEattack", true);
 
-				Instantiate(shockwave, transform.position, transform.localRotation);
-				Debug.Log("Shockwave Spawned");
+                if (battleStage == 1)
+                {
+					Shockwave();
+                }
+                else if (battleStage == 2)
+                {
+					Shockwave();
+					Invoke("Shockwave", 1f);
+                }
+                else if (battleStage == 3)
+                {
+					Invoke("Shockwave", 2f);
+				}
 
 				resAI.isStopped = false;
 				resAI.stoppingDistance = originalStoppingDistance;
@@ -179,57 +204,37 @@ public class Resposdine : MonoBehaviour
 		strikeCount = strikeCount - 10;
 	}
 
-	void StageTwo()
+	void Shockwave()
+    {
+		Instantiate(shockwave, transform.position, transform.localRotation);
+	}
+
+	void StageTwo() 
 	{
-		strikeCount = 1;
-		AOEtimer = 20f;
+		battleStage= 2;
+		//strikeCount = 1;
 
-		resAI.destination = player.transform.position;
-
-		if (strikeCount > 2)
+		if (strikeCount > battleStage)
 		{
 			strikeCount = 1;
 		}
-	
-	    if (canMelee)
-		{
-			anim.SetBool("CanMelee", true);
-		    strikeCount += 1;
-			anim.SetBool("canMelee", false);
-	    }
 
-		AOEtimer -= Time.deltaTime;
-		if (AOEtimer < 0)
-		{
-			float originalStoppingDistance = resAI.stoppingDistance;
-			resAI.stoppingDistance = 0f;
-			resAI.destination = originPos;
-			agentToDestDist = Vector3.Distance(transform.position, originPos);
-			if (agentToDestDist < 0.2)
-			{
-				anim.SetBool("AOEattack", true);
+		resAI.destination = player.transform.position;
 
-				Instantiate(shockwave, transform.position, transform.localRotation);
-
-				resAI.stoppingDistance = originalStoppingDistance;
-	
-				AOEtimer = 15f;
-			}
-			resAI.destination = player.transform.position;
-		}
-
+		//AOEattack();
 	}
 
 	void StageThree()
 	{
+		battleStage = 3;
 		strikeCount = 1;
 		AOEtimer = 25f;
 
 		resAI.destination = player.transform.position;
 
-		if (strikeCount > 3)
+		if (strikeCount > battleStage)
 		{
-			spawnSkulk = true; //*
+			// initiate Skulks spawn function
 			strikeCount = 1;
 		}
 	
@@ -237,7 +242,6 @@ public class Resposdine : MonoBehaviour
 		{
 			anim.SetBool("canMelee", true);
 		    strikeCount += 1;
-			Invoke("PlayerPushback", 0.1f);
 			anim.SetBool("CanMelee", false);
 	    }
 
@@ -290,13 +294,13 @@ public class Resposdine : MonoBehaviour
 	void ProjectileAttack()
 	{
 		anim.SetBool("shootAttack", true);
-		shootTimer = shootDelay;
+		shootDelay = shootTimer;
 		shootTimer -= Time.deltaTime;
-		if (shootTimer <= 0)
+
+		if (shootTimer < 0)
 		{
-			anim.SetBool("shootAttack", true);
-			//Rigidbody projectileInstance = Instantiate(projectileAnchor.transform)
-			//projectileInstance.velocity = projectileForce * projectileAnchor.forward; //Fix with AIE
+			Rigidbody projectileInstance = Instantiate(projectile, projectileAnchor.position, projectileAnchor.localRotation);
+			projectileInstance.velocity = projectileForce * projectileAnchor.forward;
 			shootTimer = shootDelay;
 		}
 	}
