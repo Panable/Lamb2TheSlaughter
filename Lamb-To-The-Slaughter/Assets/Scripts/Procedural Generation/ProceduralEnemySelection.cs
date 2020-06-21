@@ -22,7 +22,7 @@ public class ProceduralEnemySelection : MonoBehaviour
 
     }
 
-    public float waitBeforeSpawn = 0.5f;
+    public static float waitBeforeSpawn = 0.5f;
 
     // Update is called once per frame
     public IEnumerator Spawn()
@@ -31,13 +31,15 @@ public class ProceduralEnemySelection : MonoBehaviour
         float sizeValue = Random.Range(1f, 1.3f);
 
 
-
+        //add your particle system.
 
         yield return new WaitForSeconds(waitBeforeSpawn);
 
         GameObject enemy = Instantiate(Enemies[chanceValue], transform.position, Quaternion.identity, transform.parent);
         enemy.transform.localScale *= sizeValue;
         hasSpawned = true;
+
+        //destroy particle system
 
         if (hasSpawned)
         {
