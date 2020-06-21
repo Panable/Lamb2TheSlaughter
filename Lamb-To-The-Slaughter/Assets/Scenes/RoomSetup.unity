@@ -467,7 +467,8 @@ PrefabInstance:
       propertyPath: healthText
       value: 
       objectReference: {fileID: 1391002353}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5071576979344861353, guid: 1fc21ae472567439ea155304d219d8c9, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1fc21ae472567439ea155304d219d8c9, type: 3}
 --- !u!1 &503976052
 GameObject:
@@ -725,12 +726,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &925220114 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2450931455847509937, guid: f23d8cf5cb56348da8b79bec20dfcebf,
-    type: 3}
-  m_PrefabInstance: {fileID: 1040281611}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1040281611
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -847,13 +842,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1264485410}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -0.0094, y: -0.0032, z: -0.0069}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1335305648}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!4 &1335305648 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2891028848288976281, guid: bda31d021a27042bd99411864aee70e6,
@@ -1020,20 +1015,21 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1358148496}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 160f5c9cfd5f34e24863fabdcfae368f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   meleeTrigger: {fileID: 1358148497}
   skulk: {fileID: 6005457165151832952, guid: d9b44874502f9496ca3b6b627d177a82, type: 3}
-  projectile: {fileID: 6040659449490745225, guid: 9d9cfd9eb286944fbb058abf91591ca3,
+  projectile: {fileID: 7301768243618257166, guid: 451e66785b91e4ebaa2609385de3a755,
     type: 3}
   deathParticles: {fileID: 0}
   AOEtimer: 0
-  shockwave: {fileID: 925220114}
+  shockwave: {fileID: 6005457165151832952, guid: d9b44874502f9496ca3b6b627d177a82,
+    type: 3}
   projectileAnchor: {fileID: 1264485411}
-  projectileForce: 0
+  projectileForce: 30
 --- !u!114 &1358148499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1047,7 +1043,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  currentHealth: 100
+  currentHealth: 60
   regenHealth: 0
   regenRate: 0
   timeTillRegen: 0
@@ -1099,6 +1095,41 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1358148502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358148496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48d7b897b58884ef9bf89cb5ce7486c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  strikeCount: 0
+  canMelee: 0
+  skulk: {fileID: 0}
+  spawnSkulk: 0
+  skulkAnchor: {fileID: 0}
+  spawnTimer: 0
+  spawnDelay: 1
+  skulkCount: 0
+  projectile: {fileID: 0}
+  projectileAnchor: {fileID: 0}
+  projectileForce: 0
+  shootDelay: 1
+  shootTimer: 0
+  maxShootingTime: 0
+  AOEtimer: 0
+  shockwave: {fileID: 0}
+  deathParticles: {fileID: 0}
+  rHealth: 0
+  battleStage: 0
+  originPos: {x: 0, y: 0, z: 0}
+  player: {fileID: 0}
+  agentToDestDist: 0
+  destination: {fileID: 0}
 --- !u!114 &1391002353 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6138511040567753814, guid: 6c44364fbb52e4b4389b87ed3882f676,
@@ -1695,7 +1726,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2051781088}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.02
   m_Height: 0.2
