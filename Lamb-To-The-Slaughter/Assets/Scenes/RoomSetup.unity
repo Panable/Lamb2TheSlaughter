@@ -457,6 +457,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2670884381575440734, guid: 1fc21ae472567439ea155304d219d8c9,
+        type: 3}
+      propertyPath: walkSpeed
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 4966732780099105064, guid: 1fc21ae472567439ea155304d219d8c9,
         type: 3}
       propertyPath: healthValue
@@ -1043,7 +1048,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  currentHealth: 60
+  currentHealth: 100
   regenHealth: 0
   regenRate: 0
   timeTillRegen: 0
@@ -1121,15 +1126,16 @@ MonoBehaviour:
   shootDelay: 1
   shootTimer: 0
   maxShootingTime: 0
-  AOEtimer: 0
-  shockwave: {fileID: 0}
+  debugAOEtimer: 0
+  shockwave: {fileID: 6510957716261458132, guid: 3d4c387efa36c44aba8381e05f5fece2,
+    type: 3}
   deathParticles: {fileID: 0}
   rHealth: 0
   battleStage: 0
   originPos: {x: 0, y: 0, z: 0}
   player: {fileID: 0}
-  agentToDestDist: 0
-  destination: {fileID: 0}
+  agentDistance: 0
+  focusPlayer: 0
 --- !u!114 &1391002353 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6138511040567753814, guid: 6c44364fbb52e4b4389b87ed3882f676,

@@ -11,9 +11,9 @@ public class BossAI : MonoBehaviour
 	ResHealth rH;
 	NavMeshAgent resAI;
 
-    //Melee Attack Properties
-    [Header ("Melee Properties")]
-    public int strikeCount;
+	//Melee Attack Properties
+	[Header("Melee Properties")]
+	public int strikeCount;
     public bool canMelee;
 
 	//Spawn Attack Properties
@@ -36,8 +36,11 @@ public class BossAI : MonoBehaviour
 
 	//AOE Attack Properties
 	[Header("AOE Properties")]
-	public float AOEtimer;
+	public float debugAOEtimer;
 	public GameObject shockwave;
+	float timer = 10f;
+	bool canShockwave;
+	int numOfsW;
 
 	//Health Related Properties
 	[Header("Health Properties")]
@@ -50,7 +53,7 @@ public class BossAI : MonoBehaviour
 	public Vector3 originPos;
 	public GameObject player;
 	public float agentDistance;
-	public Transform destination;
+	public bool focusPlayer;
 
     // Start is called before the first frame update
     void Awake()
@@ -64,13 +67,30 @@ public class BossAI : MonoBehaviour
 
 		//Initialise Properties
 		originPos = transform.position;
-		rHealth = rH.currentHealth;
+		resAI.isStopped = false;
+		transform.LookAt(player.transform.position);
+		resAI.destination = player.transform.position;
 	}
 
+    private void FixedUpdate()
+    {
+        //Regulates orientation
+        if (focusPlayer)
+        {
+            transform.LookAt(player.transform.position);
+        }
+        else if (!focusPlayer)
+        {
+			transform.LookAt(originPos);
+		}
+    }
     // Update is called once per frame
     void Update()
     {
-        //Idle & Float Control
+		Debug.Log(battleStage);
+		rHealth = rH.currentHealth;
+
+		//Animator Controls
 		if (resAI.isStopped == false)
 		{
 			anim.SetFloat("moveSpeed", 1f);
@@ -79,35 +99,88 @@ public class BossAI : MonoBehaviour
 		{
 			anim.SetFloat("moveSpeed", 0f);
 		}
+		anim.SetInteger("strikeCount", strikeCount);
 
-		//Distinguish Battle Stages
+		//Distinguish & Call Battle Functions
 		if (rHealth <= 100 && rHealth > 80)
 		{
-			//Set Battle Stage Propeties
-			strikeCount = 1;
 			battleStage = 1;
-			AOEtimer = 15;
 
-            //Call Battle Stage
 			BattleStageOne();
+			Shockwave(10f);
 		}
 		else if (rHealth <= 79 && rHealth > 50)
 		{
 			battleStage = 2;
-			AOEtimer = 25;
+
+			BattleStageTwo();
+			Shockwave(15f);
 		}
 		else if (rHealth <= 49 && rHealth > 0)
 		{
 			battleStage = 3;
-			AOEtimer = 35;
+
+			BattleStageThree();
+			Shockwave(20f);
 		}
 	}
 
-    void BattleStageOne()
+    //First stage of the battle
+	void BattleStageOne()
     {
-		FindDistance(player.transform.position);
-        
+		timer -= Time.deltaTime;
+		debugAOEtimer = timer;
+		if (timer > 0)
+		{
+			//Regulate Melee Attack
+			focusPlayer = true;
+			StrikeAttack(1);
+        }
+        else if (timer <= 0)
+        {
+			//Regulate AOE Attack
+			focusPlayer = false;
+			AOEattack(1);
+		}
     }
+
+    //Second stage of the battle
+    void BattleStageTwo()
+    {
+		timer -= Time.deltaTime;
+		debugAOEtimer = timer;
+		if (timer > 0)
+		{
+			//Regulate Melee Attack
+			focusPlayer = true;
+			StrikeAttack(3);
+		}
+		else if (timer <= 0)
+		{
+			//Regulate AOE Attack
+			focusPlayer = false;
+			AOEattack(2);
+		}
+	}
+
+	//Third stage of the battle
+	void BattleStageThree()
+	{
+		timer -= Time.deltaTime;
+		debugAOEtimer = timer;
+		if (timer > 0)
+		{
+			//Regulate Melee Attack
+			focusPlayer = true;
+			StrikeAttack(4);
+		}
+		else if (timer <= 0)
+		{
+			//Regulate AOE Attack
+			focusPlayer = false;
+			AOEattack(3);
+		}
+	}
 
 	//Find distance from agent to destination
 	void FindDistance(Vector3 destination)
@@ -115,5 +188,75 @@ public class BossAI : MonoBehaviour
 		agentDistance = Vector3.Distance(transform.position, destination);
 	}
 
-	//void 
+    //Adaptable AOE Function
+	void AOEattack(int numOfShockwaves)
+    {
+		numOfsW = numOfShockwaves;
+        FindDistance(originPos);
+		resAI.stoppingDistance = 0.1f;
+	    resAI.destination = originPos;
+
+        if (agentDistance < 0.3)
+        {
+			canShockwave = true;
+            //Continued in update
+		}
+	}
+
+	//Adaptable Melee Attack & Regulator
+	void StrikeAttack(int strikeTypes)
+    {
+        //Randomises strike type & takes into account the battle stage
+		if (canMelee)
+		{
+			strikeCount = Random.Range(1, strikeTypes);
+		}
+
+		//Melee Attack
+		resAI.destination = player.transform.position;
+		FindDistance(player.transform.position);
+		if (agentDistance < resAI.stoppingDistance - 1)
+		{
+			canMelee = true;
+		}
+		else
+		{
+			canMelee = false;
+		}
+
+		//Animator Controls
+		anim.SetBool("canMelee", canMelee);
+	}
+
+	//Spawns a shockwave (taking into account how often and how many
+	void Shockwave(float numTimer)
+    {
+        //animator control
+		anim.SetBool("AOEattack", canShockwave);
+
+		if (canShockwave)
+		{
+			//resAI.isStopped = true;
+			focusPlayer = true;
+
+			StartCoroutine(InvokeShockwave(1, numOfsW));
+
+			//Reset AOE
+			resAI.isStopped = false;
+			resAI.stoppingDistance = 10f;
+			timer = numTimer;
+			canShockwave = false;
+		}
+	}
+
+    //Regulates how many and how frequently a shockwave is spawned
+    IEnumerator InvokeShockwave(float interval, int invokeCount)
+    {
+        for (int i = 0; i < invokeCount; i++)
+        {
+			float randRot = UnityEngine.Random.Range(0f, 90f);
+			Instantiate(shockwave, transform.position, Quaternion.Euler(transform.localRotation.x, randRot, transform.localRotation.y));
+			yield return new WaitForSecondsRealtime(interval);
+        }
+    }
 }
