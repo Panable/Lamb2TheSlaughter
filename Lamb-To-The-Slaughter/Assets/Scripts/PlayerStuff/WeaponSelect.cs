@@ -199,10 +199,12 @@ public class WeaponSelect : MonoBehaviour
         }
 
         //Tools
-        StartCoroutine(GravityBomb());
-        StartCoroutine(ExplosiveBomb());
-        StartCoroutine(TeleportBomb());
-        StartCoroutine(GasBomb());
+        if (!isBombThrowing()) {
+            StartCoroutine(GravityBomb());
+            StartCoroutine(ExplosiveBomb());
+            StartCoroutine(TeleportBomb());
+            StartCoroutine(GasBomb());
+        }
         MedPack();
 
         if (anim.GetBool("CanMelee") == true)
@@ -253,9 +255,19 @@ public class WeaponSelect : MonoBehaviour
     public float timetowait;
 
     bool throwingBomb = false;
+
+    public bool isBombThrowing()
+    {
+        bool gravityBomb = anim.GetCurrentAnimatorStateInfo(0).IsName("PlayerRig|Gun_ThrowBomb_B_40");
+        bool gasBomb = anim.GetCurrentAnimatorStateInfo(0).IsName("PlayerRig|Gun_ThrowBomb_G_40");
+        bool explosiveBomb = anim.GetCurrentAnimatorStateInfo(0).IsName("PlayerRig|Gun_ThrowBomb_E_40");
+        bool teleportBomb = anim.GetCurrentAnimatorStateInfo(0).IsName("PlayerRig|Gun_ThrowBomb_T_40");
+        return gravityBomb || gasBomb || explosiveBomb || teleportBomb;
+    }
+
     IEnumerator GravityBomb()
     {
-        if (player.GetComponent<Inventory>().gravityBomb >= 1 && Input.GetKeyDown(KeyCode.Alpha2) && !throwingBomb)
+        if (player.GetComponent<Inventory>().gravityBomb >= 1 && Input.GetKeyDown(KeyCode.Alpha2) && !throwingBomb && !isBombThrowing())
         {
             throwingBomb = true;
             //Instantiate Bomb Here
@@ -268,17 +280,14 @@ public class WeaponSelect : MonoBehaviour
             Vector3 location = selectedWeapon.ShootRaycastWithoutRange().point;
             rb.velocity = ((location - rb.transform.position).normalized * horizontalVelocity);
             throwingBomb = false;
-            
-        }
-        else if (Input.GetKeyUp(KeyCode.Alpha2))
-        {
             anim.SetBool("GravityBomb", false);
+
         }
     }
 
     IEnumerator ExplosiveBomb()
     {
-        if (player.GetComponent<Inventory>().explosionBomb >= 1 && Input.GetKeyDown(KeyCode.Alpha3) && !throwingBomb)
+        if (player.GetComponent<Inventory>().explosionBomb >= 1 && Input.GetKeyDown(KeyCode.Alpha3) && !throwingBomb && !isBombThrowing())
         {
             throwingBomb = true;
             //instantiateBombs
@@ -289,16 +298,13 @@ public class WeaponSelect : MonoBehaviour
             Vector3 location = selectedWeapon.ShootRaycastWithoutRange().point;
             rb.velocity = ((location - rb.transform.position).normalized * horizontalVelocity);
             throwingBomb = false;
-        }
-        else if (Input.GetKeyUp(KeyCode.Alpha3))
-        {
             anim.SetBool("ExplosiveBomb", false);
         }
     }
 
     IEnumerator TeleportBomb()
     {
-        if (player.GetComponent<Inventory>().teleportBomb >= 1 && Input.GetKeyDown(KeyCode.Alpha4) && !throwingBomb)
+        if (player.GetComponent<Inventory>().teleportBomb >= 1 && Input.GetKeyDown(KeyCode.Alpha4) && !throwingBomb && !isBombThrowing())
         {
             throwingBomb = true;
             //instantiateBomb
@@ -309,16 +315,13 @@ public class WeaponSelect : MonoBehaviour
             Vector3 location = selectedWeapon.ShootRaycastWithoutRange().point;
             rb.velocity = ((location - rb.transform.position).normalized * horizontalVelocity);
             throwingBomb = false;
-        }
-        else if (Input.GetKeyUp(KeyCode.Alpha4))
-        {
             anim.SetBool("TeleportBomb", false);
         }
     }
 
     IEnumerator GasBomb()
     {
-        if (player.GetComponent<Inventory>().gasBomb >= 1 && Input.GetKeyDown(KeyCode.Alpha5) && !throwingBomb)
+        if (player.GetComponent<Inventory>().gasBomb >= 1 && Input.GetKeyDown(KeyCode.Alpha5) && !throwingBomb && !isBombThrowing())
         {
             throwingBomb = true;
             //instantiateBomb
@@ -330,10 +333,7 @@ public class WeaponSelect : MonoBehaviour
             rb.velocity = ((location - rb.transform.position).normalized * horizontalVelocity);
             throwingBomb = false;
         }
-        else if (Input.GetKeyUp(KeyCode.Alpha5))
-        {
-            anim.SetBool("GasBomb", false);
-        }
+        anim.SetBool("GasBomb", false);
     }
 
     void ResetMelee()

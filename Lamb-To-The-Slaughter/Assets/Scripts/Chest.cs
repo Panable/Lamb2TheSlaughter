@@ -26,7 +26,7 @@ public class Chest : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        activeGuide.gameObject.SetActive(false);
+        //activeGuide.gameObject.SetActive(false);
         player = GameObject.FindGameObjectWithTag("Player");
 
         anim = GetComponent<Animator>();

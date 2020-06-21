@@ -5,6 +5,7 @@ using UnityEngine;
 public class RoomGenerator : MonoBehaviour
 {
     private List<Room> roomPrefabsToTryGenerate;
+    private List<Room> x;
 
     //Generate every position of a current room
     //switch room
@@ -20,6 +21,45 @@ public class RoomGenerator : MonoBehaviour
     /// Cycle through every room/every orientation until it fits (shuffle these so we get random one everytime)
     /// return the generated room
     /// </summary>
+    /// 
+
+    public bool GenerateBossRoom(GameObject bossRoom, RoomManager currentRoom)
+    {
+        Vector3 direction;
+        float distance;
+        bossRoom.transform.position = transform.position;
+        bossRoom.transform.rotation = Quaternion.identity;
+        bossRoom.transform.forward = transform.up;
+
+        for (int rotationMultiplier = 0; rotationMultiplier < 4; rotationMultiplier++)
+        {
+            bossRoom.transform.rotation = Quaternion.Euler(0, 90 * rotationMultiplier, 0);
+            bool inCollision = false;
+            foreach (RoomManager managers in ProceduralManager.roomsGenerated)
+            {
+                Debug.Log("Checking collision");
+                bool inCollisionWithAGeneratedRoom = Physics.ComputePenetration(managers.roomCollider, ExtensionMethods.ColliderToWorldPoint(managers.roomCollider), managers.transform.rotation,
+            bossRoom.GetComponent<RoomManager>().roomCollider, ExtensionMethods.ColliderToWorldPoint(bossRoom.GetComponent<RoomManager>().roomCollider), bossRoom.transform.rotation, out direction, out distance);
+                if (inCollisionWithAGeneratedRoom)
+                    inCollision = true;
+            }
+            if (!inCollision)
+            {
+                Debug.Log("FOUND!");
+                Quaternion rot = transform.rotation;
+                Transform doorReplace = Instantiate<Transform>(currentRoom.currentRoom.GetDoorPrefab(), transform.position, rot, transform.parent);
+                Destroy(gameObject);
+                return true;
+            }
+        }
+        return false;
+
+
+
+
+    }
+
+
     public GameObject GenerateRoom(Transform spawnDoor, RoomManager rm)
     {
 
@@ -114,9 +154,15 @@ public class RoomGenerator : MonoBehaviour
     }
 
     public bool force;
+    public bool forceBossSpawn;
+
 
     private void Update()
     {
+        if (forceBossSpawn)
+        {
+            GenerateBossRoom(ProceduralManager.bossroomcurrent, transform.parent.GetComponent<RoomManager>());
+        }
         if (!force) return;
         Transform spawnRoom = GetComponentInParent<Transform>();
         RoomManager rm = GetComponentInParent<RoomManager>();
