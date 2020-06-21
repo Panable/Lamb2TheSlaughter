@@ -18,8 +18,8 @@ public class Resposdine : MonoBehaviour
 
 	//components to be found
 	Animator anim;
-	public Collider meleeTrigger;
-	//ResposdineHealth rH;
+	public SphereCollider meleeTrigger;
+	ResHealth rH;
 	NavMeshAgent resAI;
 
 
@@ -46,48 +46,54 @@ public class Resposdine : MonoBehaviour
     float spawnTimer; //How long to spawn
 	float spawnDelay = 1f; //How fast to spawn
 	int skulkCount; //how many skulks are in the room
+	Rigidbody playerRb;
 
 
     void Awake()
 	{
-		//Find Animator, Navmesh, resposdineHealth, player
 		anim = GetComponent<Animator>();
 		resAI = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player");
-		//rH = GetComponent<RHealth>(); health script required
+		playerRb = player.GetComponent<Rigidbody>();
+		rH = GetComponent<ResHealth>();
 
 	    strikeCount = 0;
+		AOEtimer = 15f;
+		meleeTrigger.radius = 17;
 		originPos = transform.position;
+		resAI.isStopped = false;
 	}
 
 	void FixedUpdate()
 	{
-		transform.LookAt(resAI.destination);
+		transform.LookAt(player.transform.position);
 
 		if (resAI.isStopped == false)
 		{
-			//anim.SetFloat(“moveSpeed”, 1f);
+			anim.SetFloat("moveSpeed", 1f);
 		}
 		else if (resAI.isStopped == true)
 		{
-			//anim.SetFloat(“moveSpeed”, 0f);
+			anim.SetFloat("moveSpeed", 0f);
 		}
 	}
 
 
 	void Update()
 	{
-		//rHealth = rH.health; //health script required
-		//anim.SetInt(“health”, rHealth)
-	
+		Debug.Log(AOEtimer);
 
-	    if (rHealth >= 80 && rHealth < 100)
+		rHealth = rH.health;
+
+		anim.SetFloat("health", rHealth);
+		anim.SetInteger("strikeCount", strikeCount);
+		anim.SetFloat("shootingDuration", maxShootingTime);
+		anim.SetBool("canMelee", canMelee);
+
+		StageOne();
+
+		if (rHealth >= 50 && rHealth < 79)
 		{
-			StageOne();
-		}
-		else if (rHealth >= 50 && rHealth < 79)
-		{
-			//anim.SetFloat(“shootingDuration”, maxShootingTime);
 			maxShootingTime = 5f;
 			maxShootingTime -= Time.deltaTime;
 			if (maxShootingTime > 0)
@@ -101,7 +107,6 @@ public class Resposdine : MonoBehaviour
 		}
 		if (rHealth >= 1 && rHealth < 49)
 		{
-			//anim.SetFloat(“shootingDuration”, maxShootingTime);
 			maxShootingTime = 10f;
 			maxShootingTime -= Time.deltaTime;
 			if (maxShootingTime > 0)
@@ -114,9 +119,8 @@ public class Resposdine : MonoBehaviour
 			}
 		}
 
-		//if (rH.isDead) //Health script required
+		if (rH.isDead)
 		{
-			//insert shader magic if we have time
 			deathParticles.Play();
 			Invoke("KillBoss", 0.2f);
 		}
@@ -129,36 +133,50 @@ public class Resposdine : MonoBehaviour
 
 	void StageOne()
 	{
-		//anim.SetInt(“strikeCount”, 1);
-		AOEtimer = 15;
+		strikeCount = 1;
 
 		resAI.destination = player.transform.position;
 
 		if (canMelee)
 		{
-			//anim.SetBool(“canMelee”, true)
+			Invoke("PlayerPushback", 0.1f);
 			canMelee = false;
-			//anim.SetBool(“CanMelee”, false)
 		}
 
 		AOEtimer -= Time.deltaTime;
 		if (AOEtimer < 0)
 		{
+			strikeCount = strikeCount + 10;
 			float originalStoppingDistance = resAI.stoppingDistance;
 			resAI.stoppingDistance = 0f;
+			resAI.speed = 8;
 			resAI.destination = originPos;
 			agentToDestDist = Vector3.Distance(transform.position, originPos);
 			if (agentToDestDist < 0.2)
 			{
-				//anim.SetBool(“AOEattack", true)
+				resAI.isStopped = true;
+				transform.LookAt(player.transform.position);
+				anim.SetBool("AOEattack", true);
 
 				Instantiate(shockwave, transform.position, transform.localRotation);
-	
-				resAI.destination = player.transform.position;
+				Debug.Log("Shockwave Spawned");
+
+				resAI.isStopped = false;
 				resAI.stoppingDistance = originalStoppingDistance;
-			    AOEtimer = 15f;
+
+				Invoke("AOEreset", 0.1f);
 			}
 		}
+	}
+
+    void AOEreset()
+    {
+		resAI.speed = 3;
+		AOEtimer = 15f;
+		anim.SetBool("AOEattack", false);
+		resAI.isStopped = false;
+		resAI.destination = player.transform.position;
+		strikeCount = strikeCount - 10;
 	}
 
 	void StageTwo()
@@ -172,14 +190,13 @@ public class Resposdine : MonoBehaviour
 		{
 			strikeCount = 1;
 		}
-		//anim.SetInt(“strikeCount”, strikeCount)
 	
-	if (canMelee)
+	    if (canMelee)
 		{
-			//anim.SetBool(“CanMelee”, true)
+			anim.SetBool("CanMelee", true);
 		    strikeCount += 1;
-			//anim.SetBool(“CanMelee”, false)
-	}
+			anim.SetBool("canMelee", false);
+	    }
 
 		AOEtimer -= Time.deltaTime;
 		if (AOEtimer < 0)
@@ -190,7 +207,7 @@ public class Resposdine : MonoBehaviour
 			agentToDestDist = Vector3.Distance(transform.position, originPos);
 			if (agentToDestDist < 0.2)
 			{
-				//anim.SetBool(“AOEattack", true)
+				anim.SetBool("AOEattack", true);
 
 				Instantiate(shockwave, transform.position, transform.localRotation);
 
@@ -215,14 +232,14 @@ public class Resposdine : MonoBehaviour
 			spawnSkulk = true; //*
 			strikeCount = 1;
 		}
-		//anim.SetInt(“strikeCount”, strikeCount)
 	
-	if (canMelee)
+	    if (canMelee)
 		{
-			//anim.SetBool(“CanMelee”, true)
+			anim.SetBool("canMelee", true);
 		    strikeCount += 1;
-			//anim.SetBool(“CanMelee”, false)
-	}
+			Invoke("PlayerPushback", 0.1f);
+			anim.SetBool("CanMelee", false);
+	    }
 
 		AOEtimer -= Time.deltaTime;
 		if (AOEtimer < 0 && spawnSkulk != true)
@@ -234,7 +251,7 @@ public class Resposdine : MonoBehaviour
 			agentToDestDist = Vector3.Distance(transform.position, originPos);
 			if (agentToDestDist < 0.2)
 			{
-				//anim.SetBool(“AOEattack", true)
+				anim.SetBool("AOEattack", true);
 
 				Instantiate(shockwave, transform.position, transform.localRotation);
 
@@ -250,7 +267,7 @@ public class Resposdine : MonoBehaviour
 		if (spawnSkulk)
 		{
 			resAI.isStopped = true;
-			//anim.SetBool(“spawnAttack”, true)
+			anim.SetBool("spawnAttack", true);
 			spawnTimer = spawnDelay;
 			spawnTimer -= spawnDelay;
 			if (spawnTimer <= 0)
@@ -264,7 +281,7 @@ public class Resposdine : MonoBehaviour
 
 			if (skulkCount > 9)
 			{
-				//anim.SetBool(“spawnAttack”, false)
+				anim.SetBool("spawnAttack", false);
 				spawnSkulk = false;
 			}
 		}
@@ -276,7 +293,7 @@ public class Resposdine : MonoBehaviour
 		shootTimer -= Time.deltaTime;
 		if (shootTimer <= 0)
 		{
-			//anim.SetBool(“shootAttack”, true);
+			anim.SetBool("shootAttack", true);
 			//Rigidbody projectileInstance = Instantiate(projectileAnchor.transform)
 			//projectileInstance.velocity = projectileForce * projectileAnchor.forward; //Fix with AIE
 			shootTimer = shootDelay;
@@ -286,9 +303,16 @@ public class Resposdine : MonoBehaviour
 	void OnTriggerEnter(Collider other) //If player enters the meleeTrigger
 	{
 		if (other.tag == "Player")
-	{
+	    {
+			Debug.Log("Entered");
 			canMelee = true;
+			meleeTrigger.radius = 1f;
+			Invoke("TriggerReset", 0.2f);
 		}
 	}
 
+    void TriggerReset()
+    {
+		meleeTrigger.radius = 18;
+    }
 }
