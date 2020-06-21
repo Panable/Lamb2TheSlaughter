@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CrawlerHealth : Health
+public class CrawlerHealth : Health //Dhan
 {
     public ParticleSystem hurtParticles;
     private AudioSource audioSourceC;
@@ -18,8 +18,8 @@ public class CrawlerHealth : Health
     public override void TakeDamage(float amount)
     {
         //we are taking dmg here
-        base.TakeDamage(amount);
         audioSourceC.PlayOneShot(cryC, 10);
+        base.TakeDamage(amount);
 
         //add shit you want after damage is taken here
         Instantiate(hurtParticles, transform.localPosition, transform.rotation);

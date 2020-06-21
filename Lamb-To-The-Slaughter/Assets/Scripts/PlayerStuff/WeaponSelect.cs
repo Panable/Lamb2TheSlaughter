@@ -40,6 +40,9 @@ public class WeaponSelect : MonoBehaviour
     public Gradient glassColour;
     public Material[] gunPower;
 
+    //Sound
+    public AudioSource audioSource;
+    public AudioClip heal;
 
     [Header("Bomb Prefabs")]
     [SerializeField] Rigidbody gravityBomb;
@@ -61,6 +64,7 @@ public class WeaponSelect : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         ph = player.GetComponent<PlayerHealth>();
         AOEv.color.Override(originalV);
+        audioSource = GetComponent<AudioSource>();
     }
 
     //Instantiating
@@ -264,7 +268,7 @@ public class WeaponSelect : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1) && player.GetComponent<Inventory>().medpack >= 1)
         {
-            //Medpack Animation or visual indicator here if that's a thing.
+            audioSource.PlayOneShot(heal, 60f);
             player.GetComponent<Health>().currentHealth += 20;
             player.GetComponent<Inventory>().medpack--;
         }
