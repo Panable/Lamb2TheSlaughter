@@ -59,6 +59,7 @@ public class Resposdine : MonoBehaviour
 
 	    strikeCount = 0;
 		AOEtimer = 15f;
+		maxShootingTime = 5f;
 		meleeTrigger.radius = 17;
 		originPos = transform.position;
 		resAI.isStopped = false;
@@ -94,7 +95,6 @@ public class Resposdine : MonoBehaviour
 
 		if (rHealth >= 50 && rHealth < 79)
 		{
-			maxShootingTime = 5f;
 			maxShootingTime -= Time.deltaTime;
 			if (maxShootingTime > 0)
 			{
@@ -122,7 +122,7 @@ public class Resposdine : MonoBehaviour
 		if (rH.isDead)
 		{
 			deathParticles.Play();
-			Invoke("KillBoss", 0.2f);
+			Invoke("KillBoss", 3f);
 		}
 	}
 
@@ -171,7 +171,7 @@ public class Resposdine : MonoBehaviour
 
     void AOEreset()
     {
-		resAI.speed = 3;
+		resAI.speed = 8;
 		AOEtimer = 15f;
 		anim.SetBool("AOEattack", false);
 		resAI.isStopped = false;
@@ -289,6 +289,7 @@ public class Resposdine : MonoBehaviour
 
 	void ProjectileAttack()
 	{
+		anim.SetBool("shootAttack", true);
 		shootTimer = shootDelay;
 		shootTimer -= Time.deltaTime;
 		if (shootTimer <= 0)
