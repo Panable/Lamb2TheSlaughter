@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using JetBrains.Annotations;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
@@ -12,6 +13,7 @@ public class RoomCollider : MonoBehaviour
 
     public void InitiateBattle()
     {
+        Debug.Log("Initiating battle");
         rm.LockDoors();
         SpawnEnemies();
     }
@@ -42,17 +44,18 @@ public class RoomCollider : MonoBehaviour
     void Start()
     {
         rm = transform.parent.GetComponent<RoomManager>();
-        if (rm.spawnRoom) return;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-
+       
     }
 
     IEnumerator CheckForEnemies()
     {
+        yield return new WaitForSeconds(ProceduralEnemySelection.waitBeforeSpawn);
         Debug.Log("Checking");
         enemiesLocated = true;
         while (enemiesLocated)
