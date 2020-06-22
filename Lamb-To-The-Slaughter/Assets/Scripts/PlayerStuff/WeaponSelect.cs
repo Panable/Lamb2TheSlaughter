@@ -303,7 +303,7 @@ public class WeaponSelect : MonoBehaviour
             rb.velocity = ((location - rb.transform.position).normalized * horizontalVelocity);
             throwingBomb = false;
             anim.SetBool("GravityBomb", false);
-
+            
         }
     }
 

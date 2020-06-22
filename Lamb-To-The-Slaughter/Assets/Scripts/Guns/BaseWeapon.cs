@@ -51,7 +51,6 @@ public abstract class BaseWeapon
         this.weaponSelect = weaponSelect;
         current_ammo = weaponAttributes.Ammo;
         ignoreLayer = LayerMask.NameToLayer("ignore");
-        Debug.Log(ignoreLayer);
         this.weaponAttributes = weaponAttributes;
     }
 

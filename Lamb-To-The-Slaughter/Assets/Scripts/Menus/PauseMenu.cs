@@ -1,11 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Audio;
 
-public class PauseMenu : MonoBehaviour
+public class PauseMenu : MonoBehaviour //Lachlan
 {
     public GameObject pauseMenu;
     public GameObject controlsGuide;
@@ -25,7 +21,6 @@ public class PauseMenu : MonoBehaviour
             {
                 ws.AOEcA.intensity.Override(0.161f);
                 ws.AOEv.color.Override(ws.originalV);
-
                 gameplayUI.SetActive(false);
                 Time.timeScale = 0;
                 pauseMenu.SetActive(true);
@@ -42,15 +37,6 @@ public class PauseMenu : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
             }
-            if (Input.GetButton("Quit"))
-            {
-                gameplayUI.SetActive(true);
-                Time.timeScale = 1;
-                pauseMenu.SetActive(false);
-                pauseMenuEnabled = false;
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-            }                
         }
     }
 
@@ -81,7 +67,6 @@ public class PauseMenu : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
         //Application.Quit();
-        //Debug.Log("Quit Game");
     }
 
     private void Start()

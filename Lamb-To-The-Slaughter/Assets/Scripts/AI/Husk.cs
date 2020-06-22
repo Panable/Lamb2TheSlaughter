@@ -8,6 +8,7 @@ public class Husk : MonoBehaviour //Lachlan
     //For Animations
     public Animator anim;
     public ParticleSystem Injured;
+    private float timer;
 
     //Components for the enemy + know where player is
     public Transform player;
@@ -21,17 +22,17 @@ public class Husk : MonoBehaviour //Lachlan
         player = GameObject.FindWithTag("Player").transform;
         huskRB = gameObject.GetComponent<Rigidbody>();
         anim.SetBool("isMoving", false);
+        timer = 1f;
     }
 
     private void Update()
     {
         //Constantly looks and moves toward player
-        transform.LookAt(player.position);
-        skulkMoving();
+        huskMoving();
     }
 
     //Update animation depending on if its moving
-    void skulkMoving()
+    void huskMoving()
     {
         huskAgent.destination = player.position;
 
@@ -50,7 +51,6 @@ public class Husk : MonoBehaviour //Lachlan
         if (collision.gameObject.tag == "Player")
         {
             damagePlayer();
-            anim.SetBool("isMoving", false);
         }
     }
 
@@ -59,7 +59,7 @@ public class Husk : MonoBehaviour //Lachlan
         if (other.gameObject.tag == "Player")
         {
             anim.SetBool("isAttacking", true);
-            Invoke("recover", 1.4f);
+            Invoke("recover", 2f);
         }
     }
 
@@ -68,14 +68,27 @@ public class Husk : MonoBehaviour //Lachlan
         if (other.gameObject.tag == "Player")
         {
             anim.SetBool("isAttacking", false);
-            Invoke("recover", 1.4f);
+            Invoke("recover", 2f);
         }
     }
 
     //Deals damage to the player and pushes back the enemy (like a tiny tiny bit)
     void damagePlayer()
     {
+        anim.SetBool("isAttacking", true);
+        anim.SetBool("isMoving", false);
+        if (timer <= 0 && !anim.IsInTransition(2))
+        {
             player.GetComponent<Health>().TakeDamage(7f);
+            timer = 1.1f;
+            anim.SetBool("isAttacking", false);
+        }
+        else timerCount();
+    }
+
+    void timerCount()
+    {
+        timer -= Time.deltaTime;
     }
 
     //When the enemy is injured spawn particles

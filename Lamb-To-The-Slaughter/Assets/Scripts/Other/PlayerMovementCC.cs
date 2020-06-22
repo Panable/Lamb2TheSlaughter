@@ -61,6 +61,7 @@ public class PlayerMovementCC : MonoBehaviour //Dhan
             tPcA = cA;
         }
 
+        Color Lcolor = new Color(1f, 0f, 0f);
         tPcA.intensity.Override(0.161f);
     }
     // Update is called once per frame
