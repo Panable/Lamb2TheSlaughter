@@ -53,8 +53,9 @@ public class Chest : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
 
-       if (other.tag == "Player" && Input.GetKeyDown(KeyCode.E))
+       if (other.tag == "Player" && Input.GetButtonDown("Interact"))
         {
+            
             anim.SetBool("openChest", true);
             audioSource.PlayOneShot(chestCreak, 60f);
             Invoke("ToolKillDelay", 0.2f);

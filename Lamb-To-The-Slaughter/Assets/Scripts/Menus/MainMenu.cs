@@ -13,6 +13,9 @@ public class MainMenu : MonoBehaviour //Lachlan
     public GameObject mainMenuUI;
     public GameObject loadingMenu;
 
+    public GameObject playgame;
+    public GameObject exitgame;
+
     void Awake()
     {
         Time.timeScale = 1;
@@ -22,12 +25,27 @@ public class MainMenu : MonoBehaviour //Lachlan
         loadingMenu.SetActive(false);
     }
 
+    private void Update()
+    {
+        if (Input.GetButton("Submit"))
+        {
+            if (playgame.activeInHierarchy == true)
+            {
+                playGame();
+            }
+            if (exitgame.activeInHierarchy == true)
+            {
+                quitGame();
+            }
+        }
+    }
+
     // When button is pressed, Load the scene 
     public void playGame()
     {
         main.volume = 0.5f;
         main.PlayOneShot(startClip);
-        //SceneManager.LoadScene("Baas'sLevel");
+        SceneManager.LoadScene("Baas'sLevel");
     }
 
     //When button is pressed the game will quit and print to the console, "Game Quit"

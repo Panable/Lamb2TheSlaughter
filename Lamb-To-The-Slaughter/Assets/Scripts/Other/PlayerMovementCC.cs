@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovementCC : MonoBehaviour //Dhan
 {
@@ -58,7 +59,6 @@ public class PlayerMovementCC : MonoBehaviour //Dhan
         if (vp.TryGet<ChromaticAberration>(out cA))
         {
             tPcA = cA;
-            Debug.Log("Yeet");
         }
 
         tPcA.intensity.Override(0.161f);
@@ -89,6 +89,11 @@ public class PlayerMovementCC : MonoBehaviour //Dhan
         {
             movementSpeed = walkSpeed;
             jumpHeight = 10f;
+        }
+
+        if (Input.GetButton("PS"))
+        {
+            SceneManager.LoadScene("MainMenu");
         }
     }
 
@@ -197,7 +202,7 @@ public class PlayerMovementCC : MonoBehaviour //Dhan
 
     void GPSmode()
     {
-        if (Input.GetKey(KeyCode.Tab))
+        if (Input.GetButton("GPS"))
         {
             anim.SetBool("GPSmode", true);
             ws.enabled = false;
@@ -211,7 +216,7 @@ public class PlayerMovementCC : MonoBehaviour //Dhan
                 teleporting = false;
             }
         }
-        else if (Input.GetKeyUp(KeyCode.Tab))
+        else if (Input.GetButtonUp("GPS"))
         {
             anim.SetBool("GPSmode", false);
             ws.enabled = true;

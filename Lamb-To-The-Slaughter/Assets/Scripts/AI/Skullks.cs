@@ -49,12 +49,10 @@ public class Skullks : MonoBehaviour //Lachlan
         if (stop == false)
         {
             skullkAgent.destination = player.position;
-            transform.LookAt(player);
         }
         else if (stop == true)
         {
             skullkAgent.destination = gameObject.transform.position;
-            transform.LookAt(player);
         }
     }
 
