@@ -125,11 +125,11 @@ public class CameraMovement : MonoBehaviour //Ansaar
 
     public void PositionCount()
     {
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetButtonDown("Right"))
         {
             posCount = posCount + 1;
         }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        else if (Input.GetButtonDown("Left"))
         {
             posCount = posCount - 1;
         }

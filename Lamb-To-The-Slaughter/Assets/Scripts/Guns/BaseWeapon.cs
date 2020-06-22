@@ -100,7 +100,7 @@ public abstract class BaseWeapon
             weaponSelect.StartCoroutine(Reload());
         }
 
-        if (Input.GetKeyDown(KeyCode.R) && current_ammo < weaponAttributes.Ammo && !reloading && !Input.GetButton("Fire1"))
+        if (Input.GetButtonDown("Reload") && current_ammo < weaponAttributes.Ammo && !reloading && !Input.GetButton("Fire1"))
         {
             current_ammo = 0;
             //Debug.Log("tryreload");

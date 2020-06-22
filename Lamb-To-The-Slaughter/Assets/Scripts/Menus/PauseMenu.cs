@@ -19,7 +19,7 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetButtonDown("Cancel"))
         {
             if (pauseMenuEnabled == false)
             {
@@ -42,6 +42,15 @@ public class PauseMenu : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
             }
+            if (Input.GetButton("Quit"))
+            {
+                gameplayUI.SetActive(true);
+                Time.timeScale = 1;
+                pauseMenu.SetActive(false);
+                pauseMenuEnabled = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }                
         }
     }
 

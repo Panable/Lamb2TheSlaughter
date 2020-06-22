@@ -166,7 +166,7 @@ public class WeaponSelect : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(1) && selectedWeapon != null)
+        if (Input.GetButton("AOE") && selectedWeapon != null)
         {
             Invoke("AOEattack", 0.3f);
         }
@@ -266,7 +266,7 @@ public class WeaponSelect : MonoBehaviour
 
     void MedPack()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1) && player.GetComponent<Inventory>().medpack >= 1)
+        if (Input.GetButtonDown("Medpack") && player.GetComponent<Inventory>().medpack >= 1)
         {
             audioSource.PlayOneShot(heal, 60f);
             player.GetComponent<Health>().currentHealth += 20;
@@ -289,7 +289,7 @@ public class WeaponSelect : MonoBehaviour
 
     IEnumerator GravityBomb()
     {
-        if (player.GetComponent<Inventory>().gravityBomb >= 1 && Input.GetKeyDown(KeyCode.Alpha2) && !throwingBomb && !isBombThrowing())
+        if (player.GetComponent<Inventory>().gravityBomb >= 1 && Input.GetButtonDown("gravityBomb") && !throwingBomb && !isBombThrowing())
         {
             throwingBomb = true;
             //Instantiate Bomb Here
@@ -309,7 +309,7 @@ public class WeaponSelect : MonoBehaviour
 
     IEnumerator ExplosiveBomb()
     {
-        if (player.GetComponent<Inventory>().explosionBomb >= 1 && Input.GetKeyDown(KeyCode.Alpha3) && !throwingBomb && !isBombThrowing())
+        if (player.GetComponent<Inventory>().explosionBomb >= 1 && Input.GetButtonDown("explosionBomb") && !throwingBomb && !isBombThrowing())
         {
             throwingBomb = true;
             //instantiateBombs
@@ -326,7 +326,7 @@ public class WeaponSelect : MonoBehaviour
 
     IEnumerator TeleportBomb()
     {
-        if (player.GetComponent<Inventory>().teleportBomb >= 1 && Input.GetKeyDown(KeyCode.Alpha4) && !throwingBomb && !isBombThrowing())
+        if (player.GetComponent<Inventory>().teleportBomb >= 1 && Input.GetButtonDown("teleportBomb") && !throwingBomb && !isBombThrowing())
         {
             throwingBomb = true;
             //instantiateBomb
@@ -343,7 +343,7 @@ public class WeaponSelect : MonoBehaviour
 
     IEnumerator GasBomb()
     {
-        if (player.GetComponent<Inventory>().gasBomb >= 1 && Input.GetKeyDown(KeyCode.Alpha5) && !throwingBomb && !isBombThrowing())
+        if (player.GetComponent<Inventory>().gasBomb >= 1 && Input.GetButtonDown("gasBomb") && !throwingBomb && !isBombThrowing())
         {
             throwingBomb = true;
             //instantiateBomb
