@@ -14,12 +14,13 @@ public class ResHealth : Health
     void Start()
     {
         base.Start();
-        particleLocation = transform.TransformPoint(mainCollider.center);
     }
 
     // Update is called once per frame
     void Update()
     {
+        particleLocation = transform.TransformPoint(mainCollider.center);
+
         health = base.currentHealth;
 
         if (health < 1)

@@ -6,9 +6,10 @@ using UnityEngine.AI;
 public class BossAI : MonoBehaviour
 {
     //Components
+    [Header("Public Components")]
 	Animator anim;
 	SphereCollider meleeTrigger;
-	ResHealth rH;
+	public ResHealth rH;
 	NavMeshAgent resAI;
 
 	//Melee Attack Properties
@@ -30,9 +31,13 @@ public class BossAI : MonoBehaviour
 	public Rigidbody projectile;
     public Transform projectileAnchor;
 	public float projectileForce;
-	public float shootDelay = 1f;
-	public float shootTimer;
-    public float maxShootingTime;
+	public bool canShoot;
+	public float maxShootingTime = 10f;
+	public float maxShootingTime2 = 15f;
+	public float shootDelay;
+	float shootTimer;
+	float resetValue;
+	bool mustReset = true;
 
 	//AOE Attack Properties
 	[Header("AOE Properties")]
@@ -63,7 +68,6 @@ public class BossAI : MonoBehaviour
 		resAI = GetComponent<NavMeshAgent>();
 		meleeTrigger = GetComponent<SphereCollider>();
 		player = GameObject.FindGameObjectWithTag("Player");
-		rH = GetComponent<ResHealth>();
 
 		//Initialise Properties
 		originPos = transform.position;
@@ -100,6 +104,7 @@ public class BossAI : MonoBehaviour
 			anim.SetFloat("moveSpeed", 0f);
 		}
 		anim.SetInteger("strikeCount", strikeCount);
+		anim.SetBool("shootAttack", canShoot);
 
 		//Distinguish & Call Battle Functions
 		if (rHealth <= 100 && rHealth > 80)
@@ -109,24 +114,83 @@ public class BossAI : MonoBehaviour
 			BattleStageOne();
 			Shockwave(10f);
 		}
-		else if (rHealth <= 79 && rHealth > 50)
+		if (rHealth <= 80 && rHealth > 50)
 		{
+			anim.SetFloat("shootDuration", maxShootingTime);
 			battleStage = 2;
 
-			BattleStageTwo();
-			Shockwave(15f);
+			maxShootingTime -= Time.deltaTime;
+			if (maxShootingTime < 0)
+			{
+				canShoot = false;
+				anim.SetFloat("adjustSpeed", 1f);
+				BattleStageTwo();
+				Shockwave(15f);
+			}
+            else
+            {
+				canShoot = true;
+				anim.SetFloat("adjustSpeed", 0.5f);
+			}
+
+			shootTimer -= Time.deltaTime;
+			if (canShoot)
+			{
+                if (shootTimer <= 0)
+                {
+                    TransitionStage(10, 1);
+					shootTimer = shootDelay;
+                }
+				
+			}
 		}
-		else if (rHealth <= 49 && rHealth > 0)
+		else if (rHealth <= 50 && rHealth > 0)
 		{
+			anim.SetFloat("shootDuration", maxShootingTime2);
 			battleStage = 3;
 
-			BattleStageThree();
-			Shockwave(20f);
+			maxShootingTime2 -= Time.deltaTime;
+			if (maxShootingTime2 < 0)
+			{
+				canShoot = false;
+				anim.SetFloat("adjustSpeed", 1f);
+				BattleStageTwo();
+				Shockwave(15f);
+			}
+			else
+			{
+				canShoot = true;
+				anim.SetFloat("adjustSpeed", 1f);
+			}
+
+			shootTimer -= Time.deltaTime;
+			if (canShoot)
+			{
+				if (shootTimer <= 0)
+				{
+					TransitionStage(30, 0.5f);
+					shootTimer = shootDelay;
+				}
+
+			}
 		}
 	}
 
+	//Projectile attack
+	void TransitionStage(float force, float delay)
+    {
+		shootDelay = delay;
+		Rigidbody projectileInstance = Instantiate(projectile, projectileAnchor.position, projectileAnchor.localRotation);
+		projectileInstance.velocity = force * projectileAnchor.forward;
+    }
+
+    private void OnEnable()
+    {
+		canShoot = false;
+    }
+
     //First stage of the battle
-	void BattleStageOne()
+    void BattleStageOne()
     {
 		timer -= Time.deltaTime;
 		debugAOEtimer = timer;
@@ -206,15 +270,17 @@ public class BossAI : MonoBehaviour
 	//Adaptable Melee Attack & Regulator
 	void StrikeAttack(int strikeTypes)
     {
-        //Randomises strike type & takes into account the battle stage
-		if (canMelee)
-		{
-			strikeCount = Random.Range(1, strikeTypes);
-		}
-
 		//Melee Attack
 		resAI.destination = player.transform.position;
 		FindDistance(player.transform.position);
+
+		//Randomises strike type & takes into account the battle stage
+		if (canMelee)
+		{
+			strikeCount = Random.Range(1, strikeTypes);
+			canMelee = false;
+		}
+
 		if (agentDistance < resAI.stoppingDistance - 1)
 		{
 			canMelee = true;
@@ -249,12 +315,18 @@ public class BossAI : MonoBehaviour
 		}
 	}
 
+    //Resets properties
+    private void Reset()
+    {
+		maxShootingTime = 10f;
+    }
+
     //Regulates how many and how frequently a shockwave is spawned
     IEnumerator InvokeShockwave(float interval, int invokeCount)
     {
         for (int i = 0; i < invokeCount; i++)
         {
-			float randRot = UnityEngine.Random.Range(0f, 90f);
+			float randRot = Random.Range(0f, 90f);
 			Instantiate(shockwave, transform.position, Quaternion.Euler(transform.localRotation.x, randRot, transform.localRotation.y));
 			yield return new WaitForSecondsRealtime(interval);
         }
