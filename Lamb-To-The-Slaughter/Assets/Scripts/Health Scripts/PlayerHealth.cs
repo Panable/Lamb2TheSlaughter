@@ -37,8 +37,8 @@ public class PlayerHealth : Health
 
     public override void OnDeath()
     {
-        ws.AOEcA.intensity.Override(0.161f);
-        ws.AOEv.color.Override(ws.originalV);
+       // ws.AOEcA.intensity.Override(0.161f);
+       // ws.AOEv.color.Override(ws.originalV);
         deathScreen.SetActive(true);
         Destroy(player);
         Instantiate(deathCamera);
@@ -52,7 +52,7 @@ public class PlayerHealth : Health
         base.Start();
         overlay.color = safeColour;
         audioSourceP = GetComponentInChildren<AudioSource>();
-        ws.AOEv.color.Override(ws.originalV); 
+        //ws.AOEv.color.Override(ws.originalV); 
     }
 
     // Update is called once per frame

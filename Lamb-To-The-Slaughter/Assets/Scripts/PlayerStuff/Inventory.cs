@@ -19,11 +19,11 @@ public class Inventory : MonoBehaviour //Lachlan
     public TMP_Text gravityBombTXT;
     public TMP_Text gasBombTXT;
     public TMP_Text medpackTXT;
-    public TMP_Text keysTXT;
+    //public TMP_Text keysTXT;
 
     private void Update()
     {
-        ToolsToText();
+        //ToolsToText();
     }
 
     void ToolsToText()

@@ -65,8 +65,13 @@ public class PauseMenu : MonoBehaviour //Lachlan
 
     public void EscapeAsylum()
     {
-        SceneManager.LoadScene("MainMenu");
-        //Application.Quit();
+        SceneManager.LoadScene("MainMenu");  
+    }
+
+    public void quitGame()
+    {
+        Debug.Log("Quit");
+        Application.Quit();
     }
 
     private void Start()

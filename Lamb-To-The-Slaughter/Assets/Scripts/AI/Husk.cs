@@ -77,7 +77,7 @@ public class Husk : MonoBehaviour //Lachlan
     {
         anim.SetBool("isAttacking", true);
         anim.SetBool("isMoving", false);
-        if (timer <= 0 && !anim.IsInTransition(2))
+        if (timer <= 0)
         {
             player.GetComponent<Health>().TakeDamage(7f);
             timer = 1.1f;

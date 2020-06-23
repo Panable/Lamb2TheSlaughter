@@ -90,7 +90,7 @@ public class BossAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		Debug.Log(battleStage);
+		//Debug.Log(battleStage);
 		rHealth = rH.currentHealth;
 		weapon.enabled = canMelee;
 
