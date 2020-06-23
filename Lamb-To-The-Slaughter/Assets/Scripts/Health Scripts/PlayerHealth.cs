@@ -37,8 +37,8 @@ public class PlayerHealth : Health
 
     public override void OnDeath()
     {
-        //ws.AOEcA.intensity.Override(0.161f);
-        //ws.AOEv.color.Override(ws.originalV);
+        ws.AOEcA.intensity.Override(0.161f);
+        ws.AOEv.color.Override(ws.originalV);
         deathScreen.SetActive(true);
         Destroy(player);
         Instantiate(deathCamera);
@@ -52,14 +52,13 @@ public class PlayerHealth : Health
         base.Start();
         overlay.color = safeColour;
         audioSourceP = GetComponentInChildren<AudioSource>();
-        //ws.AOEv.color.Override(ws.originalV); 
+        ws.AOEv.color.Override(ws.originalV); 
     }
 
     // Update is called once per frame
     void Update()
     {
         DamageOverlayControl();
-        deathCheck();
 
         healthValue = base.currentHealth;
 
@@ -82,6 +81,8 @@ public class PlayerHealth : Health
             healthText.fontSize = 70;
             healthText.SetText("Health");
         }
+
+        DeathCheck();
     }
 
     public override void TakeDamage(float amount)
@@ -89,9 +90,9 @@ public class PlayerHealth : Health
         //we are taking dmg here
         if (delayTimer <= 0)
         {
-            audioSourceP.clip = playerCries[Random.Range(0, playerCries.Length)];
-            audioSourceP.loop = false;
-            audioSourceP.Play();
+            //audioSourceP.clip = playerCries[Random.Range(0, playerCries.Length)];
+            //audioSourceP.loop = false;
+            //audioSourceP.Play();
             base.TakeDamage(amount);
             delayTimer = 0.2;
         }
@@ -104,7 +105,7 @@ public class PlayerHealth : Health
     {
         if (getDamage)
         {
-            StartCoroutine(cs.Shake(0.3f, 1.5f));
+            //StartCoroutine(cs.Shake(0.3f, 1.5f));
             overlay.color = Color.Lerp(overlay.color, hurtColour, 20 * Time.deltaTime);
             if (overlay.color.a >= 0.39)
             {
@@ -117,7 +118,7 @@ public class PlayerHealth : Health
         }
     }
 
-    void deathCheck()
+    void DeathCheck()
     {
         if (currentHealth <= 0)
         {

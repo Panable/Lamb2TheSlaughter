@@ -16,15 +16,16 @@ public class BossAI : MonoBehaviour
 	[Header("Melee Properties")]
 	public int strikeCount;
     public bool canMelee;
+	public CapsuleCollider weapon;
 
 	//Spawn Attack Properties
-	[Header("Spawn Properties")]
-	public GameObject skulk;
-	public bool spawnSkulk;
-    public Transform skulkAnchor;
-	public float spawnTimer;
-	public float spawnDelay = 1f;
-	public int skulkCount;
+	//[Header("Spawn Properties")]
+	//public GameObject skulk;
+	//public bool spawnSkulk;
+    //public Transform skulkAnchor;
+	//public float spawnTimer;
+	//public float spawnDelay = 1f;
+	//public int skulkCount;
 
 	//Projectile Attack Properties
 	[Header("Projectile Properties")]
@@ -36,8 +37,6 @@ public class BossAI : MonoBehaviour
 	public float maxShootingTime2 = 15f;
 	public float shootDelay;
 	float shootTimer;
-	float resetValue;
-	bool mustReset = true;
 
 	//AOE Attack Properties
 	[Header("AOE Properties")]
@@ -93,6 +92,7 @@ public class BossAI : MonoBehaviour
     {
 		Debug.Log(battleStage);
 		rHealth = rH.currentHealth;
+		weapon.enabled = canMelee;
 
 		//Animator Controls
 		if (resAI.isStopped == false)
