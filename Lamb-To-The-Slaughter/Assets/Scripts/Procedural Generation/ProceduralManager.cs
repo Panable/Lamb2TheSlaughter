@@ -145,8 +145,8 @@ public class ProceduralManager : MonoBehaviour //Dhan
 
             KillProcedural();
             InstantiateAllDoorLocations();
-            InstantiateChests();
             GenerateBossRoom();
+            InstantiateChests();
 
             LoadingManager.EndLoadingBar();
         }
@@ -224,7 +224,9 @@ public class ProceduralManager : MonoBehaviour //Dhan
             {
                 if (spot == null) break;
                 if (spot.GetComponent<RoomGenerator>().GenerateBossRoom(bossroomcurrent, currentRoom))
+                {
                     return;
+                }
 
             }
         }

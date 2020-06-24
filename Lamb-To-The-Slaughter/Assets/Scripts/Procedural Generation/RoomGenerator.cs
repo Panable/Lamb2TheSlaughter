@@ -45,6 +45,7 @@ public class RoomGenerator : MonoBehaviour
             }
             if (!inCollision)
             {
+                currentRoom.roomsGenerated.Add(bossRoom);
                 Debug.Log("FOUND!");
                 Quaternion rot = transform.rotation;
                 Transform doorReplace = Instantiate<Transform>(currentRoom.currentRoom.GetDoorPrefab(), transform.position, rot, transform.parent);
