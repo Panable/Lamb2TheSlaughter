@@ -74,9 +74,7 @@ public class RoomManager : MonoBehaviour
         {
             door.GetChild(0).gameObject.SetActive(true);
         }
-        PlayerMovementCC.cc.enabled = false;
-        PlayerMovementCC.player.Translate(PlayerMovementCC.player.forward * 5);
-        PlayerMovementCC.cc.enabled = true;
+
     }
 
     public void UnlockDoors()

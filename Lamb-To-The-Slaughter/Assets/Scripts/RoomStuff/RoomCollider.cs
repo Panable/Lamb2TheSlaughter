@@ -71,6 +71,7 @@ public class RoomCollider : MonoBehaviour
             }
             if (!enemiesLocated)
             {
+                Debug.Log("un");
                 rm.UnlockDoors();
                 StopAllCoroutines();
             }

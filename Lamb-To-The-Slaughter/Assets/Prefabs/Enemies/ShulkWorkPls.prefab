@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 7993009167194142405}
   - component: {fileID: 465423360045924896}
   - component: {fileID: 4555524713236320068}
+  - component: {fileID: 9215794660001878056}
+  - component: {fileID: 3574352458141415763}
   m_Layer: 0
   m_Name: ShulkWorkPls
   m_TagString: Enemy
@@ -286,8 +288,45 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.5894728, y: 1.8971329, z: 2.0365791}
+  m_Center: {x: 0.18578768, y: 0.011997342, z: -0.023591995}
+--- !u!114 &9215794660001878056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6005457165151832952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c2a6d34476c2f343a0049ff28713210, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 5
+  currentHealth: 5
+  regenHealth: 0
+  regenRate: 0
+  timeTillRegen: 0
+  cry: {fileID: 8300000, guid: 5131943f8fb22424aa7301a67ba2f26c, type: 3}
+  audioSource: {fileID: 465423360045924896}
+  hurtParticles: {fileID: 1426344824135655946, guid: 48d77c6c4472d44ba8638099af421e30,
+    type: 3}
+  collider: {fileID: 0}
+  player: {fileID: 0}
+  cryS: {fileID: 8300000, guid: 4950f638bbd87478daac9edf66229705, type: 3}
+--- !u!65 &3574352458141415763
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6005457165151832952}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.1, y: 1, z: 1}
+  m_Center: {x: 0, y: 29, z: 0.93}
 --- !u!1 &9066910500693853890
 GameObject:
   m_ObjectHideFlags: 0
@@ -409,7 +448,7 @@ PrefabInstance:
         type: 3}
       propertyPath: collider
       value: 
-      objectReference: {fileID: 4415073975119938764}
+      objectReference: {fileID: 0}
     - target: {fileID: 7931636203411788892, guid: 14369f83a66ca4482a674f80be622802,
         type: 3}
       propertyPath: death
@@ -461,17 +500,13 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -4.9
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7931636203411788892, guid: 14369f83a66ca4482a674f80be622802, type: 3}
+    - {fileID: 7931636203411788893, guid: 14369f83a66ca4482a674f80be622802, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 14369f83a66ca4482a674f80be622802, type: 3}
 --- !u!4 &8664867054830588053 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3127857506832728068, guid: 14369f83a66ca4482a674f80be622802,
-    type: 3}
-  m_PrefabInstance: {fileID: 6005457164836294801}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &4415073975119938764 stripped
-BoxCollider:
-  m_CorrespondingSourceObject: {fileID: 7931636203411788893, guid: 14369f83a66ca4482a674f80be622802,
     type: 3}
   m_PrefabInstance: {fileID: 6005457164836294801}
   m_PrefabAsset: {fileID: 0}
