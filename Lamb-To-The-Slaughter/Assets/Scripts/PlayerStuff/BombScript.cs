@@ -68,17 +68,7 @@ public class BombScript : MonoBehaviour //Ansaar
             case "Bomb_Teleport":
                 TeleportBomb();
                 break;
-
         }
-        //if (gameObject.tag == "Bomb_Gravity")
-        //{
-        //    GravityBomb();
-        //}
-
-        //if (gameObject.tag == "Bomb_Gas")
-        //{
-        //    GasBomb();
-        //}
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -131,6 +121,7 @@ public class BombScript : MonoBehaviour //Ansaar
     private void GravityBomb()
     {
         gravityParticleSystem.SetActive(true);
+        Invoke("DeactivateBomb", 5f);
         //gravityBombIcon.SetActive(true);
 
         Collider[] nearbyEnemy = Physics.OverlapSphere(transform.position, gravityRadius);
@@ -141,8 +132,7 @@ public class BombScript : MonoBehaviour //Ansaar
             Collider enemyCol = hit.GetComponent<Collider>();
             if (enemy != null && enemy.tag == "Enemy")
             {
-                enemy.transform.position = Vector3.Lerp(enemy.transform.position, gameObject.transform.position, Time.deltaTime * gravityForce);
-                //bombRb.constraints = RigidbodyConstraints.FreezeAll;
+                enemy.transform.position = Vector3.Lerp(enemy.transform.position, gameObject.transform.position, Time.deltaTime * gravityForce);       
             }
         }
 
@@ -163,5 +153,11 @@ public class BombScript : MonoBehaviour //Ansaar
     private void DestroyBomb()
     {
         Destroy(gameObject);
+    }
+
+    private void DeactivateBomb()
+    {
+        Destroy(gravityParticleSystem);
+        Destroy(this);
     }
 }
