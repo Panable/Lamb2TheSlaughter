@@ -3,99 +3,63 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Skullks : MonoBehaviour //Lachlan
+public class Skullks : MonoBehaviour //AS IF it was Lachlan
 {
     //For Animations
     Animator anim;
-    public ParticleSystem Injured;
+    public GameObject player;
+    NavMeshAgent skulkAgent;
 
-    //Components for the enemy + know where player is
-    public Transform player;
-    public GameObject playerG;
-    public NavMeshAgent skullkAgent;
-    private Rigidbody skullkRB;
-    public BoxCollider boxCol;
-
-    //Attack
-    public GameObject projectile;
-    private BoxCollider radiusCol;
-    public Transform skulhead;
-    private bool stop;
-    public float timer;
-
-
-    public Rigidbody projectlePrefab;
-    public float projectileSpeed;
+    //Attack Properties
+    [Header("Projectile Properties")]
+    [SerializeField]
+    private float targetDist;
+    public Rigidbody projectile;
+    public Transform projectileAnchor;
+    public float projectileForce;
+    public float shootDelay;
+    float shootTimer;
+    bool canShoot;
 
     void OnEnable()
     {
         // Gets the enemy, Finds and targets the players location.
-        skullkAgent = GetComponent<NavMeshAgent>();
+        skulkAgent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
-        playerG = GameObject.FindGameObjectWithTag("Player");
-        player = GameObject.FindWithTag("Player").transform;
-        skullkRB = gameObject.GetComponent<Rigidbody>();
-        radiusCol = GetComponent<BoxCollider>();
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
+
+    private void FixedUpdate()
+    {
+        transform.LookAt(player.transform.position);
     }
 
     void Update()
     {
-        skulkMoving();
-    }
+        skulkAgent.SetDestination(player.transform.position);
 
-    //Update animation depending on if its moving
-    void skulkMoving()
-    {
-        if (stop == false)
+        targetDist = Vector3.Distance(transform.position, player.transform.position);
+        if (targetDist < 15)
         {
-            skullkAgent.destination = player.position;
+            SkulkAttack();
         }
-        else if (stop == true)
-        {
-            skullkAgent.destination = gameObject.transform.position;
-        }
-    }
 
-    void TickingTimer()
-    {
-        timer -= Time.deltaTime;
-    }
-
-    void skulkAttack()
-    {
-        if (timer <= 0)
+        if (canShoot)
         {
-            Rigidbody projectleInstance = Instantiate(projectlePrefab, skulhead.transform.position, skulhead.transform.rotation) as Rigidbody;
-            projectleInstance.velocity = projectileSpeed * skulhead.transform.position;
-            //Instantiate(projectile, skulhead.transform.position, Quaternion.identity);
-            //projectile.GetComponent<Rigidbody>().AddForce(projectileSpeed * transform.localPosition * 100f);
-            timer = 2;
-        }
-        else TickingTimer();
-    }
-
-    public void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            player.GetComponent<Health>().TakeDamage(10f);
+            Rigidbody projectileInstance = Instantiate(projectile, projectileAnchor.position, projectileAnchor.localRotation);
+            projectileInstance.velocity = projectileForce * projectileAnchor.forward;
+            canShoot = false;
         }
     }
 
-    public void OnTriggerStay(Collider other)
+    void SkulkAttack()
     {
-        if (other.gameObject.tag == "Player")
-        {
-            stop = true;
-            skulkAttack();
-        }
-    }
+        shootDelay = shootTimer;
+        shootTimer -= Time.deltaTime;
 
-    public void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.tag == "Player")
+        if (shootTimer < 0)
         {
-            stop = false;
+            canShoot = true;
         }
     }
 }

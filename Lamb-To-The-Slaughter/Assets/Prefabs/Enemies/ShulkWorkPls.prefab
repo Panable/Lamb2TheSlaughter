@@ -73,16 +73,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2add9871c200c428b9b42bd3d3524db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Injured: {fileID: 1908035261469094948, guid: 0e7c092b1dfd7419fae13915f675260d, type: 3}
   player: {fileID: 0}
-  playerG: {fileID: 0}
-  skullkAgent: {fileID: 6005457165151832934}
-  boxCol: {fileID: 0}
+  targetDist: 0
   projectile: {fileID: 0}
-  skulhead: {fileID: 0}
-  timer: 0
-  projectlePrefab: {fileID: 0}
-  projectileSpeed: 0
+  projectileAnchor: {fileID: 0}
+  projectileForce: 0
+  shootDelay: 0
 --- !u!82 &7993009167194142405
 AudioSource:
   m_ObjectHideFlags: 0
@@ -288,8 +284,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.5894728, y: 1.8971329, z: 2.0365791}
-  m_Center: {x: 0.18578768, y: 0.011997342, z: -0.023591995}
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: -0.017543793, y: 0.023618579, z: 0.09215164}
 --- !u!114 &9215794660001878056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,9 +307,7 @@ MonoBehaviour:
   audioSource: {fileID: 465423360045924896}
   hurtParticles: {fileID: 1426344824135655946, guid: 48d77c6c4472d44ba8638099af421e30,
     type: 3}
-  collider: {fileID: 0}
-  player: {fileID: 0}
-  cryS: {fileID: 8300000, guid: 4950f638bbd87478daac9edf66229705, type: 3}
+  hitBox: {fileID: 0}
 --- !u!65 &3574352458141415763
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -325,8 +319,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.1, y: 1, z: 1}
-  m_Center: {x: 0, y: 29, z: 0.93}
+  m_Size: {x: 1.2841387, y: 1.482018, z: 1.4171371}
+  m_Center: {x: -0.02018404, y: 0.028360248, z: 0.08899307}
 --- !u!1 &9066910500693853890
 GameObject:
   m_ObjectHideFlags: 0

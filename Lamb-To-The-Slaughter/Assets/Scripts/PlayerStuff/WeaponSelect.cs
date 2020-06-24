@@ -134,12 +134,11 @@ public class WeaponSelect : MonoBehaviour
         {
             selectedWeapon.Fire();
 
-            Instantiate(fireParticles, particlePos.transform.position, particlePos.transform.rotation);
-            fireParticles.transform.parent = particlePos.gameObject.transform;
+            //Instantiate(fireParticles, particlePos.transform.position, particlePos.transform.rotation);
             AOEv.color.Override(Color.white);
-            AOEcA.intensity.Override(0.5f);
-            StartCoroutine(cameraShake.Shake(0.25f, 4f));
-            gunRecoil.StartRecoil();
+            //AOEcA.intensity.Override(0.5f);
+            //StartCoroutine(cameraShake.Shake(0.25f, 4f));
+            //gunRecoil.StartRecoil();
 
             if (selectedWeapon.raycastHit.transform != null)
             {
@@ -152,11 +151,10 @@ public class WeaponSelect : MonoBehaviour
             selectedWeapon.Fire();
 
             Instantiate(fireParticles, particlePos.transform.position, particlePos.transform.rotation);
-            //fireParticles.transform.parent = particlePos.gameObject.transform;
             AOEv.color.Override(Color.white);
             AOEcA.intensity.Override(0.5f);
-            StartCoroutine(cameraShake.Shake(0.25f, 4f));
-            gunRecoil.StartRecoil();
+            //StartCoroutine(cameraShake.Shake(0.25f, 4f));
+            //gunRecoil.StartRecoil();
             //StartCoroutine(gunRecoil.Recoil(0.05f, 0.3f));
 
             if (selectedWeapon.raycastHit.transform != null)

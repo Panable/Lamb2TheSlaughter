@@ -13,8 +13,8 @@ public class ResProjectile : MonoBehaviour
     public Material mat;
     Renderer rend;
     public Material baseMat;
-    bool bubbleHit = false;
     GameObject player;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -30,14 +30,6 @@ public class ResProjectile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isDead = rHealth.isDead;
-
-        if (bubbleHit)
-        {
-            player.GetComponent<Health>().TakeDamage(5f);
-            bubbleHit = false;
-        }
-
         if (rHealth == null)
         {
             baseMat.color = Color.Lerp(baseMat.color, fadeOut, 5 * Time.deltaTime);
@@ -54,12 +46,11 @@ public class ResProjectile : MonoBehaviour
         sc.radius = 0.4f;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
             other.GetComponent<Health>().TakeDamage(5f);
-            //bubbleHit = true;
         }
     }
 }

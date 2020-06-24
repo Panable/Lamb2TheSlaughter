@@ -4,19 +4,34 @@ using UnityEngine;
 
 public class skulkProjectile : MonoBehaviour
 {
-    public GameObject player;
-
-    public void Start()
+    Rigidbody rb;
+    SphereCollider col;
+    // Start is called before the first frame update
+    void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        rb = GetComponent<Rigidbody>();
+        col = GetComponent<SphereCollider>();
     }
 
-    public void OnCollisionEnter(Collision collision)
+    // Update is called once per frame
+    void KillProjectile()
     {
-        if (collision.gameObject.tag == "Player")
+        Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Yeet");
+        if (other.gameObject.tag == "Player")
         {
-            player.GetComponent<PlayerHealth>().TakeDamage(43f);
-            Destroy(this.gameObject);
+            other.gameObject.GetComponent<Health>().TakeDamage(2f);
+            Destroy(gameObject);
+        }
+        else if (other.gameObject.tag == "Untagged")
+        {
+            col.isTrigger = false;
+            rb.useGravity = false;
+            Invoke("KillProjectile", 5f);
         }
     }
 }

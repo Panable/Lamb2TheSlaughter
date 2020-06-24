@@ -2,36 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkulkHealth : Health //Dhan
+public class SkulkHealth : Health
 {
     public ParticleSystem hurtParticles;
-    public BoxCollider collider;
+    public SphereCollider hitBox;
     Vector3 particleLocation;
-    public GameObject player;
-    private AudioSource audioSourceS;
-    public AudioClip cryS;
 
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
-        player = GameObject.FindGameObjectWithTag("Player");
-        audioSourceS = GetComponent<AudioSource>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        particleLocation = transform.TransformPoint(collider.center);
-    }
-
-    private void OnCollisionStay(Collision collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            player.GetComponent<Health>().TakeDamage(2f);
-            audioSourceS.PlayOneShot(cryS, 10f);
-        }
     }
 
     public override void TakeDamage(float amount)
@@ -40,6 +20,7 @@ public class SkulkHealth : Health //Dhan
         base.TakeDamage(amount);
 
         //add shit you want after damage is taken here
+        particleLocation = transform.TransformPoint(hitBox.center);
         Instantiate(hurtParticles, particleLocation, transform.localRotation);
     }
 
