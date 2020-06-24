@@ -124,6 +124,9 @@ public class PlayerMovementCC : MonoBehaviour //Dhan
             moving = false;
         }
 
+        if (Input.GetKey(KeyCode.P))
+            UnlockAndShowCursor();
+
 
         forwardDirection = Input.GetAxis("Vertical");
         strafeDirection = Input.GetAxis("Horizontal");
@@ -167,6 +170,12 @@ public class PlayerMovementCC : MonoBehaviour //Dhan
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+
+    private void UnlockAndShowCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     private void CameraMovement()

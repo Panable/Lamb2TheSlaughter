@@ -152,7 +152,7 @@ public class WeaponSelect : MonoBehaviour
             selectedWeapon.Fire();
 
             Instantiate(fireParticles, particlePos.transform.position, particlePos.transform.rotation);
-            fireParticles.transform.parent = particlePos.gameObject.transform;
+            //fireParticles.transform.parent = particlePos.gameObject.transform;
             AOEv.color.Override(Color.white);
             AOEcA.intensity.Override(0.5f);
             StartCoroutine(cameraShake.Shake(0.25f, 4f));
@@ -269,8 +269,8 @@ public class WeaponSelect : MonoBehaviour
         if (Input.GetButtonDown("Medpack") && player.GetComponent<Inventory>().medpack >= 1)
         {
             audioSource.PlayOneShot(heal, 60f);
-            player.GetComponent<Health>().currentHealth += 20;
-            player.GetComponent<Inventory>().medpack--;
+            GetComponent<Health>().currentHealth += 20;
+            GetComponent<Inventory>().medpack--;
         }
     }
 
@@ -289,12 +289,12 @@ public class WeaponSelect : MonoBehaviour
 
     IEnumerator GravityBomb()
     {
-        if (player.GetComponent<Inventory>().gravityBomb >= 1 && Input.GetButtonDown("gravityBomb") && !throwingBomb && !isBombThrowing())
+        if (GetComponent<Inventory>().gravityBomb >= 1 && Input.GetButtonDown("gravityBomb") && !throwingBomb && !isBombThrowing())
         {
             throwingBomb = true;
             //Instantiate Bomb Here
             anim.SetBool("GravityBomb", true);
-            player.GetComponent<Inventory>().gravityBomb--;
+            GetComponent<Inventory>().gravityBomb--;
 
             Debug.Log("instantiating");
             yield return new WaitForSeconds(timetowait);
@@ -309,12 +309,12 @@ public class WeaponSelect : MonoBehaviour
 
     IEnumerator ExplosiveBomb()
     {
-        if (player.GetComponent<Inventory>().explosionBomb >= 1 && Input.GetButtonDown("explosionBomb") && !throwingBomb && !isBombThrowing())
+        if (GetComponent<Inventory>().explosionBomb >= 1 && Input.GetButtonDown("explosionBomb") && !throwingBomb && !isBombThrowing())
         {
             throwingBomb = true;
             //instantiateBombs
             anim.SetBool("ExplosiveBomb", true);
-            player.GetComponent<Inventory>().explosionBomb--;
+            GetComponent<Inventory>().explosionBomb--;
             yield return new WaitForSeconds(timetowait);
             Rigidbody rb = Instantiate<Rigidbody>(explosiveBomb, bombSpawner.transform.position, Quaternion.identity);
             Vector3 location = selectedWeapon.ShootRaycastWithoutRange().point;
@@ -326,12 +326,12 @@ public class WeaponSelect : MonoBehaviour
 
     IEnumerator TeleportBomb()
     {
-        if (player.GetComponent<Inventory>().teleportBomb >= 1 && Input.GetButtonDown("teleportBomb") && !throwingBomb && !isBombThrowing())
+        if (GetComponent<Inventory>().teleportBomb >= 1 && Input.GetButtonDown("teleportBomb") && !throwingBomb && !isBombThrowing())
         {
             throwingBomb = true;
             //instantiateBomb
             anim.SetBool("TeleportBomb", true);
-            player.GetComponent<Inventory>().teleportBomb--;
+            GetComponent<Inventory>().teleportBomb--;
             yield return new WaitForSeconds(timetowait);
             Rigidbody rb = Instantiate<Rigidbody>(teleportBomb, bombSpawner.transform.position, Quaternion.identity);
             Vector3 location = selectedWeapon.ShootRaycastWithoutRange().point;
@@ -343,12 +343,12 @@ public class WeaponSelect : MonoBehaviour
 
     IEnumerator GasBomb()
     {
-        if (player.GetComponent<Inventory>().gasBomb >= 1 && Input.GetButtonDown("gasBomb") && !throwingBomb && !isBombThrowing())
+        if (GetComponent<Inventory>().gasBomb >= 1 && Input.GetButtonDown("gasBomb") && !throwingBomb && !isBombThrowing())
         {
             throwingBomb = true;
             //instantiateBomb
             anim.SetBool("GasBomb", true);
-            player.GetComponent<Inventory>().gasBomb--;
+            GetComponent<Inventory>().gasBomb--;
             yield return new WaitForSeconds(timetowait);
             Rigidbody rb = Instantiate<Rigidbody>(gasBomb, bombSpawner.transform.position, Quaternion.identity);
             Vector3 location = selectedWeapon.ShootRaycastWithoutRange().point;
