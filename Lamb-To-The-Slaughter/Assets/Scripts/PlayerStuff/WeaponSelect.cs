@@ -166,14 +166,18 @@ public class WeaponSelect : MonoBehaviour
             }
         }
 
-        if (Input.GetButton("AOE") && selectedWeapon != null)
+        if (Input.GetButton("AOE") && selectedWeapon != null && canAOE)
         {
             Invoke("AOEattack", 0.3f);
         }
     }
 
+    bool canAOE = true;
+    public float aoeCooldown = 4f;
+
     void AOEattack()
     {
+        canAOE = false;
         AOEradius = 15f;
         AOEforce = 50f;
 
@@ -192,6 +196,12 @@ public class WeaponSelect : MonoBehaviour
             }
         }
         Invoke("AOEgraphicsReset", 0.1f);
+        Invoke("AOECooldown", aoeCooldown);
+    }
+
+    void AOECooldown()
+    {
+        canAOE = true;
     }
 
     public void AOEgraphicsReset()
