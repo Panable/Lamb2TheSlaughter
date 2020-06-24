@@ -266,7 +266,7 @@ public class WeaponSelect : MonoBehaviour
 
     void MedPack()
     {
-        if (Input.GetButtonDown("Medpack") && player.GetComponent<Inventory>().medpack >= 1)
+        if (Input.GetButtonDown("Medpack") && GetComponent<Inventory>().medpack >= 1)
         {
             audioSource.PlayOneShot(heal, 60f);
             GetComponent<Health>().currentHealth += 20;
