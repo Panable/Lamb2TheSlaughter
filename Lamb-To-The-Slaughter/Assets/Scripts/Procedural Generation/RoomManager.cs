@@ -7,6 +7,7 @@ public class RoomManager : MonoBehaviour
 {
 
     public Transform gpsPlane;
+    public bool bossRoom;
 
     public Room currentRoom;
     //is this the spawnroom
@@ -105,11 +106,13 @@ public class RoomManager : MonoBehaviour
 
     public void UnlockDoors()
     {
+        InstantiateDoorLocations();
         foreach (Transform door in doorLocations)
         {
+            //Destroy(door.gameObject);
             door.GetChild(0).gameObject.SetActive(false);
-            player.GetComponent<PlayerMovementCC>().canTeleport = true;
-            player = null;
+            //player.GetComponent<PlayerMovementCC>().canTeleport = true;
+            //player = null;
         }
     }
 

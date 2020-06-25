@@ -192,6 +192,7 @@ public class ProceduralManager : MonoBehaviour //Dhan
 
         for (int i = 0; i < (singleEntranceRooms.Count * CHEST_PER_SINGLEROOM); i++)
         {
+            if (singleEntranceRooms[i].bossRoom) continue;
             singleEntranceRooms[i].chestLocations.Shuffle();
             singleEntranceRooms[i].chestLocations[0].gameObject.SetActive(true);
         }
@@ -222,6 +223,7 @@ public class ProceduralManager : MonoBehaviour //Dhan
         roomsSortedByDistance.Reverse();
 
         bossroomcurrent = Instantiate(bossRoomPrefab);
+        bossroomcurrent.GetComponent<RoomManager>().bossRoom = true;
         foreach (RoomManager currentRoom in roomsSortedByDistance)
         {
             foreach (Transform spot in currentRoom.possibleDoorSpots)
