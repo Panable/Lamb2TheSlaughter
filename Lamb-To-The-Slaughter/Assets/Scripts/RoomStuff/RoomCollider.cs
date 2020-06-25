@@ -13,6 +13,8 @@ public class RoomCollider : MonoBehaviour
 
     public void InitiateBattle()
     {
+        
+        rm.ActivateGPSPlane();
         rm.LockDoors();
         SpawnEnemies();
     }
@@ -43,7 +45,7 @@ public class RoomCollider : MonoBehaviour
     void Start()
     {
         rm = transform.parent.GetComponent<RoomManager>();
-
+        rm.InstantiateDoorLocations();
     }
 
     // Update is called once per frame

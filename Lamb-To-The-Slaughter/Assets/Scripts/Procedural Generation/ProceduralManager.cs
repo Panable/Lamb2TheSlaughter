@@ -235,8 +235,14 @@ public class ProceduralManager : MonoBehaviour //Dhan
             }
         }
         Debug.Log("failed to find boss room");
+    }
 
-
+    public void InstantiatePlanePrefabs()
+    {
+        foreach (RoomManager room in roomsGenerated)
+        {
+            room.InstantiateGPSPlane();
+        }
     }
 
 }

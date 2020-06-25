@@ -5,6 +5,9 @@ using UnityEngine.Rendering;
 
 public class RoomManager : MonoBehaviour
 {
+
+    public Transform gpsPlane;
+
     public Room currentRoom;
     //is this the spawnroom
     public bool spawnRoom = false;
@@ -68,9 +71,29 @@ public class RoomManager : MonoBehaviour
         }
     }
 
+    public void InstantiateGPSPlane()
+    {
+        foreach (Transform child in transform)
+        {
+            if (child.CompareTag("GPSGraphic"))
+            {
+                gpsPlane = child;
+                gpsPlane.gameObject.SetActive(false);
+            }
+        }
+    }
+
+    public void ActivateGPSPlane()
+    {
+        gpsPlane.gameObject.SetActive(true);
+        foreach (Transform door in doorLocations)
+        {
+            door.GetChild(1).gameObject.SetActive(true);
+        }
+    }
+
     public void LockDoors()
     {
-        InstantiateDoorLocations();
         foreach (Transform door in doorLocations)
         {
             player = GameObject.FindGameObjectWithTag("Player");
