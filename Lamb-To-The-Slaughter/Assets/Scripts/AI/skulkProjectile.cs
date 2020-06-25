@@ -21,7 +21,6 @@ public class skulkProjectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Yeet");
         if (other.gameObject.tag == "Player")
         {
             other.gameObject.GetComponent<Health>().TakeDamage(2f);

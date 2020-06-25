@@ -7,6 +7,7 @@ using TMPro;
 
 public class Chest : MonoBehaviour
 {
+    //Chest Functionality
     Animator anim;
     Collider col;
     public Transform contentAnchor;
@@ -21,8 +22,8 @@ public class Chest : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip chestCreak;
 
-
     public GameObject[] chestContents;
+
     // Start is called before the first frame update
     void Start()
     {

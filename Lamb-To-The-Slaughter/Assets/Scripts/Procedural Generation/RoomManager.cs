@@ -16,6 +16,7 @@ public class RoomManager : MonoBehaviour
     public RoomCollider roomColliderScript;
 
     public Transform entryDoor;
+    GameObject player;
 
     /// <summary>
     /// Force this room to generate
@@ -72,6 +73,8 @@ public class RoomManager : MonoBehaviour
         InstantiateDoorLocations();
         foreach (Transform door in doorLocations)
         {
+            player = GameObject.FindGameObjectWithTag("Player");
+            player.GetComponent<PlayerMovementCC>().canTeleport = false;
             door.GetChild(0).gameObject.SetActive(true);
         }
 
@@ -82,6 +85,8 @@ public class RoomManager : MonoBehaviour
         foreach (Transform door in doorLocations)
         {
             door.GetChild(0).gameObject.SetActive(false);
+            player.GetComponent<PlayerMovementCC>().canTeleport = true;
+            player = null;
         }
     }
 

@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class BloodMessages : MonoBehaviour
 {
+    //Manager properties
     public GameObject[] bMplane;
     public Texture[] bMtexture;
     Renderer bMplaneRenderer;
 
+    //For convenience reasons, teleport bomb limit function also occurs here
+    GameObject[] foundTpBombs;
+
     // Start is called before the first frame update
     void Awake()
     {
+        TeleportBombLimit();
+
         bMplane = GameObject.FindGameObjectsWithTag("BloodMessage");
 
         ShuffleArray(bMplane);
@@ -65,6 +71,22 @@ public class BloodMessages : MonoBehaviour
             GameObject tmp = planeAnchors[i];
             planeAnchors[i] = planeAnchors[r];
             planeAnchors[r] = tmp;
+        }
+    }
+
+    void TeleportBombLimit()
+    {
+        foundTpBombs = GameObject.FindGameObjectsWithTag("Bomb_Teleport");
+        if (foundTpBombs.Length > 1)
+        {
+            foundTpBombs[0].tag = "Untagged";
+            foreach (GameObject removedBomb in foundTpBombs)
+            {
+                if (removedBomb.tag == "Bomb_Teleport")
+                {
+                    removedBomb.SetActive(false);
+                }
+            }
         }
     }
 

@@ -37,6 +37,7 @@ public class PlayerMovementCC : MonoBehaviour //Dhan
     GameObject tpBomb;
     BombScript bombScript;
     public bool hasTeleported;
+    public bool canTeleport = true;
 
     public bool jumping = true;
 
@@ -67,6 +68,8 @@ public class PlayerMovementCC : MonoBehaviour //Dhan
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("The player can teleport: " + canTeleport);
+
         if (Speed() > 0)
         {
             anim.SetFloat("Speed", 1f);
@@ -208,7 +211,7 @@ public class PlayerMovementCC : MonoBehaviour //Dhan
         playerCamera.transform.localRotation = Quaternion.Euler(RotateY, 0, 0);
     }
 
-    bool teleporting = false;
+    public bool teleporting = false;
 
     void GPSmode()
     {
@@ -216,7 +219,7 @@ public class PlayerMovementCC : MonoBehaviour //Dhan
         {
             anim.SetBool("GPSmode", true);
             ws.enabled = false;
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") && canTeleport)
             {
                 anim.SetBool("Teleport", true);
                 tPcA.intensity.Override(1f);
@@ -237,7 +240,6 @@ public class PlayerMovementCC : MonoBehaviour //Dhan
     {
         if (!teleporting) 
             return;
-
         anim.SetBool("Teleport", false);
         cc.enabled = false;
         transform.position = bomb.transform.position;

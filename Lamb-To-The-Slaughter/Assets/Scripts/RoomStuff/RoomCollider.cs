@@ -13,7 +13,6 @@ public class RoomCollider : MonoBehaviour
 
     public void InitiateBattle()
     {
-        Debug.Log("Initiating battle");
         rm.LockDoors();
         SpawnEnemies();
     }
@@ -56,7 +55,6 @@ public class RoomCollider : MonoBehaviour
     IEnumerator CheckForEnemies()
     {
         yield return new WaitForSeconds(ProceduralEnemySelection.waitBeforeSpawn);
-        Debug.Log("Checking");
         enemiesLocated = true;
         while (enemiesLocated)
         {
@@ -71,7 +69,6 @@ public class RoomCollider : MonoBehaviour
             }
             if (!enemiesLocated)
             {
-                Debug.Log("un");
                 rm.UnlockDoors();
                 StopAllCoroutines();
             }
