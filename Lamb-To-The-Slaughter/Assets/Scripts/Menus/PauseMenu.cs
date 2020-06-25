@@ -11,10 +11,18 @@ public class PauseMenu : MonoBehaviour //Lachlan
 
     WeaponSelect ws;
     PlayerHealth ph;
+    public GameObject player;
 
     // Update is called once per frame
     void Update()
     {
+        if (ws == null || ph == null)
+        {
+            ws = GameObject.FindGameObjectWithTag("Player").GetComponent<WeaponSelect>();
+            ph = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
+        }
+            
+
         if (Input.GetButtonDown("Cancel"))
         {
             if (pauseMenuEnabled == false)
@@ -76,7 +84,8 @@ public class PauseMenu : MonoBehaviour //Lachlan
 
     private void Start()
     {
-        ws = GameObject.FindGameObjectWithTag("Player").GetComponent<WeaponSelect>();
-        ph = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
+        ws = player.GetComponent<WeaponSelect>();
+        ph = player.GetComponent<PlayerHealth>();
     }
+
 }

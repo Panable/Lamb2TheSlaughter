@@ -46,6 +46,7 @@ public class ProceduralManager : MonoBehaviour //Dhan
     /// A list of rooms still left to generate from
     /// </summary>
     public static List<RoomManager> roomsToGenerate = new List<RoomManager>();
+    public GameObject player;
 
     private void Awake()
     {
@@ -149,6 +150,7 @@ public class ProceduralManager : MonoBehaviour //Dhan
             InstantiateChests();
 
             LoadingManager.EndLoadingBar();
+            player.SetActive(true);
         }
 
     }
