@@ -47,6 +47,7 @@ public class ProceduralManager : MonoBehaviour //Dhan
     /// </summary>
     public static List<RoomManager> roomsToGenerate = new List<RoomManager>();
     public GameObject player;
+    [SerializeField] public BloodMessages bloodMessages;
 
     private void Awake()
     {
@@ -151,6 +152,7 @@ public class ProceduralManager : MonoBehaviour //Dhan
 
             LoadingManager.EndLoadingBar();
             player.SetActive(true);
+            bloodMessages.gameObject.SetActive(true);
         }
 
     }
