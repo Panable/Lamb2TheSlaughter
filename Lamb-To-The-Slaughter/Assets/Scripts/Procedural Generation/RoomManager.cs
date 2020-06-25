@@ -7,6 +7,7 @@ public class RoomManager : MonoBehaviour
 {
 
     public Transform gpsPlane;
+    public bool bossRoom;
 
     public Room currentRoom;
     //is this the spawnroom

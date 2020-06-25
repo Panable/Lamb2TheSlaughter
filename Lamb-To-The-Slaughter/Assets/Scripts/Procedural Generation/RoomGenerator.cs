@@ -50,7 +50,9 @@ public class RoomGenerator : MonoBehaviour
                 Quaternion rot = transform.rotation;
                 Transform doorReplace = Instantiate<Transform>(currentRoom.currentRoom.GetDoorPrefab(), transform.position, rot, transform.parent);
                 Destroy(gameObject);
+                ProceduralManager.roomsGenerated.Add(bossRoom.GetComponent<RoomManager>());
                 return true;
+                
             }
         }
         return false;
