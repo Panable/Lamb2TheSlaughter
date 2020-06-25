@@ -85,6 +85,7 @@ public class RoomManager : MonoBehaviour
 
     public void ActivateGPSPlane()
     {
+        InstantiateDoorLocations();
         gpsPlane.gameObject.SetActive(true);
         foreach (Transform door in doorLocations)
         {
@@ -94,10 +95,9 @@ public class RoomManager : MonoBehaviour
 
     public void LockDoors()
     {
+        InstantiateDoorLocations();
         foreach (Transform door in doorLocations)
         {
-            player = GameObject.FindGameObjectWithTag("Player");
-            player.GetComponent<PlayerMovementCC>().canTeleport = false;
             door.GetChild(0).gameObject.SetActive(true);
         }
 

@@ -14,7 +14,7 @@ public class RoomCollider : MonoBehaviour
     public void InitiateBattle()
     {
         
-        rm.ActivateGPSPlane();
+        //rm.ActivateGPSPlane();
         rm.LockDoors();
         SpawnEnemies();
     }

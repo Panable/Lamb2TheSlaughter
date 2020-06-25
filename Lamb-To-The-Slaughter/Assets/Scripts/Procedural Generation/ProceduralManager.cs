@@ -146,10 +146,10 @@ public class ProceduralManager : MonoBehaviour //Dhan
             Debug.Log("Kiling");
 
             KillProcedural();
-            InstantiateAllDoorLocations();
             GenerateBossRoom();
+            InstantiateAllDoorLocations();
             InstantiateChests();
-
+            InstantiatePlanePrefabs();
             LoadingManager.EndLoadingBar();
             player.SetActive(true);
             bloodMessages.gameObject.SetActive(true);
