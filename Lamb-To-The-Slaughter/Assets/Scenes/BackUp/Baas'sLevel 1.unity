@@ -1607,7 +1607,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &526892897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1621,6 +1621,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startGeneration: 1
+  player: {fileID: 5071576979500073103}
+  bloodMessages: {fileID: 2364845157125304390}
 --- !u!4 &526892898
 Transform:
   m_ObjectHideFlags: 0
@@ -8360,6 +8362,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BloodMessageManager
       objectReference: {fileID: 0}
+    - target: {fileID: 2364845158281122208, guid: b1b5387a7ed0c4bbbbd2e80315f2cdce,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2364845158281122210, guid: b1b5387a7ed0c4bbbbd2e80315f2cdce,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8417,6 +8424,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1b5387a7ed0c4bbbbd2e80315f2cdce, type: 3}
+--- !u!114 &2364845157125304390 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2364845158281122211, guid: b1b5387a7ed0c4bbbbd2e80315f2cdce,
+    type: 3}
+  m_PrefabInstance: {fileID: 2364845157125304389}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf6f66031411f4bbaa5d3325f44855a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!23 &2566420801879773800
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11723,6 +11742,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2670884381575440725, guid: 1fc21ae472567439ea155304d219d8c9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4966732780099105064, guid: 1fc21ae472567439ea155304d219d8c9,
         type: 3}
       propertyPath: overlay
@@ -11738,6 +11762,11 @@ PrefabInstance:
       propertyPath: healthText
       value: 
       objectReference: {fileID: 1475105729}
+    - target: {fileID: 5071576978970909674, guid: 1fc21ae472567439ea155304d219d8c9,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 5071576979344861347, guid: 1fc21ae472567439ea155304d219d8c9,
         type: 3}
       propertyPath: m_Enabled
@@ -11770,6 +11799,12 @@ PrefabInstance:
       objectReference: {fileID: 846276690}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1fc21ae472567439ea155304d219d8c9, type: 3}
+--- !u!1 &5071576979500073103 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2670884381575440725, guid: 1fc21ae472567439ea155304d219d8c9,
+    type: 3}
+  m_PrefabInstance: {fileID: 5071576979500073102}
+  m_PrefabAsset: {fileID: 0}
 --- !u!65 &5181195999319623892
 BoxCollider:
   m_ObjectHideFlags: 0
