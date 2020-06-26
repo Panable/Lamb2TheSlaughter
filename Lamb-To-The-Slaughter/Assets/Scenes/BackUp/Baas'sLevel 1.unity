@@ -1971,6 +1971,18 @@ LODGroup:
     fadeTransitionWidth: 0
     renderers: []
   m_Enabled: 1
+--- !u!114 &646883966 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6138511040567753814, guid: 6c44364fbb52e4b4389b87ed3882f676,
+    type: 3}
+  m_PrefabInstance: {fileID: 6138511041815310231}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &653840694 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6138511041389018785, guid: 6c44364fbb52e4b4389b87ed3882f676,
@@ -11797,17 +11809,17 @@ PrefabInstance:
     - target: {fileID: 2670884381575440674, guid: 1fc21ae472567439ea155304d219d8c9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5
+      value: -493.6
       objectReference: {fileID: 0}
     - target: {fileID: 2670884381575440674, guid: 1fc21ae472567439ea155304d219d8c9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.76
+      value: 6.9
       objectReference: {fileID: 0}
     - target: {fileID: 2670884381575440674, guid: 1fc21ae472567439ea155304d219d8c9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5
+      value: -25
       objectReference: {fileID: 0}
     - target: {fileID: 2670884381575440674, guid: 1fc21ae472567439ea155304d219d8c9,
         type: 3}
@@ -11857,7 +11869,7 @@ PrefabInstance:
     - target: {fileID: 2670884381575440725, guid: 1fc21ae472567439ea155304d219d8c9,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4966732780099105064, guid: 1fc21ae472567439ea155304d219d8c9,
         type: 3}
@@ -11872,6 +11884,11 @@ PrefabInstance:
     - target: {fileID: 4966732780099105064, guid: 1fc21ae472567439ea155304d219d8c9,
         type: 3}
       propertyPath: healthText
+      value: 
+      objectReference: {fileID: 646883966}
+    - target: {fileID: 4966732780099105064, guid: 1fc21ae472567439ea155304d219d8c9,
+        type: 3}
+      propertyPath: healthValue
       value: 
       objectReference: {fileID: 1158335610}
     - target: {fileID: 5071576978970909674, guid: 1fc21ae472567439ea155304d219d8c9,
@@ -12190,7 +12207,12 @@ PrefabInstance:
     - target: {fileID: 2369451783466090657, guid: 75085f25d60da40afa53d92d5ab64d82,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6034848521946323380, guid: 75085f25d60da40afa53d92d5ab64d82,
+        type: 3}
+      propertyPath: shootDelay
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75085f25d60da40afa53d92d5ab64d82, type: 3}
@@ -12239,10 +12261,23 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1101701986, guid: 6c44364fbb52e4b4389b87ed3882f676, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1101701986, guid: 6c44364fbb52e4b4389b87ed3882f676, type: 3}
+      propertyPath: mainMenuUI
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6138511041448320466, guid: 6c44364fbb52e4b4389b87ed3882f676,
         type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 6138511041448320474, guid: 6c44364fbb52e4b4389b87ed3882f676,
+        type: 3}
+      propertyPath: healthText
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6138511041448320477, guid: 6c44364fbb52e4b4389b87ed3882f676,
         type: 3}
@@ -12359,9 +12394,19 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1444958673}
+    - target: {fileID: 6138511042036395257, guid: 6c44364fbb52e4b4389b87ed3882f676,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7460392918158920541, guid: 6c44364fbb52e4b4389b87ed3882f676,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7460392920088978906, guid: 6c44364fbb52e4b4389b87ed3882f676,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

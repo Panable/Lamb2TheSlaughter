@@ -36,30 +36,35 @@ public class Skullks : MonoBehaviour //AS IF it was Lachlan
 
     void Update()
     {
+        Debug.Log("Can skulks shoot?: " + canShoot);
+
         skulkAgent.SetDestination(player.transform.position);
 
         targetDist = Vector3.Distance(transform.position, player.transform.position);
         if (targetDist < 15)
         {
+            canShoot = true;
             SkulkAttack();
         }
-
-        if (canShoot)
+        else
         {
-            Rigidbody projectileInstance = Instantiate(projectile, projectileAnchor.position, projectileAnchor.localRotation);
-            projectileInstance.velocity = projectileForce * projectileAnchor.forward;
             canShoot = false;
         }
     }
 
     void SkulkAttack()
     {
-        shootDelay = shootTimer;
-        shootTimer -= Time.deltaTime;
-
-        if (shootTimer < 0)
+        if (canShoot)
         {
-            canShoot = true;
+            StartCoroutine(ProjectileAttack(1f));
         }
+    }
+
+    IEnumerator ProjectileAttack (float delay)
+    {
+        Rigidbody projectileInstance = Instantiate(projectile, projectileAnchor.position, projectileAnchor.localRotation);
+        projectileInstance.velocity = projectileForce * projectileAnchor.forward;
+        canShoot = false;
+        yield return new WaitForSeconds(delay);
     }
 }

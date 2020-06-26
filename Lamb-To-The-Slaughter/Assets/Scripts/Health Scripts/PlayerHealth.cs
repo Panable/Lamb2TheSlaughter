@@ -13,7 +13,7 @@ public class PlayerHealth : Health
     bool getDamage;
     public CameraShake cs;
     [Header("Damage Delay Timer")]
-    public double delayTimer;
+    float delayTimer = 0.2f;
 
     [Header("Other")]
     //for death screen
@@ -26,10 +26,10 @@ public class PlayerHealth : Health
     public static bool overDrive = false;
 
     //UI Variables
-    public float healthValue;
     public TMP_Text healthText;
     string ogText;
     public Gradient textColor;
+    public TMP_Text healthValue;
 
     //Audio
     public AudioSource audioSourceP;
@@ -58,9 +58,9 @@ public class PlayerHealth : Health
     // Update is called once per frame
     void Update()
     {
-        DamageOverlayControl();
+        healthValue.SetText(currentHealth.ToString() + "%");
 
-        healthValue = base.currentHealth;
+        DamageOverlayControl();
 
         if (delayTimer >= 0)
         {
@@ -88,13 +88,13 @@ public class PlayerHealth : Health
     public override void TakeDamage(float amount)
     {
         //we are taking dmg here
-        if (delayTimer <= 0)
+        if (delayTimer < 0)
         {
             //audioSourceP.clip = playerCries[Random.Range(0, playerCries.Length)];
             //audioSourceP.loop = false;
             //audioSourceP.Play();
             base.TakeDamage(amount);
-            delayTimer = 0.2;
+            delayTimer = 0.2f;
         }
 
         //add shit you want after damage is taken here

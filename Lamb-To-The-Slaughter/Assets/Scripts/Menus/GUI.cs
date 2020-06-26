@@ -14,15 +14,15 @@ public class GUI : MonoBehaviour //Lachlan
     float timer;
 
     //for player health
-    PlayerHealth playerHealthRef;
+    float playerHealthRef;
     public TMP_Text healthText;
 
     // Start is called before the first frame update
     void Start()
     {
-        Time.timeScale = 1;
+        //Time.timeScale = 1;
         player = GameObject.FindGameObjectWithTag("Player");
-        playerHealthRef = player.GetComponent<PlayerHealth>();
+        playerHealthRef = player.GetComponent<PlayerHealth>().currentHealth;
     }
 
     // Update is called once per frame
@@ -30,7 +30,9 @@ public class GUI : MonoBehaviour //Lachlan
     {
         updateTimer();
 
-        healthText.SetText(playerHealthRef.healthValue.ToString() + "%");
+        Debug.Log(playerHealthRef);
+
+        //healthText.SetText(playerHealthRef.ToString() + "%");
     }
 
     //Time alive timer function.

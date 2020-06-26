@@ -7,12 +7,15 @@ public class CrawlerHealth : Health //Dhan
     public ParticleSystem hurtParticles;
     private AudioSource audioSourceC;
     public AudioClip cryC;
+    Vector3 particleLocation;
+    CapsuleCollider collider;
 
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
         audioSourceC = GetComponent<AudioSource>();
+        collider = GetComponent<CapsuleCollider>();
     }
 
     public override void TakeDamage(float amount)
@@ -22,7 +25,12 @@ public class CrawlerHealth : Health //Dhan
         base.TakeDamage(amount);
 
         //add shit you want after damage is taken here
-        Instantiate(hurtParticles, transform.localPosition, transform.rotation);
+        Instantiate(hurtParticles, particleLocation, transform.rotation);
+    }
+
+    private void Update()
+    {
+        particleLocation = transform.TransformPoint(collider.center);
     }
 
 }

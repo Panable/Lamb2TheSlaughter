@@ -8,98 +8,78 @@ public class Husk : MonoBehaviour //Lachlan
     //For Animations
     public Animator anim;
     public ParticleSystem Injured;
-    private float timer;
+    bool inTrigger;
 
     //Components for the enemy + know where player is
     public Transform player;
     public NavMeshAgent huskAgent;
-    private Rigidbody huskRB;
 
     void OnEnable()
     {
         // Gets the enemy, Finds and targets the players location.
         huskAgent = GetComponent<NavMeshAgent>();
         player = GameObject.FindWithTag("Player").transform;
-        huskRB = gameObject.GetComponent<Rigidbody>();
-        anim.SetBool("isMoving", false);
-        timer = 1f;
+        huskAgent.isStopped = false;
     }
 
     private void Update()
     {
-        //Constantly looks and moves toward player
+        Debug.Log(huskAgent.isStopped);
+
         huskMoving();
     }
 
     //Update animation depending on if its moving
     void huskMoving()
     {
-        huskAgent.destination = player.position;
-
-        if (huskAgent.isStopped == false)
-        {
-            anim.SetBool("isMoving", true);
-        }
-        if (huskAgent.isStopped == true)
+        if (huskAgent.isStopped)
         {
             anim.SetBool("isMoving", false);
+            anim.SetBool("isAttacking", true);
+        }
+        else if (!huskAgent.isStopped)
+        {
+            huskAgent.destination = player.position;
+            anim.SetBool("isMoving", true);
+            anim.SetBool("isAttacking", false);
         }
     }
 
-    void OnCollisionStay(Collision collision)
+    void OnTriggerStay(Collider collision)
     {
+        if (attacking) return;
+        //When hits the player
         if (collision.gameObject.tag == "Player")
         {
-            damagePlayer();
+            inTrigger = true;
+            Debug.Log("Contact");
+            StartCoroutine(attack(1f, collision));
+
+            //huskAgent.isStopped = true;
+            ///collision.gameObject.GetComponent<Health>().TakeDamage(10f);
+            //huskAgent.isStopped = false;
         }
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            anim.SetBool("isAttacking", true);
-            Invoke("recover", 2f);
-        }
-    }
-
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.tag == "Player")
         {
-            anim.SetBool("isAttacking", false);
-            Invoke("recover", 2f);
+            inTrigger = false;
         }
     }
 
-    //Deals damage to the player and pushes back the enemy (like a tiny tiny bit)
-    void damagePlayer()
+    bool attacking = false;
+
+    IEnumerator attack(float strikeTime, Collider collision)
     {
-        anim.SetBool("isAttacking", true);
-        anim.SetBool("isMoving", false);
-        if (timer <= 0)
+        attacking = true;
+        huskAgent.isStopped = true;
+        yield return new WaitForSeconds(strikeTime);
+        if (inTrigger)
         {
-            player.GetComponent<Health>().TakeDamage(7f);
-            timer = 1.1f;
-            anim.SetBool("isAttacking", false);
+            collision.gameObject.GetComponent<Health>().TakeDamage(10f);
         }
-        else timerCount();
-    }
-
-    void timerCount()
-    {
-        timer -= Time.deltaTime;
-    }
-
-    //When the enemy is injured spawn particles
-    void hurt()
-    {
-        Instantiate(Injured, transform.localPosition, transform.localRotation);
-    }
-
-    //For recover animation
-    void recover()
-    {
-        anim.SetBool("isMoving", true);
+        huskAgent.isStopped = false;
+        attacking = false;
     }
 }
