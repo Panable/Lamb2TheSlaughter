@@ -9,7 +9,7 @@ public class Skullks : MonoBehaviour //AS IF it was Lachlan
     Animator anim;
     public GameObject player;
     NavMeshAgent skulkAgent;
-
+    
     //Attack Properties
     [Header("Projectile Properties")]
     [SerializeField]
@@ -20,6 +20,7 @@ public class Skullks : MonoBehaviour //AS IF it was Lachlan
     public float shootDelay;
     float shootTimer;
     bool canShoot;
+    public GameObject fireParticles;
 
     void OnEnable()
     {
@@ -54,17 +55,23 @@ public class Skullks : MonoBehaviour //AS IF it was Lachlan
 
     void SkulkAttack()
     {
+        if (isShooting) return;
+
         if (canShoot)
         {
-            StartCoroutine(ProjectileAttack(1f));
+            StartCoroutine(ProjectileAttack(0.5f));
         }
     }
 
+    bool isShooting = false;
+
     IEnumerator ProjectileAttack (float delay)
     {
+        isShooting = true;
+        yield return new WaitForSeconds(delay);
         Rigidbody projectileInstance = Instantiate(projectile, projectileAnchor.position, projectileAnchor.localRotation);
         projectileInstance.velocity = projectileForce * projectileAnchor.forward;
-        canShoot = false;
-        yield return new WaitForSeconds(delay);
+        Instantiate(fireParticles, projectileAnchor.position, projectileAnchor.localRotation);
+        isShooting = false;
     }
 }

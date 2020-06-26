@@ -9,10 +9,20 @@ public class ParticleDestroy : MonoBehaviour
     public ParticleSystem flash;
     public GameObject anchor;
 
+    //Classification Int
+    public string anchorHolder;
+
     // Start is called before the first frame update
     void Awake()
     {
-        anchor = GameObject.FindGameObjectWithTag("ShootAnchor");
+        if (anchorHolder == "Player")
+        {
+            anchor = GameObject.FindGameObjectWithTag("ShootAnchor");
+        }
+        else if (anchorHolder == "Skulk")
+        {
+            anchor = GameObject.FindGameObjectWithTag("SkulkAnchor");
+        }
         sparks.Play();
         flash.Play();
         Invoke("DestroyParticle", timer);

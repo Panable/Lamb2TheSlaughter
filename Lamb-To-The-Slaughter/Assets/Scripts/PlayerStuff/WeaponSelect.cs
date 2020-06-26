@@ -134,11 +134,11 @@ public class WeaponSelect : MonoBehaviour
         {
             selectedWeapon.Fire();
 
-            //Instantiate(fireParticles, particlePos.transform.position, particlePos.transform.rotation);
+            Instantiate(fireParticles, particlePos.transform.position, particlePos.transform.rotation);
             AOEv.color.Override(Color.white);
-            //AOEcA.intensity.Override(0.5f);
-            //StartCoroutine(cameraShake.Shake(0.25f, 4f));
-            //gunRecoil.StartRecoil();
+            AOEcA.intensity.Override(0.5f);
+            StartCoroutine(cameraShake.Shake(0.25f, 4f));
+            gunRecoil.StartRecoil();
 
             if (selectedWeapon.raycastHit.transform != null)
             {
@@ -153,9 +153,8 @@ public class WeaponSelect : MonoBehaviour
             Instantiate(fireParticles, particlePos.transform.position, particlePos.transform.rotation);
             AOEv.color.Override(Color.white);
             AOEcA.intensity.Override(0.5f);
-            //StartCoroutine(cameraShake.Shake(0.25f, 4f));
-            //gunRecoil.StartRecoil();
-            //StartCoroutine(gunRecoil.Recoil(0.05f, 0.3f));
+            StartCoroutine(cameraShake.Shake(0.25f, 4f));
+            gunRecoil.StartRecoil();
 
             if (selectedWeapon.raycastHit.transform != null)
             {
@@ -179,8 +178,8 @@ public class WeaponSelect : MonoBehaviour
         AOEradius = 15f;
         AOEforce = 50f;
 
-        StartCoroutine(cameraShake.Shake(0.5f, 10f));
-        AOEcA.intensity.Override(1f);
+        StartCoroutine(cameraShake.Shake(0.3f, 5f));
+        AOEcA.intensity.Override(0.4f);
         AOEv.color.Override(Color.white);
 
         Collider[] nearbyRb = Physics.OverlapSphere(transform.position, AOEradius);
@@ -207,7 +206,7 @@ public class WeaponSelect : MonoBehaviour
         if (PlayerHealth.overDrive)
         {
             AOEv.color.Override(new Color(0.307f, 0.49f, 0.433f));
-            AOEcA.intensity.Override(0.6f);
+            AOEcA.intensity.Override(0.2f);
         }
 
         AOEcA.intensity.value = Mathf.Lerp(AOEcA.intensity.value, originalCA, 5f * Time.deltaTime);
@@ -386,7 +385,7 @@ public class WeaponSelect : MonoBehaviour
             AOEv = v;
         }
 
-        originalCA = 0.161f;
+        originalCA = 0.05f;
         originalV = new Color(0.207f, 0.032f, 0.032f);
         setV = (originalV + targetV) / 2;
 
