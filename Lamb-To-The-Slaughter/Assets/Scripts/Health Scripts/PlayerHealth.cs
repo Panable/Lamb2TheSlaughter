@@ -31,6 +31,7 @@ public class PlayerHealth : Health
     public Gradient textColor;
     public TMP_Text healthValue;
 
+    [Header("Audio")]
     //Audio
     public AudioSource audioSourceP;
     public AudioClip[] playerCries;
@@ -90,9 +91,9 @@ public class PlayerHealth : Health
         //we are taking dmg here
         if (delayTimer < 0)
         {
-            //audioSourceP.clip = playerCries[Random.Range(0, playerCries.Length)];
-            //audioSourceP.loop = false;
-            //audioSourceP.Play();
+            audioSourceP.clip = playerCries[Random.Range(0, playerCries.Length)];
+            audioSourceP.loop = false;
+            audioSourceP.Play();
             base.TakeDamage(amount);
             delayTimer = 0.2f;
         }

@@ -28,7 +28,7 @@ public class MaggHealth : Health //Dhan
     public override void TakeDamage(float amount)
     {
         //we are taking dmg here
-        audioSourceM.PlayOneShot(cryM, 10f);
+        audioSourceM.PlayOneShot(cryM, 20f);
         base.TakeDamage(amount);
 
         //add shit you want after damage is taken here

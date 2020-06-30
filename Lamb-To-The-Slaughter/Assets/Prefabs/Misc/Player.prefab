@@ -5235,7 +5235,6 @@ GameObject:
   - component: {fileID: 5071576979344861347}
   - component: {fileID: 5071576979344861351}
   - component: {fileID: 1995296906}
-  - component: {fileID: 1995296897}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -5332,7 +5331,9 @@ MonoBehaviour:
   strafeDirection: 0
   anim: {fileID: 2670884381363490629}
   hasTeleported: 0
+  canTeleport: 1
   jumping: 1
+  teleporting: 0
 --- !u!143 &2670884381575440729
 CharacterController:
   m_ObjectHideFlags: 0
@@ -5446,12 +5447,10 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   overlay: {fileID: 0}
   cs: {fileID: 2670884381572610044}
-  delayTimer: 1
   player: {fileID: 6210760925820087454}
   deathScreen: {fileID: 0}
   deathCamera: {fileID: 2954229326694614176, guid: 55750960896ce48fa9acc31bf3958f1d,
     type: 3}
-  healthValue: 0
   healthText: {fileID: 0}
   textColor:
     serializedVersion: 2
@@ -5482,6 +5481,7 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
+  healthValue: {fileID: 0}
   audioSourceP: {fileID: 0}
   playerCries:
   - {fileID: 8300000, guid: 46a6fcb5de71746aaa2a1108a102806c, type: 3}
@@ -5639,23 +5639,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1995296897
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2670884381575440725}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cae1dee0a1f942cbb7a3c2c7680ecad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsLeft: 0
-  IsRight: 0
-  IsUp: 0
-  IsDown: 0
-  player: {fileID: 0}
 --- !u!82 &8922439522531347430
 AudioSource:
   m_ObjectHideFlags: 0

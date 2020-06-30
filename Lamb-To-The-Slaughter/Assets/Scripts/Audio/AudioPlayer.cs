@@ -28,7 +28,7 @@ public class AudioPlayer : MonoBehaviour //Lachlan
     {
         if (player.GetComponent<WeaponSelect>().selectedWeapon.attack == true)
         {
-            audioSource.PlayOneShot(shoot, 3f);
+            audioSource.PlayOneShot(shoot, 2f);
             player.GetComponent<WeaponSelect>().selectedWeapon.attack = false;
         }
     }
@@ -37,7 +37,7 @@ public class AudioPlayer : MonoBehaviour //Lachlan
     {
         if (player.GetComponent<WeaponSelect>().selectedWeapon.reloadSFX == true)
         {
-            audioSource.PlayOneShot(reload, 2f);
+            audioSource.PlayOneShot(reload, 1f);
             player.GetComponent<WeaponSelect>().selectedWeapon.reloadSFX = false;
         }
     }

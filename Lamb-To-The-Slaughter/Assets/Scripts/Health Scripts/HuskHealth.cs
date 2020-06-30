@@ -26,8 +26,8 @@ public class HuskHealth : Health //Dhan
     public override void TakeDamage(float amount)
     {
         //we are taking dmg here
-        audioSourceH.PlayOneShot(cryH, 10f);
         base.TakeDamage(amount);
+        audioSourceH.PlayOneShot(cryH, 20f);
 
         //add shit you want after damage is taken here
         Instantiate(hurtParticles, particleLocation, transform.localRotation);
