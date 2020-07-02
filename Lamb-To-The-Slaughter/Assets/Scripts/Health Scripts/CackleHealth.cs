@@ -5,6 +5,8 @@ using UnityEngine;
 public class CackleHealth : Health
 {
     public ParticleSystem hurtParticles;
+    public SphereCollider hitBox;
+    public Transform particleLocation;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -13,7 +15,7 @@ public class CackleHealth : Health
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
 
     }
@@ -24,7 +26,6 @@ public class CackleHealth : Health
         base.TakeDamage(amount);
 
         //add shit you want after damage is taken here
-        Instantiate(hurtParticles, transform.localPosition, transform.rotation);
+        Instantiate(hurtParticles, particleLocation.position, transform.rotation);
     }
-
 }

@@ -1,54 +1,62 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
-public class Cackle : MonoBehaviour //Lachlan
+public class Cackle : MonoBehaviour //Ansaar
 {
-    //For Animations
-    Animator anim;
-
-    //Components for the enemy + know where player is
+    public Animator anim;
     public Transform player;
-    public NavMeshAgent agent;
-
+    Vector3 rotationFix;
+    public SphereCollider hitBox;
+    float distToPlayer;
+    float hitRange = 60f;
+    float baseTriggerRadius = 0.005f;
+    float attackTriggerRadius = 0.02f;
 
     void OnEnable()
     {
         // Gets the enemy, Finds and targets the players location.
-        agent = GetComponent<NavMeshAgent>();
-        anim = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        agent.isStopped = true;
     }
 
     private void FixedUpdate()
     {
-        //Constantly looks at player
-        transform.LookAt(player.position);
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        //When hits the player
-        if (collision.gameObject.tag == "Player")
-        {
-            damagePlayer();
-        }
+        //Looks at player, ignores y position
+        rotationFix = player.position;
+        rotationFix = new Vector3(rotationFix.x, 0, rotationFix.z);
+        transform.LookAt(rotationFix);
     }
 
     void Update()
     {
-        //check if what way the gameObject is rotating.
-        //you need a float that updates between 0 & 1.
-        //0 = turning left & 1 = turning right.
+        //Measure distance
+        distToPlayer = FindDistance(player.transform, gameObject.transform);
+        Debug.Log(distToPlayer);
 
-        //Collision that takes and inflicts damage must be a sphere collider on the head
+        if (distToPlayer <= hitRange)
+        {
+            anim.SetBool("Attack", true);
+            hitBox.radius = attackTriggerRadius;
+        }
+        else if (distToPlayer >= hitRange)
+        {
+            anim.SetBool("Attack", false);
+            hitBox.radius = baseTriggerRadius;
+        }
     }
 
-    //Deals damage to the player and pushes back the enemy (like a tiny tiny bit)
-    void damagePlayer()
+    //Returns the distance between two points
+    float FindDistance(Transform a, Transform b)
     {
-        player.GetComponent<Health>().TakeDamage(5f);
+        float temp = (a.position - b.position).sqrMagnitude;
+        return temp;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+       if (other.CompareTag("Player"))
+        {
+            other.gameObject.GetComponent<Health>().TakeDamage(15f);
+        }
     }
 }

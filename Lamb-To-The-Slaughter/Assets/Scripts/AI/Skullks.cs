@@ -21,6 +21,7 @@ public class Skullks : MonoBehaviour //AS IF it was Lachlan
     float shootTimer;
     bool canShoot;
     public GameObject fireParticles;
+    Vector3 aimOffset = new Vector3(0, 3, 0);
 
     void OnEnable()
     {
@@ -33,6 +34,7 @@ public class Skullks : MonoBehaviour //AS IF it was Lachlan
     private void FixedUpdate()
     {
         transform.LookAt(player.transform.position);
+        projectileAnchor.LookAt(player.transform.position + aimOffset);
     }
 
     void Update()

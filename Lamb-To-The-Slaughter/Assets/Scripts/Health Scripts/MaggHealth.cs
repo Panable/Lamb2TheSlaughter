@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class MaggHealth : Health //Dhan
+public class MaggHealth : Health //Ansar
 {
     public ParticleSystem hurtParticles;
     public CapsuleCollider collider;
-    Vector3 particleLocation;
+    public Transform particleLocation;
     private AudioSource audioSourceM;
     public AudioClip cryM;
 
@@ -22,7 +22,6 @@ public class MaggHealth : Health //Dhan
     // Update is called once per frame
     void Update()
     {
-        particleLocation = transform.TransformPoint(collider.center);
     }
 
     public override void TakeDamage(float amount)
@@ -32,7 +31,7 @@ public class MaggHealth : Health //Dhan
         base.TakeDamage(amount);
 
         //add shit you want after damage is taken here
-        Instantiate(hurtParticles, particleLocation, transform.localRotation);
+        Instantiate(hurtParticles, particleLocation.position, transform.localRotation);
     }
 
 }

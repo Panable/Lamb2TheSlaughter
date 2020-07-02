@@ -137,7 +137,7 @@ public class WeaponSelect : MonoBehaviour
             Instantiate(fireParticles, particlePos.transform.position, particlePos.transform.rotation);
             AOEv.color.Override(Color.white);
             AOEcA.intensity.Override(0.5f);
-            StartCoroutine(cameraShake.Shake(0.25f, 4f));
+            StartCoroutine(cameraShake.Shake(0.15f, 3f));
             gunRecoil.StartRecoil();
 
             if (selectedWeapon.raycastHit.transform != null)
@@ -153,7 +153,7 @@ public class WeaponSelect : MonoBehaviour
             Instantiate(fireParticles, particlePos.transform.position, particlePos.transform.rotation);
             AOEv.color.Override(Color.white);
             AOEcA.intensity.Override(0.5f);
-            StartCoroutine(cameraShake.Shake(0.25f, 4f));
+            StartCoroutine(cameraShake.Shake(0.15f, 3f));
             gunRecoil.StartRecoil();
 
             if (selectedWeapon.raycastHit.transform != null)
