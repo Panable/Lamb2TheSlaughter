@@ -169,6 +169,7 @@ public class BossAI : MonoBehaviour
 			shootTimer -= Time.deltaTime;
 			if (canShoot)
 			{
+				canShockwave = false;
 				if (shootTimer <= 0)
 				{
 					TransitionStage(30, 0.5f);
@@ -185,7 +186,7 @@ public class BossAI : MonoBehaviour
 		shootDelay = delay;
 		Rigidbody projectileInstance = Instantiate(projectile, projectileAnchor.position, projectileAnchor.localRotation);
 		projectileInstance.velocity = force * projectileAnchor.forward;
-		Instantiate(shotParticles, projectileAnchor);
+		Instantiate(shotParticles, projectileAnchor.position, Quaternion.identity);
     }
 
     private void OnEnable()
@@ -259,6 +260,7 @@ public class BossAI : MonoBehaviour
     //Adaptable AOE Function
 	void AOEattack(int numOfShockwaves)
     {
+		canMelee = false;
 		numOfsW = numOfShockwaves;
         FindDistance(originPos);
 		resAI.stoppingDistance = 0.1f;
@@ -331,8 +333,8 @@ public class BossAI : MonoBehaviour
         for (int i = 0; i < invokeCount; i++)
         {
 			float randRot = Random.Range(0f, 90f);
-			Instantiate(shockwave, transform.position, Quaternion.Euler(transform.localRotation.x, randRot, transform.localRotation.y));
-			yield return new WaitForSecondsRealtime(interval);
+			Instantiate(shockwave, transform.position, Quaternion.Euler(270f, randRot, 0));
+            yield return new WaitForSecondsRealtime(interval);
         }
     }
 }
