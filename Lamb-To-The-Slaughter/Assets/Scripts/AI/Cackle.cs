@@ -31,7 +31,6 @@ public class Cackle : MonoBehaviour //Ansaar
     {
         //Measure distance
         distToPlayer = FindDistance(player.transform, gameObject.transform);
-        Debug.Log(distToPlayer);
 
         if (distToPlayer <= hitRange)
         {

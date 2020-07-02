@@ -23,6 +23,11 @@ public class ParticleDestroy : MonoBehaviour
         {
             anchor = GameObject.FindGameObjectWithTag("SkulkAnchor");
         }
+        else if (anchorHolder == "Resposdine")
+        {
+            anchor = GameObject.FindGameObjectWithTag("ResAnchor");
+        }
+
         sparks.Play();
         flash.Play();
         Invoke("DestroyParticle", timer);

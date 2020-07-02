@@ -37,6 +37,7 @@ public class BossAI : MonoBehaviour
 	public float maxShootingTime2 = 15f;
 	public float shootDelay;
 	float shootTimer;
+    public GameObject shotParticles;
 
 	//AOE Attack Properties
 	[Header("AOE Properties")]
@@ -123,6 +124,7 @@ public class BossAI : MonoBehaviour
 			if (maxShootingTime < 0)
 			{
 				canShoot = false;
+				canMelee = true;
 				anim.SetFloat("adjustSpeed", 1f);
 				BattleStageTwo();
 				Shockwave(15f);
@@ -130,6 +132,7 @@ public class BossAI : MonoBehaviour
             else
             {
 				canShoot = true;
+				canMelee = false;
 				anim.SetFloat("adjustSpeed", 0.5f);
 			}
 
@@ -154,7 +157,7 @@ public class BossAI : MonoBehaviour
 			{
 				canShoot = false;
 				anim.SetFloat("adjustSpeed", 1f);
-				BattleStageTwo();
+				BattleStageThree();
 				Shockwave(15f);
 			}
 			else
@@ -182,6 +185,7 @@ public class BossAI : MonoBehaviour
 		shootDelay = delay;
 		Rigidbody projectileInstance = Instantiate(projectile, projectileAnchor.position, projectileAnchor.localRotation);
 		projectileInstance.velocity = force * projectileAnchor.forward;
+		Instantiate(shotParticles, projectileAnchor);
     }
 
     private void OnEnable()

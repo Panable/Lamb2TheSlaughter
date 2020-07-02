@@ -7,24 +7,19 @@ public class ResProjectile : MonoBehaviour
     public Vector3 hitScale;
     Rigidbody rb;
     SphereCollider sc;
-    public Color fadeOut;
     public ResHealth rHealth;
-    bool isDead = false;
-    public Material mat;
+    GameObject resposdine;
     Renderer rend;
-    public Material baseMat;
-    GameObject player;
-
+    public GameObject flares;
 
     // Start is called before the first frame update
     void Awake()
     {
+        resposdine = GameObject.FindGameObjectWithTag("Enemy");
+        rHealth = resposdine.GetComponent<ResHealth>();
         rb = GetComponent<Rigidbody>();
         sc = GetComponent<SphereCollider>();
         rend = GetComponent<Renderer>();
-        baseMat.color = mat.color;
-        baseMat.SetColor("_EmissionColor", mat.color);
-        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
@@ -32,8 +27,7 @@ public class ResProjectile : MonoBehaviour
     {
         if (rHealth == null)
         {
-            baseMat.color = Color.Lerp(baseMat.color, fadeOut, 5 * Time.deltaTime);
-            baseMat.SetColor("_EmissionColor", baseMat.color);
+            rend.material.color += new Color(0.1f, 0.1f, 0.1f, -0.02f);
             sc.enabled = false;
         }
     }
@@ -41,6 +35,7 @@ public class ResProjectile : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         transform.localScale = hitScale;
+        Destroy(flares);
         rb.constraints = RigidbodyConstraints.FreezeAll;
         sc.isTrigger = true;
         sc.radius = 0.4f;

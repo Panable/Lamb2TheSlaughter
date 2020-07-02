@@ -121,6 +121,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &92844619 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8909535266145079496, guid: 9e941137430c246199e8e935fc982021,
+    type: 3}
+  m_PrefabInstance: {fileID: 3356686241205071212}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &455812255
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -211,8 +223,8 @@ PrefabInstance:
     - target: {fileID: 4966732780099105064, guid: 1fc21ae472567439ea155304d219d8c9,
         type: 3}
       propertyPath: healthValue
-      value: 100
-      objectReference: {fileID: 0}
+      value: 
+      objectReference: {fileID: 92844619}
     - target: {fileID: 4966732780099105064, guid: 1fc21ae472567439ea155304d219d8c9,
         type: 3}
       propertyPath: healthText
@@ -576,7 +588,7 @@ GameObject:
   - component: {fileID: 1264485411}
   m_Layer: 9
   m_Name: ShootAnchor
-  m_TagString: Untagged
+  m_TagString: ResAnchor
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -779,12 +791,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  currentHealth: 100
+  currentHealth: 51
   regenHealth: 0
   regenRate: 0
   timeTillRegen: 0
-  cry: {fileID: 0}
-  audioSource: {fileID: 0}
   health: 0
   isDead: 0
   hurtParticles: {fileID: 1426344824135655946, guid: 48d77c6c4472d44ba8638099af421e30,
@@ -869,6 +879,8 @@ MonoBehaviour:
   maxShootingTime: 10
   maxShootingTime2: 15
   shootDelay: 1
+  shotParticles: {fileID: 1768358748354924198, guid: a31385d37ff6a433595c573cd7ac5283,
+    type: 3}
   debugAOEtimer: 0
   shockwave: {fileID: 6510957716261458132, guid: 3d4c387efa36c44aba8381e05f5fece2,
     type: 3}
