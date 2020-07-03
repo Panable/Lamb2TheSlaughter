@@ -9,6 +9,7 @@ public class AudioPlayer : MonoBehaviour //Lachlan
     //Gun Sounds
     public AudioClip shoot;
     public AudioClip reload;
+    public AudioClip AOE;
     //Health Sounds
     public AudioClip heal;
 
@@ -22,6 +23,16 @@ public class AudioPlayer : MonoBehaviour //Lachlan
     {
         playShootSound();
         playReloadingSound();
+        AOEAttackSound();
+    }
+
+    public void AOEAttackSound()
+    {
+        if (player.GetComponent<WeaponSelect>().AOEsoundplay == true)
+        {
+            audioSource.PlayOneShot(AOE, 1f);
+            player.GetComponent<WeaponSelect>().AOEsoundplay = false;
+        }
     }
 
     public void playShootSound()

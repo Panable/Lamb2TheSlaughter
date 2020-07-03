@@ -43,6 +43,7 @@ public class WeaponSelect : MonoBehaviour
     //Sound
     public AudioSource audioSource;
     public AudioClip heal;
+    public bool AOEsoundplay;
 
     [Header("Bomb Prefabs")]
     [SerializeField] Rigidbody gravityBomb;
@@ -179,6 +180,7 @@ public class WeaponSelect : MonoBehaviour
         AOEforce = 50f;
 
         StartCoroutine(cameraShake.Shake(0.3f, 5f));
+        AOEsoundplay = true;
         AOEcA.intensity.Override(0.4f);
         AOEv.color.Override(Color.white);
 
@@ -208,7 +210,6 @@ public class WeaponSelect : MonoBehaviour
             AOEv.color.Override(new Color(0.307f, 0.49f, 0.433f));
             AOEcA.intensity.Override(0.2f);
         }
-
         AOEcA.intensity.value = Mathf.Lerp(AOEcA.intensity.value, originalCA, 5f * Time.deltaTime);
         AOEv.color.value = Color.Lerp(AOEv.color.value, setV, 5f * Time.deltaTime);
     }

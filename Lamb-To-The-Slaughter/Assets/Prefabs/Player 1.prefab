@@ -32,7 +32,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   originalPos: {x: 0, y: 0, z: 0}
-  originalRot: {x: 0, y: 0, z: 0}
+  lerpPos: {x: 0, y: 0, z: 0}
+  currentPos: {x: 0, y: 0, z: 0}
+  lerpSpeed: 1
+  slerpSpeed: 10
+  lerpBackDistance: 1
+  initialRecoil: 0
 --- !u!1 &3442094131357542469
 GameObject:
   m_ObjectHideFlags: 0
@@ -5098,7 +5103,6 @@ GameObject:
   - component: {fileID: 7165578120571475183}
   - component: {fileID: 7165578120571475180}
   - component: {fileID: 183729777407970462}
-  - component: {fileID: 4579023934410327952}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Player
@@ -5191,10 +5195,11 @@ MonoBehaviour:
   gravityMultiplier: 4
   forwardDirection: 0
   strafeDirection: 0
-  cc: {fileID: 7165578120571475183}
   anim: {fileID: 7165578120626926323}
   hasTeleported: 0
+  canTeleport: 1
   jumping: 1
+  teleporting: 0
 --- !u!143 &7165578120571475183
 CharacterController:
   m_ObjectHideFlags: 0
@@ -5239,8 +5244,49 @@ MonoBehaviour:
   AOEv: {fileID: 0}
   vp: {fileID: 0}
   originalV: {r: 0, g: 0, b: 0, a: 0}
+  glassColour:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  gunPower: []
+  audioSource: {fileID: 0}
+  heal: {fileID: 0}
+  AOEsoundplay: 0
+  gravityBomb: {fileID: 0}
+  gasBomb: {fileID: 0}
+  explosiveBomb: {fileID: 0}
+  teleportBomb: {fileID: 0}
+  bombSpawner: {fileID: 0}
+  horizontalVelocity: 0
   player: {fileID: 0}
+  aoeCooldown: 4
   meleeRange: 3
+  timetowait: 0
 --- !u!114 &183729777407970462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5263,40 +5309,39 @@ MonoBehaviour:
   player: {fileID: 0}
   deathScreen: {fileID: 0}
   deathCamera: {fileID: 0}
-  healthValue: 0
---- !u!114 &4579023934410327952
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7165578120571475171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfcbaacc3895f4fbfb5a6690c4eec340, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  allAudio: []
-  GunSource: {fileID: 4445900678747600464}
-  MaggSource: {fileID: 0}
-  player: {fileID: 0}
-  shoot: {fileID: 8300000, guid: 57abfa123c73c4c80a0a2790a95b63a3, type: 3}
-  reload: {fileID: 8300000, guid: f8097168838f642d1b7a5c0aa2df00a2, type: 3}
-  heal: {fileID: 0}
-  nearlyDead: {fileID: 0}
-  maggBounce: {fileID: 0}
-  maggCry: {fileID: 0}
-  maggDie: {fileID: 0}
-  skullksFloat: {fileID: 0}
-  skulksCry: {fileID: 0}
-  skullksDie: {fileID: 0}
-  huskAlive: {fileID: 0}
-  huskWalk: {fileID: 0}
-  huskCry: {fileID: 0}
-  huskDie: {fileID: 0}
-  crawlerWalk: {fileID: 0}
-  crawlerCry: {fileID: 0}
-  crawlerDie: {fileID: 0}
+  healthText: {fileID: 0}
+  textColor:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  healthValue: {fileID: 0}
+  audioSourceP: {fileID: 0}
+  playerCries: []
 --- !u!82 &4445900678747600464
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5456,6 +5501,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7829302707917351468, guid: f7e81efa9af0a46998988952d36453f9,
+        type: 3}
+      propertyPath: AOE
+      value: 
+      objectReference: {fileID: 8300000, guid: 247108d476be14a20a4028186a4daf9d, type: 3}
     - target: {fileID: 7829302707917351469, guid: f7e81efa9af0a46998988952d36453f9,
         type: 3}
       propertyPath: m_Name
