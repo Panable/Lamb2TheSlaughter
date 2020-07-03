@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ResHealth : Health
 {
+    //Health Properties
     public float health;
     public bool isDead = false;
     public ParticleSystem hurtParticles;
@@ -22,11 +23,6 @@ public class ResHealth : Health
         particleLocation = transform.TransformPoint(mainCollider.center);
 
         health = base.currentHealth;
-
-        if (health < 1)
-        {
-            isDead = true;
-        }
     }
 
     public override void TakeDamage(float amount)
