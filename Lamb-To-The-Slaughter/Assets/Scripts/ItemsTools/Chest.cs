@@ -15,7 +15,7 @@ public class Chest : MonoBehaviour
     int num;
     GameObject activeTool;
     public GameObject medPack;
-    public GameObject activeGuide;
+    public TMP_Text activeGuide;
 
     //Inventory
     public GameObject player;
@@ -29,7 +29,6 @@ public class Chest : MonoBehaviour
     {
         //activeGuide.gameObject.SetActive(false);
         player = GameObject.FindGameObjectWithTag("Player");
-        activeGuide = GameObject.FindGameObjectWithTag("ControlGuide");
 
         anim = GetComponent<Animator>();
         col = GetComponent<SphereCollider>();
@@ -64,8 +63,10 @@ public class Chest : MonoBehaviour
 
         }
 
-       if (toolAccessible && Input.GetButtonDown("Interact"))
+       if (toolAccessible && Input.GetKeyDown(KeyCode.E))
         {
+            activeGuide.gameObject.SetActive(false);
+
             if (activeTool.tag == "Bomb_Explosive")
             {
                 player.GetComponent<Inventory>().explosionBomb++;
@@ -94,7 +95,6 @@ public class Chest : MonoBehaviour
             Destroy(medPack);
             player.GetComponent<Inventory>().medpack++;
             col.enabled = false;
-            activeGuide.SetActive(false);
         }
     }
 
@@ -102,7 +102,7 @@ public class Chest : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            activeGuide.SetActive(false);
+            activeGuide.gameObject.SetActive(false);
         }
     }
 
@@ -110,7 +110,7 @@ public class Chest : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            activeGuide.SetActive(true);
+            activeGuide.gameObject.SetActive(true);
         }
     }
 }
