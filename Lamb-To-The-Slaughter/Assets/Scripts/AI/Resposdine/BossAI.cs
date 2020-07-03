@@ -18,15 +18,6 @@ public class BossAI : MonoBehaviour
     public bool canMelee;
 	public CapsuleCollider weapon;
 
-	//Spawn Attack Properties
-	//[Header("Spawn Properties")]
-	//public GameObject skulk;
-	//public bool spawnSkulk;
-    //public Transform skulkAnchor;
-	//public float spawnTimer;
-	//public float spawnDelay = 1f;
-	//public int skulkCount;
-
 	//Projectile Attack Properties
 	[Header("Projectile Properties")]
 	public Rigidbody projectile;
@@ -60,8 +51,17 @@ public class BossAI : MonoBehaviour
 	public float agentDistance;
 	public bool focusPlayer;
 
-    // Start is called before the first frame update
-    void Awake()
+	//Spawn Attack Properties
+	[Header("Spawn Properties")]
+	public bool canSpawn;
+	public Transform spawnAnchor;
+	public GameObject skulk;
+	public GameObject skulkParticles;
+	public Vector3 particleOffset;
+	GameObject[] skulkCount;
+
+	// Start is called before the first frame update
+	void Awake()
     {
         //Find Components & References
 		anim = GetComponent<Animator>();
@@ -139,7 +139,10 @@ public class BossAI : MonoBehaviour
 			shootTimer -= Time.deltaTime;
 			if (canShoot)
 			{
-                if (shootTimer <= 0)
+				canMelee = false;
+				canShockwave = false;
+				SpawnAttack();
+				if (shootTimer <= 0)
                 {
                     TransitionStage(10, 1);
 					shootTimer = shootDelay;
@@ -169,13 +172,15 @@ public class BossAI : MonoBehaviour
 			shootTimer -= Time.deltaTime;
 			if (canShoot)
 			{
+				SpawnAttack();
+				canMelee = false;
+				canShockwave = false;
 				canShockwave = false;
 				if (shootTimer <= 0)
 				{
 					TransitionStage(30, 0.5f);
 					shootTimer = shootDelay;
 				}
-
 			}
 		}
 	}
@@ -235,6 +240,8 @@ public class BossAI : MonoBehaviour
 	//Third stage of the battle
 	void BattleStageThree()
 	{
+		SpawnAttack();
+
 		timer -= Time.deltaTime;
 		debugAOEtimer = timer;
 		if (timer > 0)
@@ -337,4 +344,14 @@ public class BossAI : MonoBehaviour
             yield return new WaitForSecondsRealtime(interval);
         }
     }
+
+    void SpawnAttack()
+    {
+		skulkCount = GameObject.FindGameObjectsWithTag("Enemy");
+
+		if (skulkCount.Length - 1 < 2)
+		{
+			Instantiate(skulk, spawnAnchor.position, Quaternion.identity);
+		}
+	}
 }
