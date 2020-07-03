@@ -15,7 +15,7 @@ public class Chest : MonoBehaviour
     int num;
     GameObject activeTool;
     public GameObject medPack;
-    public TMP_Text activeGuide;
+    public GameObject activeGuide;
 
     //Inventory
     public GameObject player;
@@ -29,6 +29,7 @@ public class Chest : MonoBehaviour
     {
         //activeGuide.gameObject.SetActive(false);
         player = GameObject.FindGameObjectWithTag("Player");
+        activeGuide = GameObject.FindGameObjectWithTag("ControlGuide");
 
         anim = GetComponent<Animator>();
         col = GetComponent<SphereCollider>();
@@ -54,19 +55,17 @@ public class Chest : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
 
-       if (other.tag == "Player" && Input.GetButtonDown("Interact"))
+        if (other.tag == "Player" && Input.GetButtonDown("Interact"))
         {
-            
+
             anim.SetBool("openChest", true);
             audioSource.PlayOneShot(chestCreak, 60f);
             Invoke("ToolKillDelay", 0.2f);
 
         }
 
-       if (toolAccessible && Input.GetKeyDown(KeyCode.E))
+        if (toolAccessible && Input.GetButtonDown("Interact"))
         {
-            activeGuide.gameObject.SetActive(false);
-
             if (activeTool.tag == "Bomb_Explosive")
             {
                 player.GetComponent<Inventory>().explosionBomb++;
@@ -95,6 +94,7 @@ public class Chest : MonoBehaviour
             Destroy(medPack);
             player.GetComponent<Inventory>().medpack++;
             col.enabled = false;
+            activeGuide.SetActive(false);
         }
     }
 
@@ -102,7 +102,7 @@ public class Chest : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            activeGuide.gameObject.SetActive(false);
+            activeGuide.SetActive(false);
         }
     }
 
@@ -110,7 +110,7 @@ public class Chest : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            activeGuide.gameObject.SetActive(true);
+            activeGuide.SetActive(true);
         }
     }
 }
