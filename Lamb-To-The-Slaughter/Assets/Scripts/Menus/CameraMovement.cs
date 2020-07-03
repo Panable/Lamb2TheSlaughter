@@ -19,6 +19,8 @@ public class CameraMovement : MonoBehaviour //Ansaar
     public GameObject graphicButtonPlus;
     public GameObject graphicButtonMinus;
 
+    Camera cam;
+
     float distance;
 
     int posCount;
@@ -26,6 +28,8 @@ public class CameraMovement : MonoBehaviour //Ansaar
     // Start is called before the first frame update
     void Start()
     {
+        cam = GetComponent<Camera>();
+
         gameObject.transform.position = startGame.transform.position;
         Vector3 newRotation = startGame.transform.rotation.eulerAngles;
         gameObject.transform.eulerAngles = newRotation;
@@ -61,6 +65,7 @@ public class CameraMovement : MonoBehaviour //Ansaar
             gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, options.transform.position, Time.deltaTime * panSpeed);
             Vector3 newRotation = options.transform.rotation.eulerAngles;
             gameObject.transform.eulerAngles = Vector3.Lerp(gameObject.transform.eulerAngles, newRotation, Time.deltaTime * panSpeed);
+            cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, 50f, panSpeed * Time.deltaTime);
             startGameButton.SetActive(false);
             exitGameButton.SetActive(false);
 
@@ -82,6 +87,7 @@ public class CameraMovement : MonoBehaviour //Ansaar
             gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, startGame.transform.position, Time.deltaTime * panSpeed);
             Vector3 newRotation = startGame.transform.rotation.eulerAngles;
             gameObject.transform.eulerAngles = Vector3.Lerp(gameObject.transform.eulerAngles, newRotation, Time.deltaTime * panSpeed);
+            cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, 50f, panSpeed * Time.deltaTime);
             startGameButton.SetActive(true);
             exitGameButton.SetActive(false);
             musicButtonPlus.SetActive(false);
@@ -97,6 +103,7 @@ public class CameraMovement : MonoBehaviour //Ansaar
             gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, blackPrism.transform.position, Time.deltaTime * panSpeed);
             Vector3 newRotation = blackPrism.transform.rotation.eulerAngles;
             gameObject.transform.eulerAngles = Vector3.Lerp(gameObject.transform.eulerAngles, newRotation, Time.deltaTime * panSpeed);
+            cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, 60f, panSpeed * Time.deltaTime);
             startGameButton.SetActive(false);
             exitGameButton.SetActive(false);
             musicButtonPlus.SetActive(false);
@@ -111,6 +118,7 @@ public class CameraMovement : MonoBehaviour //Ansaar
         {
             gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, exitGame.transform.position, Time.deltaTime * panSpeed);
             Vector3 newRotation = exitGame.transform.rotation.eulerAngles;
+            cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, 50f, panSpeed * Time.deltaTime);
             gameObject.transform.eulerAngles = Vector3.Lerp(gameObject.transform.eulerAngles, newRotation, Time.deltaTime * panSpeed);
             startGameButton.SetActive(false);
             exitGameButton.SetActive(true);
