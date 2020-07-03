@@ -19,7 +19,7 @@ public class ChestTools : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-       if((Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.E)))
+       if((Input.GetButtonDown("Interact") || Input.GetKeyDown(KeyCode.E)))
         {
             Destroy(gameObject);
         }

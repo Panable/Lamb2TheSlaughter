@@ -10,12 +10,12 @@ public class BloodMessages : MonoBehaviour
     Renderer bMplaneRenderer;
 
     //For convenience reasons, teleport bomb limit function also occurs here
-    GameObject[] foundTpBombs;
+    [SerializeField] private GameObject[] foundTpBombs;
 
     // Start is called before the first frame update
     void Awake()
     {
-        TeleportBombLimit();
+        //TeleportBombLimit();
 
         bMplane = GameObject.FindGameObjectsWithTag("BloodMessage");
 

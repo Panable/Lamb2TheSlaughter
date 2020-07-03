@@ -10,12 +10,10 @@ public class Chest : MonoBehaviour
     //Chest Functionality
     Animator anim;
     Collider col;
-    public Transform contentAnchor;
     public bool toolAccessible;
     int num;
-    GameObject activeTool;
+    public GameObject activeTool;
     public GameObject medPack;
-    public GameObject activeGuide;
 
     //Inventory
     public GameObject player;
@@ -29,20 +27,22 @@ public class Chest : MonoBehaviour
     {
         //activeGuide.gameObject.SetActive(false);
         player = GameObject.FindGameObjectWithTag("Player");
-        activeGuide = GameObject.FindGameObjectWithTag("ControlGuide");
-
         anim = GetComponent<Animator>();
         col = GetComponent<SphereCollider>();
 
         num = Random.Range(0, chestContents.Length);
         activeTool = chestContents[num];
-        chestContents[num].gameObject.SetActive(true);
+        activeTool.SetActive(true);
 
-        foreach (GameObject tool in chestContents)
+        for (int i = 0; i < 4; i++)
         {
-            if (tool.activeSelf == false)
+            if (chestContents[i] == activeTool)
             {
-                Destroy(tool);
+                activeTool.SetActive(true);
+            }
+            else
+            {
+                chestContents[i].SetActive(false);
             }
         }
     }
@@ -66,51 +66,30 @@ public class Chest : MonoBehaviour
 
         if (toolAccessible && Input.GetButtonDown("Interact"))
         {
-            if (activeTool.tag == "Bomb_Explosive")
+            if (activeTool.CompareTag("Bomb_Explosive"))
             {
                 player.GetComponent<Inventory>().explosionBomb++;
-                Destroy(activeTool);
+                activeTool.SetActive(false);
             }
-            else if (activeTool.tag == "Bomb_Teleport")
+            if (activeTool.CompareTag("Bomb_Teleport"))
             {
                 player.GetComponent<Inventory>().teleportBomb++;
-                Destroy(activeTool);
+                activeTool.SetActive(false);
             }
-            else if (activeTool.tag == "Bomb_Gas")
+            if (activeTool.CompareTag("Bomb_Gas"))
             {
                 player.GetComponent<Inventory>().gasBomb++;
-                Destroy(activeTool);
+                activeTool.SetActive(false);
             }
-            else if (activeTool.tag == "Bomb_Gravity")
+            if (activeTool.CompareTag("Bomb_Gravity"))
             {
                 player.GetComponent<Inventory>().gravityBomb++;
-                Destroy(activeTool);
+                activeTool.SetActive(false);
             }
-            else if (activeTool.tag == "MedPack")
-            {
-                player.GetComponent<Inventory>().medpack++;
-                Destroy(activeTool);
-            }
-            Destroy(medPack);
+
+            medPack.SetActive(false);
             player.GetComponent<Inventory>().medpack++;
             col.enabled = false;
-            activeGuide.SetActive(false);
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            activeGuide.SetActive(false);
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            activeGuide.SetActive(true);
         }
     }
 }

@@ -17,6 +17,7 @@ public class LoadingManager : MonoBehaviour
     public VideoPlayer video;
     public TMP_Text loadingTipsText;
     private int loadingTipNumber;
+    public TMP_Text activeGuide;
 
     [Header("Loading Tips")]
     [TextArea]
@@ -41,8 +42,11 @@ public class LoadingManager : MonoBehaviour
         float totalNumberOfRoomsGenerating = (float)ProceduralManager.numberOfRoomsToGenerate;
 
         if (finished)
+        {
             Destroy(loadingScreen); //This was previously 'gameObject' (The Canvas Lmao)
-
+            activeGuide.enabled = false;
+        }
+        
         float progress = (numberOfRoomsGenerated / totalNumberOfRoomsGenerating);
         slider.value = progress;
         progressText.text = progress * 100 + "%";

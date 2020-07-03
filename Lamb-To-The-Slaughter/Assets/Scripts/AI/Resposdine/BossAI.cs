@@ -38,10 +38,11 @@ public class BossAI : MonoBehaviour
 	bool canShockwave;
 	int numOfsW;
 
-	//Health Related Properties
-	[Header("Health Properties")]
+	//Other Related Properties
+	[Header("Other Properties")]
 	public ParticleSystem deathParticles;
     public float rHealth;
+	public bool bossIsActive = false;
 
 	//Combat Related Properties
 	[Header("Combat Properties")]
@@ -63,6 +64,8 @@ public class BossAI : MonoBehaviour
 	// Start is called before the first frame update
 	void Awake()
     {
+		bossIsActive = true;
+
         //Find Components & References
 		anim = GetComponent<Animator>();
 		resAI = GetComponent<NavMeshAgent>();

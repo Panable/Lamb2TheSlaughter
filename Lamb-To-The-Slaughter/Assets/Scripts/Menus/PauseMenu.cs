@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PauseMenu : MonoBehaviour //Lachlan
 {
@@ -9,13 +10,41 @@ public class PauseMenu : MonoBehaviour //Lachlan
     public GameObject gameplayUI;
     bool pauseMenuEnabled;
 
+    //BossProperties
+    public GameObject bossUI;
+    public TMP_Text bossHealth;
+    public TMP_Text bossName;
+    public bool bossIsActive;
+
     WeaponSelect ws;
     PlayerHealth ph;
     public GameObject player;
+    GameObject boss;
+    GameObject[] sort;
 
     // Update is called once per frame
     void Update()
     {
+        if (bossIsActive)
+        {
+            bossUI.SetActive(true);
+
+            sort = GameObject.FindGameObjectsWithTag("Enemy");
+
+            for (int i = 0; i < sort.Length; i++)
+            {
+                if (sort[i].GetComponent<ResHealth>() != null)
+                {
+                    boss = sort[i];
+                }
+            }
+
+            if (boss == null)
+            {
+                bossUI.SetActive(false);
+            }
+        }
+
         if (ws == null || ph == null)
         {
             ws = GameObject.FindGameObjectWithTag("Player").GetComponent<WeaponSelect>();
@@ -84,6 +113,7 @@ public class PauseMenu : MonoBehaviour //Lachlan
 
     private void Start()
     {
+        bossUI.SetActive(false);
         ws = player.GetComponent<WeaponSelect>();
         ph = player.GetComponent<PlayerHealth>();
     }

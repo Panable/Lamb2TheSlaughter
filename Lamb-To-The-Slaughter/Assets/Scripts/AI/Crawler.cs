@@ -30,12 +30,12 @@ public class Crawler : MonoBehaviour //Lachlan
         agent.destination = player.position;
     }
 
-    void OnTriggerEnter(Collider collision)
+    void OnTriggerStay(Collider collision)
     {
         //When hits the player
         if (collision.gameObject.tag == "Player")
         {
-            collision.gameObject.GetComponent<Health>().TakeDamage(5f);
+            collision.gameObject.GetComponent<Health>().TakeDamage(3f);
         }
     }
 }

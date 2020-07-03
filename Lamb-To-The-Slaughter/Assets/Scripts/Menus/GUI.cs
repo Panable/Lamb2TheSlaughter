@@ -13,26 +13,17 @@ public class GUI : MonoBehaviour //Lachlan
     public TMP_Text timertxt;
     float timer;
 
-    //for player health
-    float playerHealthRef;
-    public TMP_Text healthText;
-
     // Start is called before the first frame update
     void Start()
     {
         //Time.timeScale = 1;
         player = GameObject.FindGameObjectWithTag("Player");
-        playerHealthRef = player.GetComponent<PlayerHealth>().currentHealth;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         updateTimer();
-
-        Debug.Log(playerHealthRef);
-
-        //healthText.SetText(playerHealthRef.ToString() + "%");
     }
 
     //Time alive timer function.

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3295521708854813187}
   - component: {fileID: 5829642775534901301}
   - component: {fileID: 277961336978531532}
-  - component: {fileID: 6767234305166131166}
+  - component: {fileID: 1034485639515261192}
   m_Layer: 0
   m_Name: MedPack
   m_TagString: MedPack
@@ -82,8 +82,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &6767234305166131166
-BoxCollider:
+--- !u!64 &1034485639515261192
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -92,6 +92,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.02, y: 0.031486534, z: 0.0055853296}
-  m_Center: {x: 0, y: 0.0011761507, z: 0.0027706623}
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4579454407841743219, guid: b4942533fbb6f44a481238bc1ea57abb, type: 3}
