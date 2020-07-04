@@ -100,6 +100,7 @@ public class RoomManager : MonoBehaviour
         foreach (Transform door in doorLocations)
         {
             door.GetChild(0).gameObject.SetActive(true);
+            door.GetChild(0).gameObject.GetComponent<Parasites>().DissolveIn();
         }
 
     }
@@ -110,10 +111,17 @@ public class RoomManager : MonoBehaviour
         foreach (Transform door in doorLocations)
         {
             //Destroy(door.gameObject);
-            door.GetChild(0).gameObject.SetActive(false);
+            door.GetChild(0).gameObject.GetComponent<Parasites>().DissolveOut();
+            StartCoroutine(KillParasite(door.GetChild(0), 1f));
             //player.GetComponent<PlayerMovementCC>().canTeleport = true;
             //player = null;
         }
+    }
+
+    IEnumerator KillParasite(Transform door, float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        door.gameObject.SetActive(false);
     }
 
     /// <summary>
