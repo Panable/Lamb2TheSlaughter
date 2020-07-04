@@ -13,6 +13,10 @@ public class GUI : MonoBehaviour //Lachlan
     public TMP_Text timertxt;
     float timer;
 
+    //for AOE cooldown
+    public Scrollbar cooldown;
+    float sliderValue;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +27,8 @@ public class GUI : MonoBehaviour //Lachlan
     // Update is called once per frame
     void FixedUpdate()
     {
+        sliderValue = player.GetComponent<WeaponSelect>().aoeCooldown;
+        cooldown.size = sliderValue / 4;
         updateTimer();
     }
 

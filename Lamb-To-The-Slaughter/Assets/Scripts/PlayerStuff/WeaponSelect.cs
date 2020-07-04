@@ -172,6 +172,7 @@ public class WeaponSelect : MonoBehaviour
 
     bool canAOE = true;
     public float aoeCooldown = 4f;
+    bool hasScreamed;
 
     void AOEattack()
     {
@@ -195,7 +196,11 @@ public class WeaponSelect : MonoBehaviour
             }
         }
         Invoke("AOEgraphicsReset", 0.1f);
-        Invoke("AOECooldown", aoeCooldown);
+
+        aoeCooldown = 0f;
+        hasScreamed = true;
+
+        //Invoke("AOECooldown", aoeCooldown);
     }
 
     void AOECooldown()
@@ -219,6 +224,19 @@ public class WeaponSelect : MonoBehaviour
         Inputs();
         AOEgraphicsReset();
         AmmoGraphics();
+
+        aoeCooldown = Mathf.Clamp(aoeCooldown, 0, 4);
+
+        if (hasScreamed)
+        {
+            aoeCooldown = aoeCooldown + Time.deltaTime;
+            if (aoeCooldown > 4)
+            {
+                aoeCooldown = 4;
+                canAOE = true;
+                hasScreamed = false;
+            }
+        }
 
         selectedWeapon.Update();
 
@@ -277,7 +295,7 @@ public class WeaponSelect : MonoBehaviour
         if (Input.GetButtonDown("Medpack") && GetComponent<Inventory>().medpack >= 1)
         {
             audioSource.PlayOneShot(heal, 60f);
-            GetComponent<Health>().currentHealth += 20;
+            GetComponent<Health>().currentHealth += 10;
             GetComponent<Inventory>().medpack--;
         }
     }
