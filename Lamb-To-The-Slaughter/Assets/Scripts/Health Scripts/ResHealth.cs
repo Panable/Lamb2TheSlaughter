@@ -15,6 +15,7 @@ public class ResHealth : Health
     public GameObject canvas;
     PauseMenu bossUI;
 
+
     // Start is called before the first frame update
     void Start()
     {

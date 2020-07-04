@@ -35,7 +35,7 @@ public class Crawler : MonoBehaviour //Lachlan
         //When hits the player
         if (collision.gameObject.tag == "Player")
         {
-            collision.gameObject.GetComponent<Health>().TakeDamage(3f);
+            collision.gameObject.GetComponent<Health>().TakeDamage(1f);
         }
     }
 }

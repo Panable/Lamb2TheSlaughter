@@ -53,7 +53,7 @@ public class Husk : MonoBehaviour //Lachlan
         {
             inTrigger = true;
             Debug.Log("Contact");
-            StartCoroutine(attack(1f, collision));
+            StartCoroutine(attack(0.5f, collision));
 
             //huskAgent.isStopped = true;
             ///collision.gameObject.GetComponent<Health>().TakeDamage(10f);

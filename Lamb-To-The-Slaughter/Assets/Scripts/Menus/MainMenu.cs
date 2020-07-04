@@ -45,7 +45,7 @@ public class MainMenu : MonoBehaviour //Lachlan
     {
         main.volume = 0.5f;
         main.PlayOneShot(startClip);
-        SceneManager.LoadScene("Baas'sLevel");
+        SceneManager.LoadScene(2);
     }
 
     //When button is pressed the game will quit and print to the console, "Game Quit"

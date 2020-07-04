@@ -17,7 +17,7 @@ public class PlayerDeath : MonoBehaviour
         deathScreen.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        Destroy(player);
+        player.SetActive(false);
     }
     
     public void toMainMenu()

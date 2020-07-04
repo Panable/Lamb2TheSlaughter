@@ -43,8 +43,9 @@ public class LoadingManager : MonoBehaviour
 
         if (finished)
         {
-            Destroy(loadingScreen); //This was previously 'gameObject' (The Canvas Lmao)
+            loadingScreen.SetActive(false); //This was previously 'gameObject' (The Canvas Lmao)
             activeGuide.enabled = false;
+            finished = false;
         }
         
         float progress = (numberOfRoomsGenerated / totalNumberOfRoomsGenerating);

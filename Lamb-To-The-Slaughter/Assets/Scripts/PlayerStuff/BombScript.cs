@@ -89,7 +89,7 @@ public class BombScript : MonoBehaviour //Ansaar
             //StartCoroutine(cameraShake.Shake(0.25f, 1f));
             //Do damage
             if (hit.tag == "Enemy")
-                hit.GetComponent<Health>().TakeDamage(explosiveForce);
+                hit.GetComponent<Health>().TakeDamage(5);
 
             rend.enabled = false;
             Invoke("DestroyBomb", 1f);

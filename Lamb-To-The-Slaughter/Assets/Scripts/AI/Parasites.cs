@@ -53,9 +53,4 @@ public class Parasites : MonoBehaviour
     {
         dissolveOn = false;
     }
-
-    public bool CanSetInactive()
-    {
-        return DissolvedOut;
-    }
 }

@@ -776,7 +776,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  currentHealth: 90
+  currentHealth: 100
   regenHealth: 1
   regenRate: 5
   timeTillRegen: 3
@@ -785,6 +785,7 @@ MonoBehaviour:
   hurtParticles: {fileID: 1426344824135655946, guid: 48d77c6c4472d44ba8638099af421e30,
     type: 3}
   mainCollider: {fileID: 3453900800839920029}
+  canvas: {fileID: 0}
 --- !u!195 &3453900800839920027
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -838,6 +839,7 @@ MonoBehaviour:
     type: 3}
   deathParticles: {fileID: 0}
   rHealth: 0
+  bossIsActive: 0
   battleStage: 0
   originPos: {x: 0, y: 0, z: 0}
   player: {fileID: 0}

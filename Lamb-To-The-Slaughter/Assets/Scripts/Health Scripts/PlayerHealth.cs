@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : Health
 {
@@ -14,6 +15,9 @@ public class PlayerHealth : Health
     public CameraShake cs;
     [Header("Damage Delay Timer")]
     float delayTimer = 0.2f;
+    int healthToDisplay;
+    bool canCountDown;
+    bool isDoneCounting;
 
     [Header("Other")]
     //for death screen
@@ -38,12 +42,10 @@ public class PlayerHealth : Health
 
     public override void OnDeath()
     {
-       // ws.AOEcA.intensity.Override(0.161f);
-       // ws.AOEv.color.Override(ws.originalV);
         deathScreen.SetActive(true);
         Destroy(player);
         Instantiate(deathCamera);
-        Time.timeScale = 0; 
+        Time.timeScale = 0;
     }
 
     // Start is called before the first frame update
@@ -52,14 +54,25 @@ public class PlayerHealth : Health
         player = GameObject.FindGameObjectWithTag("Player");
         base.Start();
         overlay.color = safeColour;
+        healthToDisplay = (int)currentHealth;
         audioSourceP = GetComponentInChildren<AudioSource>();
-        //ws.AOEv.color.Override(ws.originalV); 
     }
 
+    void OnMedPackUpdate()
+    {
+        healthToDisplay = (int)currentHealth;
+    }
     // Update is called once per frame
     void Update()
     {
-        healthValue.SetText(currentHealth.ToString() + "%");
+        if (Input.GetButtonDown("Medpack"))
+        {
+            Invoke("OnMedPackUpdate", 0.2f);
+        }
+
+        UIHealthShuffle();
+
+        healthValue.SetText(healthToDisplay.ToString() + "%");
 
         DamageOverlayControl();
 
@@ -94,7 +107,9 @@ public class PlayerHealth : Health
             audioSourceP.clip = playerCries[Random.Range(0, playerCries.Length)];
             audioSourceP.loop = false;
             audioSourceP.Play();
+            healthToDisplay = (int)currentHealth;
             base.TakeDamage(amount);
+            canCountDown = true;
             delayTimer = 0.2f;
         }
 
@@ -106,7 +121,6 @@ public class PlayerHealth : Health
     {
         if (getDamage)
         {
-            //StartCoroutine(cs.Shake(0.3f, 1.5f));
             overlay.color = Color.Lerp(overlay.color, hurtColour, 20 * Time.deltaTime);
             if (overlay.color.a >= 0.39)
             {
@@ -121,9 +135,22 @@ public class PlayerHealth : Health
 
     void DeathCheck()
     {
-        if (currentHealth <= 0)
+        if (healthToDisplay <= 0)
         {
             OnDeath();
+        }
+    }
+
+    void UIHealthShuffle()
+    {
+        if (canCountDown)
+        {
+            healthToDisplay -= 1;
+            if (healthToDisplay < currentHealth)
+            {
+                healthToDisplay = (int)currentHealth;
+                canCountDown = false;
+            }
         }
     }
 }
