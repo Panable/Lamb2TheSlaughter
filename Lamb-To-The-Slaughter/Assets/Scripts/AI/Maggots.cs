@@ -8,6 +8,7 @@ public class Maggots : MonoBehaviour //Lachlan
     private NavMeshAgent maggotAgent;
     private Rigidbody maggotRB;
     public Transform player;
+    MaggHealth mh;
 
     //Particles to spawn when damaged
     public ParticleSystem Injured;
@@ -33,6 +34,7 @@ public class Maggots : MonoBehaviour //Lachlan
     //Finds The Componenets Neccessary for the enemy to move and finds the target to avoid.
     void OnEnable()
     {
+        mh = GetComponent<MaggHealth>();
         col = gameObject.GetComponent<CapsuleCollider>();
         maggotAgent = GetComponent<NavMeshAgent>();
         maggotRB = GetComponent<Rigidbody>();
@@ -41,21 +43,19 @@ public class Maggots : MonoBehaviour //Lachlan
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    void OnCollisionStay(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
-        Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
-        maggotAgent.SetDestination(newPos);
-        timer = 0;
+        if (mh.unharmed)
+        {
+            Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
+            maggotAgent.SetDestination(newPos);
+            timer = 0;
+        }
 
         if (collision.gameObject.tag == "Player")
         {
-            hurtPlayer();
+            player.GetComponent<Health>().TakeDamage(6f);
         }
-    }
-
-    void hurtPlayer()
-    {
-        player.GetComponent<Health>().TakeDamage(6f);
     }
 
     void BounceSound()
@@ -67,18 +67,21 @@ public class Maggots : MonoBehaviour //Lachlan
         }
     }
 
-    //Function spawns particles that indicate the enemy has been hit
-    void Enemyishurt()
-    {
-        Instantiate(Injured, transform.localPosition, transform.localRotation);
-    }
-
     //Update the timer to change direction when it runs out
     void Update()
     {
-        bouncyBoi();
-        NewBouncePos();
-        BounceSound();
+        if (mh.unharmed)
+        {
+            bouncyBoi();
+            NewBouncePos();
+            BounceSound();
+        }
+        else if(!mh.unharmed)
+        {
+            maggotAgent.SetDestination(player.position);
+            bouncyBoi();
+            BounceSound();
+        }
 
         timer += Time.deltaTime;
     }
