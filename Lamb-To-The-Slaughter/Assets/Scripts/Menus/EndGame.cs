@@ -1,43 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 public class EndGame : MonoBehaviour
 {
-    //Activating UI Elements 
-    public GameObject UI;
-    public GameObject EndGameUI;
-    public GameObject boss;
+    public bool Finish;
 
-    //Audio
-    public AudioClip victoryBGM;
-    public AudioClip victorySFX;
-    public AudioSource mainSource;
-
-    void Start()
+    public void OnTriggerEnter(Collider collision)
     {
-        boss = GameObject.FindGameObjectWithTag("Boss");
-        UI.SetActive(false);
-        EndGameUI.SetActive(true);
-    }
-
-    //Function if game is won
-    void FinishedGame()
-    {
-        mainSource.PlayOneShot(victoryBGM);
-        mainSource.PlayOneShot(victorySFX);
-        EndGameUI.SetActive(true);
-    }
-
-    public void ToMainMenu()
-    {
-        SceneManager.LoadScene("MainMenu");
-    }
-
-    public void EscapeAsylum()
-    {
-        Application.Quit();
-        Debug.Log("Quit");
+        if (collision.gameObject.tag == "Player")
+        {
+            Finish = true;
+        }
     }
 }

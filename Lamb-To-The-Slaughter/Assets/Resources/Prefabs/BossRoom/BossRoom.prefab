@@ -10104,7 +10104,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.042776678, y: 0.03999999, z: 0}
   m_Center: {x: -0.00031906707, y: 0, z: 2.2019882e-17}
---- !u!114 &135315549
+--- !u!114 &2781554467864065364
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10113,12 +10113,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8043963910072281670}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bcdeefd186814a76bcd0baffb74b7cb, type: 3}
+  m_Script: {fileID: 11500000, guid: 508bbe9723c1c43e18862a99e2375c8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  winScreen: {fileID: 0}
-  UI: {fileID: 0}
-  gameWon: 0
+  endDoorEntered: 0
 --- !u!65 &4827897302680948385
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18590,6 +18588,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EndGame
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: f5b7f2f7979df497c82c150c2754ba14,
+        type: 3}
+      propertyPath: m_TagString
+      value: end
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f5b7f2f7979df497c82c150c2754ba14, type: 3}

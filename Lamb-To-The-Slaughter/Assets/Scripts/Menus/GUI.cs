@@ -11,7 +11,7 @@ public class GUI : MonoBehaviour //Lachlan
 
     //for time alive
     public TMP_Text timertxt;
-    float timer;
+    public float timer;
 
     //for AOE cooldown
     public Scrollbar cooldown;
@@ -46,6 +46,7 @@ public class GUI : MonoBehaviour //Lachlan
         if (player == null)
         {
             dead = true;
+            Time.timeScale = 0;
         }
     }
 }

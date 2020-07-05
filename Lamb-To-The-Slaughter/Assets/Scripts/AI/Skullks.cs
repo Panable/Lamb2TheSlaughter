@@ -39,7 +39,7 @@ public class Skullks : MonoBehaviour //AS IF it was Lachlan
 
     void Update()
     {
-        Debug.Log("Can skulks shoot?: " + canShoot);
+//        Debug.Log("Can skulks shoot?: " + canShoot);
 
         skulkAgent.SetDestination(player.transform.position);
 

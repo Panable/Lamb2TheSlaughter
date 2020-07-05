@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.AI;
 using JetBrains.Annotations;
-//using UnityEditor.PackageManager;
+using UnityEditor.PackageManager;
 using System;
 
 public class ProceduralManager : MonoBehaviour //Dhan
@@ -143,7 +143,7 @@ public class ProceduralManager : MonoBehaviour //Dhan
         else
         {
             procedurallyGenerating = false;
-            Debug.Log("Kiling");
+           // Debug.Log("Kiling");
 
             KillProcedural();
             GenerateBossRoom();

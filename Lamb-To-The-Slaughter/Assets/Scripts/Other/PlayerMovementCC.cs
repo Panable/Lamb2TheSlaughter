@@ -68,7 +68,7 @@ public class PlayerMovementCC : MonoBehaviour //Dhan
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("The player can teleport: " + canTeleport);
+//        Debug.Log("The player can teleport: " + canTeleport);
 
         if (Speed() > 0)
         {

@@ -16,7 +16,7 @@ public class MainMenu : MonoBehaviour //Lachlan
     public GameObject playgame;
     public GameObject exitgame;
 
-    void Awake()
+    void Start()
     {
         Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Confined;

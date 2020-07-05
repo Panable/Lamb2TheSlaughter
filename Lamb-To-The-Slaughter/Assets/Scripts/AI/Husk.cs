@@ -24,7 +24,7 @@ public class Husk : MonoBehaviour //Lachlan
 
     private void Update()
     {
-        Debug.Log(huskAgent.isStopped);
+        //Debug.Log(huskAgent.isStopped);
 
         huskMoving();
     }
@@ -52,7 +52,7 @@ public class Husk : MonoBehaviour //Lachlan
         if (collision.gameObject.tag == "Player")
         {
             inTrigger = true;
-            Debug.Log("Contact");
+            //Debug.Log("Contact");
             StartCoroutine(attack(0.5f, collision));
 
             //huskAgent.isStopped = true;

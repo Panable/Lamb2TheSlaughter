@@ -37,7 +37,7 @@ public class RoomGenerator : MonoBehaviour
             bool inCollision = false;
             foreach (RoomManager managers in ProceduralManager.roomsGenerated)
             {
-                Debug.Log("Checking collision");
+                //Debug.Log("Checking collision");
                 bool inCollisionWithAGeneratedRoom = Physics.ComputePenetration(managers.roomCollider, ExtensionMethods.ColliderToWorldPoint(managers.roomCollider), managers.transform.rotation,
             bossRoom.GetComponent<RoomManager>().roomCollider, ExtensionMethods.ColliderToWorldPoint(bossRoom.GetComponent<RoomManager>().roomCollider), bossRoom.transform.rotation, out direction, out distance);
                 if (inCollisionWithAGeneratedRoom)
@@ -46,7 +46,7 @@ public class RoomGenerator : MonoBehaviour
             if (!inCollision)
             {
                 currentRoom.roomsGenerated.Add(bossRoom);
-                Debug.Log("FOUND!");
+                //Debug.Log("FOUND!");
                 Quaternion rot = transform.rotation;
                 Transform doorReplace = Instantiate<Transform>(currentRoom.currentRoom.GetDoorPrefab(), transform.position, rot, transform.parent);
                 Destroy(gameObject);

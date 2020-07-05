@@ -21,5 +21,11 @@ public class GPSControl : MonoBehaviour
         cameraPos = new Vector3(playerPos.x, gameObject.transform.position.y, playerPos.z);
 
         gameObject.transform.position = cameraPos;
+
+
+        if (!player)
+        {
+           return; 
+        }
     }
 }
