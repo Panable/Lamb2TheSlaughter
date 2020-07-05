@@ -144,7 +144,7 @@ public class BossAI : MonoBehaviour
 			{
 				canMelee = false;
 				canShockwave = false;
-				SpawnAttack();
+				SpawnAttack(false);
 				if (shootTimer <= 0)
                 {
                     TransitionStage(10, 1);
@@ -175,7 +175,7 @@ public class BossAI : MonoBehaviour
 			shootTimer -= Time.deltaTime;
 			if (canShoot)
 			{
-				SpawnAttack();
+				SpawnAttack(false);
 				canMelee = false;
 				canShockwave = false;
 				canShockwave = false;
@@ -243,7 +243,7 @@ public class BossAI : MonoBehaviour
 	//Third stage of the battle
 	void BattleStageThree()
 	{
-		SpawnAttack();
+		SpawnAttack(true);
 
 		timer -= Time.deltaTime;
 		debugAOEtimer = timer;
@@ -348,13 +348,23 @@ public class BossAI : MonoBehaviour
         }
     }
 
-    void SpawnAttack()
+    void SpawnAttack( bool finalStage)
     {
 		skulkCount = GameObject.FindGameObjectsWithTag("Enemy");
 
-		if (skulkCount.Length - 1 < 2)
-		{
-			Instantiate(skulk, spawnAnchor.position, Quaternion.identity);
+        if (!finalStage)
+        {
+			if (skulkCount.Length - 1 < 1)
+			{
+				Instantiate(skulk, spawnAnchor.position, Quaternion.identity);
+			}
+		}
+        else if (finalStage)
+        {
+			if (skulkCount.Length - 1 < 2)
+			{
+				Instantiate(skulk, spawnAnchor.position, Quaternion.identity);
+			}
 		}
 	}
 }

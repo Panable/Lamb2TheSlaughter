@@ -1563,7 +1563,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &527765966 stripped
 GameObject:
@@ -4089,36 +4089,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9cdfb23694aec474d8214b69b9de7a53, type: 3}
---- !u!1 &1309504966
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1309504967}
-  m_Layer: 0
-  m_Name: WorldOrigin
-  m_TagString: Untagged
-  m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1309504967
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1309504966}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1390439495 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6138511040517145552, guid: 6c44364fbb52e4b4389b87ed3882f676,
@@ -5170,7 +5140,7 @@ Transform:
   - {fileID: 1922634023}
   - {fileID: 57420185140363066}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2100343854 stripped
 GameObject:
@@ -10640,6 +10610,11 @@ PrefabInstance:
       propertyPath: loadingScreen
       value: 
       objectReference: {fileID: 287589400}
+    - target: {fileID: 4966732780099105064, guid: 1fc21ae472567439ea155304d219d8c9,
+        type: 3}
+      propertyPath: currentHealth
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 5071576979344861351, guid: 1fc21ae472567439ea155304d219d8c9,
         type: 3}
       propertyPath: explosionBombTXT
@@ -10688,7 +10663,7 @@ PrefabInstance:
     - target: {fileID: 5071576979344861351, guid: 1fc21ae472567439ea155304d219d8c9,
         type: 3}
       propertyPath: medpack
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5071576979344861351, guid: 1fc21ae472567439ea155304d219d8c9,
         type: 3}

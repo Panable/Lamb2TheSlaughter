@@ -43,7 +43,7 @@ public class PlayerHealth : Health
     public override void OnDeath()
     {
         deathScreen.SetActive(true);
-        Destroy(player);
+        player.SetActive(false);
         Instantiate(deathCamera);
         Time.timeScale = 0;
     }

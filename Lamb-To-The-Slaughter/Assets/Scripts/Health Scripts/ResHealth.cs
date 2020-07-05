@@ -14,12 +14,25 @@ public class ResHealth : Health
     public CapsuleCollider mainCollider;
     public GameObject canvas;
     PauseMenu bossUI;
+    GameObject deathParticles;
+    GameObject[] skulksLeft;
 
+    public override void OnDeath()
+    {
+        deathParticles.SetActive(true);
+        Destroy(gameObject);
+    }
+
+    void Kill()
+    {
+        Destroy(gameObject);
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         base.Start();
+        deathParticles = gameObject.transform.parent.Find("DeathParticles").gameObject;
         canvas = GameObject.FindGameObjectWithTag("Canvas");
         bossUI = canvas.GetComponent<PauseMenu>();
         bossUI.bossIsActive = true;
@@ -34,6 +47,10 @@ public class ResHealth : Health
         health = base.currentHealth;
         bossUI.bossHealth.SetText(health.ToString() + "%");
 
+        if (health < 1)
+        {
+            OnDeath();
+        }
     }
 
     public override void TakeDamage(float amount)
