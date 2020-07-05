@@ -197,7 +197,7 @@ GameObject:
   - component: {fileID: 7927934854452671289}
   - component: {fileID: 6042539750154690047}
   - component: {fileID: 1591725267866109810}
-  - component: {fileID: 3112188026210573369}
+  - component: {fileID: 6887207442861657622}
   m_Layer: 0
   m_Name: Y_Tree (1)
   m_TagString: Untagged
@@ -267,8 +267,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &3112188026210573369
-MeshCollider:
+--- !u!136 &6887207442861657622
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -277,10 +277,10 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -6077812340005053637, guid: c63af3ba7b48342a1a0bb833e09e97b2, type: 3}
+  m_Radius: 0.01
+  m_Height: 0.20642588
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0.09}
 --- !u!1 &1692621926164607024
 GameObject:
   m_ObjectHideFlags: 0
@@ -929,7 +929,7 @@ GameObject:
   - component: {fileID: 833307406989987585}
   - component: {fileID: 8560082941375952183}
   - component: {fileID: 2735672339811518926}
-  - component: {fileID: 5686415089780827160}
+  - component: {fileID: 8479118346711785597}
   m_Layer: 0
   m_Name: Y_Tree
   m_TagString: Untagged
@@ -999,8 +999,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &5686415089780827160
-MeshCollider:
+--- !u!136 &8479118346711785597
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1009,10 +1009,10 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -6077812340005053637, guid: c63af3ba7b48342a1a0bb833e09e97b2, type: 3}
+  m_Radius: 0.01
+  m_Height: 0.20642588
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0.09}
 --- !u!1 &4452891744588076923
 GameObject:
   m_ObjectHideFlags: 0

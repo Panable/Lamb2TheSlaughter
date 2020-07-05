@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerHealth : Health
 {
@@ -18,6 +19,10 @@ public class PlayerHealth : Health
     int healthToDisplay;
     bool canCountDown;
     bool isDoneCounting;
+    public UnityEngine.Rendering.Universal.ColorAdjustments damageCA;
+    public UnityEngine.Rendering.VolumeProfile vp;
+    public Color deathWarning;
+    Color originalColor;
 
     [Header("Other")]
     //for death screen
@@ -56,9 +61,10 @@ public class PlayerHealth : Health
         overlay.color = safeColour;
         healthToDisplay = (int)currentHealth;
         audioSourceP = GetComponentInChildren<AudioSource>();
+        PostProcessConfiguration();
     }
 
-    void OnMedPackUpdate()
+    public void OnMedPackUpdate()
     {
         healthToDisplay = (int)currentHealth;
     }
@@ -131,6 +137,15 @@ public class PlayerHealth : Health
         {
             overlay.color = Color.Lerp(overlay.color, safeColour, 5 * Time.deltaTime);
         }
+
+        if (currentHealth < 10f)
+        {
+            damageCA.colorFilter.value = Color.Lerp(damageCA.colorFilter.value, deathWarning, 2 * Time.deltaTime);
+        }
+        else
+        {
+            damageCA.colorFilter.value = Color.Lerp(damageCA.colorFilter.value, originalColor, 2 * Time.deltaTime);
+        }
     }
 
     void DeathCheck()
@@ -152,5 +167,17 @@ public class PlayerHealth : Health
                 canCountDown = false;
             }
         }
+    }
+
+    void PostProcessConfiguration()
+    {
+        ColorAdjustments cA;
+
+        if (vp.TryGet<ColorAdjustments>(out cA))
+        {
+            damageCA = cA;
+        }
+
+        originalColor = damageCA.colorFilter.value;
     }
 }
