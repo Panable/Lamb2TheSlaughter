@@ -62,6 +62,7 @@ public class PlayerHealth : Health
         healthToDisplay = (int)currentHealth;
         audioSourceP = GetComponentInChildren<AudioSource>();
         PostProcessConfiguration();
+        damageCA.colorFilter.value = originalColor;
     }
 
     public void OnMedPackUpdate()
