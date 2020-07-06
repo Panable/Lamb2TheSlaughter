@@ -101,6 +101,7 @@ public class BombScript : MonoBehaviour //Ansaar
     {
         bombActive = true;
         gasParticleSystem.SetActive(true);
+        Invoke("DeactivateGasBomb", 5f);
         //gasBombIcon.SetActive(true);
 
         Collider[] nearbyEnemy = Physics.OverlapSphere(transform.position, gasRadius);
@@ -121,7 +122,7 @@ public class BombScript : MonoBehaviour //Ansaar
     private void GravityBomb()
     {
         gravityParticleSystem.SetActive(true);
-        Invoke("DeactivateBomb", 5f);
+        Invoke("DeactivateGravBomb", 5f);
         //gravityBombIcon.SetActive(true);
 
         Collider[] nearbyEnemy = Physics.OverlapSphere(transform.position, gravityRadius);
@@ -155,9 +156,15 @@ public class BombScript : MonoBehaviour //Ansaar
         Destroy(gameObject);
     }
 
-    private void DeactivateBomb()
+    private void DeactivateGravBomb()
     {
         Destroy(gravityParticleSystem);
+        Destroy(this);
+    }
+
+    private void DeactivateGasBomb()
+    {
+        Destroy(gasParticleSystem);
         Destroy(this);
     }
 }

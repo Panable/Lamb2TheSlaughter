@@ -21,7 +21,7 @@ public class ParticleDestroy : MonoBehaviour
         }
         else if (anchorHolder == "Skulk")
         {
-            anchor = GameObject.FindGameObjectWithTag("SkulkAnchor");
+            anchor = GameObject.FindGameObjectWithTag("SkullHead");
         }
         else if (anchorHolder == "Resposdine")
         {
