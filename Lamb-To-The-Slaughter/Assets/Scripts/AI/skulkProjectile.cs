@@ -30,7 +30,7 @@ public class skulkProjectile : MonoBehaviour
         {
             col.isTrigger = false;
             rb.useGravity = false;
-            Invoke("KillProjectile", 5f);
+            Invoke("KillProjectile", 2f);
         }
     }
 }

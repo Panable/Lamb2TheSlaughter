@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.05660379, g: 0.035777867, b: 0.03230688, a: 1}
+  m_AmbientSkyColor: {r: 0.084905684, g: 0.055202045, b: 0.049261317, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
@@ -3879,7 +3879,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0.3450961, g: 0.5188679, b: 0.49746016, a: 1}
+  m_Color: {r: 0.46413317, g: 0.6603774, b: 0.6380769, a: 1}
   m_Intensity: 1
   m_Range: 5.12
   m_SpotAngle: 30
@@ -10619,7 +10619,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 984843727, guid: 1fc21ae472567439ea155304d219d8c9, type: 3}
       propertyPath: m_Range
-      value: 14.35
+      value: 19.2
       objectReference: {fileID: 0}
     - target: {fileID: 984843727, guid: 1fc21ae472567439ea155304d219d8c9, type: 3}
       propertyPath: m_InnerSpotAngle
@@ -10643,11 +10643,45 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 984843727, guid: 1fc21ae472567439ea155304d219d8c9, type: 3}
       propertyPath: m_Intensity
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 984843727, guid: 1fc21ae472567439ea155304d219d8c9, type: 3}
       propertyPath: m_Shadows.m_Type
-      value: 2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 984843727, guid: 1fc21ae472567439ea155304d219d8c9, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 1559
+      objectReference: {fileID: 0}
+    - target: {fileID: 2670884381572610041, guid: 1fc21ae472567439ea155304d219d8c9,
+        type: 3}
+      propertyPath: m_Dithering
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2670884381572610041, guid: 1fc21ae472567439ea155304d219d8c9,
+        type: 3}
+      propertyPath: m_StopNaN
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2670884381572610041, guid: 1fc21ae472567439ea155304d219d8c9,
+        type: 3}
+      propertyPath: m_Antialiasing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2670884381572610043, guid: 1fc21ae472567439ea155304d219d8c9,
+        type: 3}
+      propertyPath: m_OcclusionCulling
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2670884381572610043, guid: 1fc21ae472567439ea155304d219d8c9,
+        type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 1591
+      objectReference: {fileID: 0}
+    - target: {fileID: 2670884381572610043, guid: 1fc21ae472567439ea155304d219d8c9,
+        type: 3}
+      propertyPath: far clip plane
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2670884381575440674, guid: 1fc21ae472567439ea155304d219d8c9,
         type: 3}
@@ -10723,6 +10757,16 @@ PrefabInstance:
         type: 3}
       propertyPath: timetowait
       value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4581695174757517845, guid: 1fc21ae472567439ea155304d219d8c9,
+        type: 3}
+      propertyPath: far clip plane
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4581695174757517845, guid: 1fc21ae472567439ea155304d219d8c9,
+        type: 3}
+      propertyPath: m_OcclusionCulling
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4966732780099105064, guid: 1fc21ae472567439ea155304d219d8c9,
         type: 3}
@@ -10843,6 +10887,21 @@ PrefabInstance:
     - target: {fileID: 5071576979344861351, guid: 1fc21ae472567439ea155304d219d8c9,
         type: 3}
       propertyPath: keys
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7612519350797194739, guid: 1fc21ae472567439ea155304d219d8c9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8582265827821185671, guid: 1fc21ae472567439ea155304d219d8c9,
+        type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8582265827821185671, guid: 1fc21ae472567439ea155304d219d8c9,
+        type: 3}
+      propertyPath: m_RenderShadows
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8828792117823002555, guid: 1fc21ae472567439ea155304d219d8c9,

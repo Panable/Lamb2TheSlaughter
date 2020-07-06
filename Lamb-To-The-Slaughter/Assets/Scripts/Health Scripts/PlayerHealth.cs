@@ -22,7 +22,7 @@ public class PlayerHealth : Health
     public UnityEngine.Rendering.Universal.ColorAdjustments damageCA;
     public UnityEngine.Rendering.VolumeProfile vp;
     public Color deathWarning;
-    Color originalColor;
+    public Color originalColor;
 
     [Header("Other")]
     //for death screen
@@ -47,6 +47,7 @@ public class PlayerHealth : Health
 
     public override void OnDeath()
     {
+        damageCA.colorFilter.value = originalColor;
         deathScreen.SetActive(true);
         player.SetActive(false);
         Instantiate(deathCamera);
@@ -62,7 +63,6 @@ public class PlayerHealth : Health
         healthToDisplay = (int)currentHealth;
         audioSourceP = GetComponentInChildren<AudioSource>();
         PostProcessConfiguration();
-        damageCA.colorFilter.value = originalColor;
     }
 
     public void OnMedPackUpdate()
