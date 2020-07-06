@@ -39,6 +39,7 @@ public class WeaponSelect : MonoBehaviour
     Color setV;
     public Gradient glassColour;
     public Material[] gunPower;
+    public GameObject damageParticles;
 
     //Sound
     public AudioSource audioSource;
@@ -160,7 +161,15 @@ public class WeaponSelect : MonoBehaviour
             if (selectedWeapon.raycastHit.transform != null)
             {
                 Vector3 wallNormal = (selectedWeapon.raycastHit.normal) * 90;
-                Instantiate(wallShot, selectedWeapon.raycastHit.point, Quaternion.Euler(wallNormal.x, wallNormal.y + 90, wallNormal.z));
+                if (selectedWeapon.raycastHit.transform.CompareTag("Enemy"))
+                {
+                    Instantiate(damageParticles, selectedWeapon.raycastHit.point, Quaternion.Euler(wallNormal.x, wallNormal.y + 90, wallNormal.z));
+                }
+                else
+                {
+                    Instantiate(wallShot, selectedWeapon.raycastHit.point, Quaternion.Euler(wallNormal.x, wallNormal.y + 90, wallNormal.z));
+
+                }
             }
         }
 

@@ -22,6 +22,10 @@ public class Maggots : MonoBehaviour //Lachlan
     //Variables for bouncyboi
     float bounceHeight;
     public GameObject mainBone;
+    public float colSpeed;
+    public float colHeight;
+    Vector3 colPos;
+    public float freeze;
 
     //Bounce Audio
     public AudioClip bounce;
@@ -41,15 +45,16 @@ public class Maggots : MonoBehaviour //Lachlan
         audioSource = GetComponent<AudioSource>();
         timer = wanderTimer;
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        colPos = col.center;
     }
 
     void OnCollisionEnter(Collision collision)
     {
         if (mh.unharmed)
         {
-            Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
-            maggotAgent.SetDestination(newPos);
-            timer = 0;
+            //Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
+            //maggotAgent.SetDestination(newPos);
+            //timer = 0;
         }
 
         if (collision.gameObject.tag == "Player")
@@ -106,11 +111,10 @@ public class Maggots : MonoBehaviour //Lachlan
     //Make Maggot bounce
     public void bouncyBoi()
     {
-        Vector3 originalCentre = new Vector3(col.center.x, 1.6f, col.center.z);
-        Vector3 bounceCentre = new Vector3(col.center.x, 5f, col.center.z);
-
         RaycastHit hit;
         Ray downray = new Ray(mainBone.transform.position, -Vector3.up);
+
+        Vector3 bouncePos = new Vector3(col.center.x, colHeight, col.center.z);
 
         if (Physics.Raycast(downray, out hit))
         {
@@ -119,18 +123,17 @@ public class Maggots : MonoBehaviour //Lachlan
 
         if (bounceHeight > bounceThreshold)
         {
-            col.center = bounceCentre;
+            col.center = Vector3.Lerp(col.center, bouncePos, colSpeed * Time.deltaTime);
             maggotAgent.speed = 4.5f;
         }
-        else
+        else if (bounceHeight < bounceThreshold)
         {
+            col.center = Vector3.Lerp(col.center, colPos, colSpeed * Time.deltaTime);
             if (!audioSource.isPlaying)
             {
                 justBounced = true;
             }
-            col.center = originalCentre;
             maggotAgent.speed = 0f;
-
         }
     }
 

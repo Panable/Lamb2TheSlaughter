@@ -250,10 +250,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   Injured: {fileID: 4933148978096647423, guid: f0911f7fe556f4b249fab1a5968f1e97, type: 3}
-  wanderRadius: 200
+  wanderRadius: 500
   wanderTimer: 1
-  bounceThreshold: 1.5
+  bounceThreshold: 1.15
   mainBone: {fileID: 2868519521809352724}
+  colSpeed: 30
+  colHeight: 4
+  freeze: 1.2
   bounce: {fileID: 8300000, guid: 52187a93e910940f3bcaa0ed284d6aab, type: 3}
 --- !u!195 &2007656147287985615
 NavMeshAgent:
@@ -290,7 +293,7 @@ CapsuleCollider:
   m_Radius: 1.7330115
   m_Height: 6.2934933
   m_Direction: 2
-  m_Center: {x: 0.00016021729, y: 1.5850708, z: -0.013177872}
+  m_Center: {x: 0, y: 1.55, z: 0}
 --- !u!114 &3213613678153376133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,11 +311,12 @@ MonoBehaviour:
   regenHealth: 0
   regenRate: 0
   timeTillRegen: 0
-  hurtParticles: {fileID: 1426344824135655946, guid: 48d77c6c4472d44ba8638099af421e30,
+  deathParticles: {fileID: 1426344824135656055, guid: 48d77c6c4472d44ba8638099af421e30,
     type: 3}
   collider: {fileID: 559131754791518287}
-  particleLocation: {fileID: 135626585193118393}
+  particleLocation: {fileID: 1368029469290346576}
   cryM: {fileID: 8300000, guid: 9d8c3984e1c994af58d67280c4fb23a1, type: 3}
+  unharmed: 1
 --- !u!54 &7364688317127307579
 Rigidbody:
   m_ObjectHideFlags: 0

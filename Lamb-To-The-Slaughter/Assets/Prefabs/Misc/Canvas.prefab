@@ -4175,7 +4175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.4401387, b: 0.6415094, a: 0.09019608}
+  m_Color: {r: 0.0767622, g: 0.18540688, b: 0.23584908, a: 0.14901961}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -9554,7 +9554,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timertxt: {fileID: 6138511041715319388}
   timer: 0
-  cooldown: {fileID: 0}
+  cooldown: {fileID: 6900377276244326297}
 --- !u!114 &1101701986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12834,7 +12834,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0.0024719238, y: 0}
   m_SizeDelta: {x: -0.0050049, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -13613,7 +13613,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7460392920088978907
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13675,8 +13675,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -5.2751, y: 81.7}
-  m_SizeDelta: {x: 1946.7, y: 185}
+  m_AnchoredPosition: {x: -5.2751, y: 92.5}
+  m_SizeDelta: {x: 1946.7, y: 163.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7451955289729446489
 CanvasRenderer:
@@ -14424,6 +14424,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 6138511041448320477}
+    - target: {fileID: 5136800832539653082, guid: 12ede20531d43409589c5e31548cae17,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: quitGame
       objectReference: {fileID: 0}
     - target: {fileID: 5136800833178212338, guid: 12ede20531d43409589c5e31548cae17,
         type: 3}
@@ -14570,6 +14575,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5136800833178212340, guid: 12ede20531d43409589c5e31548cae17,
+        type: 3}
+      propertyPath: m_TagString
+      value: WinScreen
+      objectReference: {fileID: 0}
     - target: {fileID: 5136800833436738817, guid: 12ede20531d43409589c5e31548cae17,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -14599,6 +14609,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 6138511041448320477}
+    - target: {fileID: 5136800833818632841, guid: 12ede20531d43409589c5e31548cae17,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EscapeAsylum
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5136800833178212338, guid: 12ede20531d43409589c5e31548cae17, type: 3}
