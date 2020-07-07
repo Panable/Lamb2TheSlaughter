@@ -76,20 +76,25 @@ public class BombScript : MonoBehaviour //Ansaar
         hitGround = true;
     }
 
+    bool done = false;
+
     private void ExplosiveBomb()
     {
+        if (done) return;
+        done = true;
         MeshRenderer rend = GetComponent<MeshRenderer>();
         explosiveParticleSystem.SetActive(true);
         //explosiveBombIcon.SetActive(true);
         Collider[] nearbyEnemy = Physics.OverlapSphere(transform.position, explosiveRadius);
         foreach (Collider hit in nearbyEnemy)
         {
+            Debug.Log("do dmg");
             Rigidbody forceRb = hit.GetComponent<Rigidbody>();
 
             //StartCoroutine(cameraShake.Shake(0.25f, 1f));
             //Do damage
             if (hit.tag == "Enemy")
-                hit.GetComponent<Health>().TakeDamage(5);
+                hit.GetComponent<Health>().TakeDamage(20); 
 
             rend.enabled = false;
             Invoke("DestroyBomb", 1f);

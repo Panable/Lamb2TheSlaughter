@@ -101,6 +101,8 @@ public class RoomManager : MonoBehaviour
         {
             door.GetChild(0).gameObject.SetActive(true);
             door.GetChild(0).gameObject.GetComponent<Parasites>().DissolveIn();
+            if (door.childCount > 1)
+                door.GetChild(1).gameObject.SetActive(true);
         }
 
     }

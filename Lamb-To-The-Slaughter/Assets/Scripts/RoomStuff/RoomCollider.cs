@@ -82,9 +82,10 @@ public class RoomCollider : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (spawnedEnemies) return;
+        if (spawnedEnemies || ProceduralManager.procedurallyGenerating) return;
         if (other.CompareTag("Player"))
         {
+            Destroy(GetComponent<BoxCollider>());
             InitiateBattle();
         }
     }

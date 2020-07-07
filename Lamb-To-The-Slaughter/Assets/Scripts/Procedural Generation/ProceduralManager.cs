@@ -29,31 +29,35 @@ public class ProceduralManager : MonoBehaviour //Dhan
     public static int numberOfRoomsGenerated = 0;
     public static int roomLayer = 1 << 10;
 
-    public static bool procedurallyGenerating = true;
+    public static bool procedurallyGenerating;
 
     //A Database of all prefabs
     public static List<Room> roomPrefabs = new List<Room>();
     public static GameObject spawnRoomPrefab;
     public static GameObject bossRoomPrefab;
-    public static Dictionary<char, Transform> doorPrefabs = new Dictionary<char, Transform>(); //Character corresponds to door prefab
+    public static Dictionary<char, Transform> doorPrefabs; //Character corresponds to door prefab
 
     /// <summary>
     /// A database of all currently generated rooms. Used to check against collision
     /// </summary>
-    public static List<RoomManager> roomsGenerated = new List<RoomManager>();
+    public static List<RoomManager> roomsGenerated;
 
     /// <summary>
     /// A list of rooms still left to generate from
     /// </summary>
-    public static List<RoomManager> roomsToGenerate = new List<RoomManager>();
+    public static List<RoomManager> roomsToGenerate;
     public GameObject player;
     [SerializeField] public BloodMessages bloodMessages;
 
     private void Awake()
     {
-
+        numberOfRoomsToGenerate = 2;
+        numberOfRoomsGenerated = 0;
+        procedurallyGenerating = true;
+        doorPrefabs = new Dictionary<char, Transform>();
+        roomsGenerated = new List<RoomManager>();
+        roomsToGenerate = new List<RoomManager>();
         LoadRoomPrefabs();
-
         LoadDoorPrefabs();
 
 
@@ -153,9 +157,11 @@ public class ProceduralManager : MonoBehaviour //Dhan
             LoadingManager.EndLoadingBar();
             player.SetActive(true);
             bloodMessages.gameObject.SetActive(true);
+            gameObject.SetActive(false);
         }
 
     }
+
     private void KillProcedural()
     {
         foreach (Room room in roomPrefabs)

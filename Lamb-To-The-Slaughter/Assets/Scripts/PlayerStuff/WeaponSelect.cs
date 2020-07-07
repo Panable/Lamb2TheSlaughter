@@ -21,6 +21,8 @@ public class WeaponSelect : MonoBehaviour
     public ParticleSystem reloadSmoke;
     public GameObject wallShot;
 
+    public LayerMask ignore;
+
     [HideInInspector]
     public List<BaseWeapon> AvaliableWeapons = new List<BaseWeapon>();
     public BaseWeapon selectedWeapon;
