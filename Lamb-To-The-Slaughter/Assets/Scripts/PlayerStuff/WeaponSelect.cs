@@ -365,6 +365,8 @@ public class WeaponSelect : MonoBehaviour
     {
         if (GetComponent<Inventory>().teleportBomb >= 1 && Input.GetButtonDown("teleportBomb") && !throwingBomb && !isBombThrowing())
         {
+            if (BombScript.teleport != null)
+                Destroy(BombScript.teleport);
             throwingBomb = true;
             //instantiateBomb
             anim.SetBool("TeleportBomb", true);

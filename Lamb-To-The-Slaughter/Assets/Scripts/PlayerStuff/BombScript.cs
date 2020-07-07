@@ -56,7 +56,7 @@ public class BombScript : MonoBehaviour //Ansaar
     void Update()
     {
         if (!hitGround) return;
-
+        Debug.Log("Swi");
         switch (bombTag)
         {
             case "Bomb_Gravity":
@@ -97,7 +97,7 @@ public class BombScript : MonoBehaviour //Ansaar
             //StartCoroutine(cameraShake.Shake(0.25f, 1f));
             //Do damage
             if (hit.tag == "Enemy")
-                hit.GetComponent<Health>().TakeDamage(20); 
+                hit.GetComponent<Health>().TakeDamage(20);
 
             rend.enabled = false;
             Invoke("DestroyBomb", 1f);
@@ -141,7 +141,7 @@ public class BombScript : MonoBehaviour //Ansaar
             Collider enemyCol = hit.GetComponent<Collider>();
             if (enemy != null && enemy.tag == "Enemy")
             {
-                enemy.transform.position = Vector3.Lerp(enemy.transform.position, gameObject.transform.position, Time.deltaTime * gravityForce);       
+                enemy.transform.position = Vector3.Lerp(enemy.transform.position, gameObject.transform.position, Time.deltaTime * gravityForce);
             }
         }
 
@@ -150,15 +150,18 @@ public class BombScript : MonoBehaviour //Ansaar
 
     private void TeleportBomb()
     {
-        if (teleport != null)
-            Destroy(teleport);
         teleport = gameObject;
-        tpLocation = gameObject.transform;
+        Rigidbody rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = true;
+        rb.isKinematic = true;
+        rb.velocity = Vector3.zero;
+        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;
+        //tpLocation = gameObject.transform;
         //teleportBombIcon.SetActive(true);
         tpParticleSystem.SetActive(true);
         bombActive = true;
         player.GetComponent<PlayerMovementCC>().TeleportFunction(gameObject);
-        tpLocation.position = gameObject.transform.position;
+        //tpLocation.position = gameObject.transform.position;
         //teleportBombIcon.SetActive(false);
     }
 
