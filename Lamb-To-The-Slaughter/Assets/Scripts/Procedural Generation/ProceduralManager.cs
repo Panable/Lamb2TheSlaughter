@@ -51,12 +51,13 @@ public class ProceduralManager : MonoBehaviour //Dhan
 
     private void Awake()
     {
-        numberOfRoomsToGenerate = 2;
+        numberOfRoomsToGenerate = 20;
         numberOfRoomsGenerated = 0;
         procedurallyGenerating = true;
         doorPrefabs = new Dictionary<char, Transform>();
         roomsGenerated = new List<RoomManager>();
         roomsToGenerate = new List<RoomManager>();
+        roomPrefabs = new List<Room>();
         LoadRoomPrefabs();
         LoadDoorPrefabs();
 

@@ -85,6 +85,9 @@ public class RoomCollider : MonoBehaviour
         if (spawnedEnemies || ProceduralManager.procedurallyGenerating) return;
         if (other.CompareTag("Player"))
         {
+            if (BombScript.teleport != null)
+                Destroy(BombScript.teleport);
+
             Destroy(GetComponent<BoxCollider>());
             InitiateBattle();
         }

@@ -7,6 +7,9 @@ using UnityEngine.UI;
 
 public class BombScript : MonoBehaviour //Ansaar
 {
+
+    public static GameObject teleport;
+
     //ExplosiveBombs
     public float explosiveForce;
     public float explosiveRadius;
@@ -147,6 +150,9 @@ public class BombScript : MonoBehaviour //Ansaar
 
     private void TeleportBomb()
     {
+        if (teleport != null)
+            Destroy(teleport);
+        teleport = gameObject;
         tpLocation = gameObject.transform;
         //teleportBombIcon.SetActive(true);
         tpParticleSystem.SetActive(true);
