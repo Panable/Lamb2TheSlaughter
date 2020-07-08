@@ -44,6 +44,8 @@ public class PlayerHealth : Health
     //Audio
     public AudioSource audioSourceP;
     public AudioClip[] playerCries;
+    public AudioSource audioSourceLowHealth;
+    public AudioClip lowHealth;
 
     public override void OnDeath()
     {
@@ -142,10 +144,13 @@ public class PlayerHealth : Health
         if (currentHealth < 10f)
         {
             damageCA.colorFilter.value = Color.Lerp(damageCA.colorFilter.value, deathWarning, 2 * Time.deltaTime);
+            audioSourceLowHealth.loop = true;
+            audioSourceLowHealth.Play();
         }
         else
         {
             damageCA.colorFilter.value = Color.Lerp(damageCA.colorFilter.value, originalColor, 2 * Time.deltaTime);
+            audioSourceLowHealth.Stop();
         }
     }
 

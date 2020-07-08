@@ -2,26 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CackleHealth : Health
+public class CackleHealth : Health //Dhan
 {
     public ParticleSystem hurtParticles;
     public SphereCollider hitBox;
     public Transform particleLocation;
 
+    //Audio
+    public AudioClip[] cackleCry;
+    public AudioSource sourceCry;
+    public AudioClip[] laughs;
+    public AudioSource sourceLaugh;
+
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
-    }
-
-    // Update is called once per frame
-    private void Update()
-    {
-
+        sourceCry.loop = false;
+        sourceLaugh.clip = laughs[Random.Range(0, laughs.Length)];
+        sourceLaugh.loop = true;
+        sourceLaugh.Play();
     }
 
     public override void TakeDamage(float amount)
     {
+        //Playing Audio when hit
+        sourceCry.clip = cackleCry[Random.Range(0, cackleCry.Length)];
+        sourceCry.Play();
+
         //we are taking dmg here
         base.TakeDamage(amount);
 

@@ -1,20 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class HuskHealth : Health //Dhan
 {
     public ParticleSystem hurtParticles;
     public BoxCollider collider;
     Vector3 particleLocation;
-    private AudioSource audioSourceH;
-    public AudioClip cryH;
+
+    //Audio
+    public AudioSource audioSource;
+    public AudioClip[] huskCry;
 
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
-        audioSourceH = GetComponent<AudioSource>();
+        audioSource.loop = false;
     }
 
     // Update is called once per frame
@@ -25,11 +28,14 @@ public class HuskHealth : Health //Dhan
 
     public override void TakeDamage(float amount)
     {
+        //Plays Audio when Husk is damaged
+        audioSource.clip = huskCry[Random.Range(0, huskCry.Length)];
+        audioSource.Play();
+
         //we are taking dmg here
         base.TakeDamage(amount);
-        audioSourceH.PlayOneShot(cryH, 20f);
 
-        //add shit you want after damage is taken here
+        //after damage is taken, blood particles are spawned.
         Instantiate(hurtParticles, particleLocation, transform.localRotation);
     }
 

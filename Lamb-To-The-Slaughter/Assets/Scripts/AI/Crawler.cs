@@ -11,16 +11,13 @@ public class Crawler : MonoBehaviour //Lachlan
     //Components for the enemy + know where player is
     public Transform player;
     public NavMeshAgent agent;
-    //private Rigidbody crawlerRB;
 
     void OnEnable()
     {
         // Gets the enemy, Finds and targets the players location.
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
-        //crawlerRB = GetComponent<Rigidbody>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        //anim.SetBool("isMoving", true);
     }
 
     private void FixedUpdate()
@@ -30,12 +27,12 @@ public class Crawler : MonoBehaviour //Lachlan
         agent.destination = player.position;
     }
 
-    void OnTriggerStay(Collider collision)
+    private void OnCollisionEnter(Collision collision)
     {
         //When hits the player
         if (collision.gameObject.tag == "Player")
         {
-            collision.gameObject.GetComponent<Health>().TakeDamage(1f);
+            collision.gameObject.GetComponent<Health>().TakeDamage(4f);
         }
     }
 }

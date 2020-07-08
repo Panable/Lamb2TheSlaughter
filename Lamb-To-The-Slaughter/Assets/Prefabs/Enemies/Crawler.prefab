@@ -137,7 +137,6 @@ GameObject:
   - component: {fileID: 8505063144744430143}
   - component: {fileID: 5377038534910262343}
   - component: {fileID: 4767601787961615655}
-  - component: {fileID: 1619332228745934007}
   - component: {fileID: 5696055263102449256}
   m_Layer: 0
   m_Name: Crawler
@@ -206,7 +205,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 372075594148939898}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 5.19
+  m_Radius: 8
   m_Speed: 6.2
   m_Acceleration: 300
   avoidancePriority: 80
@@ -245,14 +244,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c74735b594d58fb4398a40b3165a2a27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
-  currentHealth: 5
+  maxHealth: 4
+  currentHealth: 4
   regenHealth: 0
   regenRate: 0
   timeTillRegen: 0
   hurtParticles: {fileID: 1426344824135655946, guid: 48d77c6c4472d44ba8638099af421e30,
     type: 3}
-  cryC: {fileID: 8300000, guid: a898816f4c778403aa16fe69bf56a743, type: 3}
+  audioSourceC: {fileID: 5696055263102449256}
+  sourceLaugh: {fileID: 0}
+  laughs: []
+  cryC:
+  - {fileID: 8300000, guid: 3616e28eb28e047058417dadc18be06d, type: 3}
+  - {fileID: 8300000, guid: d4db3fbaa17eb4ea6b8d330623dde0d7, type: 3}
+  - {fileID: 8300000, guid: 0930e59e87d8f433cbf1037344f236dd, type: 3}
+  - {fileID: 8300000, guid: 31996e3a4560945099eadbc5f1fe806c, type: 3}
+  - {fileID: 8300000, guid: 0c5f97fd156f0417bb90e3de5561f1ba, type: 3}
 --- !u!136 &4767601787961615655
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -267,19 +274,6 @@ CapsuleCollider:
   m_Height: 8.155206
   m_Direction: 2
   m_Center: {x: 0.13391972, y: 2.1809998, z: 0.3634993}
---- !u!65 &1619332228745934007
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 372075594148939898}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 6.270433, y: 3, z: 13.74162}
-  m_Center: {x: 0.12570658, y: 1.39, z: 2.5141842}
 --- !u!82 &5696055263102449256
 AudioSource:
   m_ObjectHideFlags: 0
@@ -292,16 +286,16 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 24300002, guid: 93edea050b15140dfad56a92e79a0bee,
     type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 0.81
+  m_PlayOnAwake: 0
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 179
+  Priority: 60
   DopplerLevel: 1
-  MinDistance: 0.94971657
+  MinDistance: 0
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -337,7 +331,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.555
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -352,7 +346,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.28333333
       inSlope: 0
       outSlope: 0
       tangentMode: 0

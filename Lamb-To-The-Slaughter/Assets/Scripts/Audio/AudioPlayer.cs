@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioPlayer : MonoBehaviour //Lachlan
 {
@@ -9,7 +10,7 @@ public class AudioPlayer : MonoBehaviour //Lachlan
     //Gun Sounds
     public AudioClip shoot;
     public AudioClip reload;
-    public AudioClip AOE;
+    public AudioClip[] AOE;
     //Health Sounds
     public AudioClip heal;
 
@@ -17,6 +18,7 @@ public class AudioPlayer : MonoBehaviour //Lachlan
     {
         audioSource = GetComponent<AudioSource>();
         player = GameObject.FindGameObjectWithTag("Player");
+        audioSource.loop = false;
     }
 
     public void Update()
@@ -30,7 +32,8 @@ public class AudioPlayer : MonoBehaviour //Lachlan
     {
         if (player.GetComponent<WeaponSelect>().AOEsoundplay == true)
         {
-            audioSource.PlayOneShot(AOE, 1f);
+            audioSource.clip = AOE[Random.Range(0, AOE.Length)];
+            audioSource.Play();
             player.GetComponent<WeaponSelect>().AOEsoundplay = false;
         }
     }
@@ -39,7 +42,7 @@ public class AudioPlayer : MonoBehaviour //Lachlan
     {
         if (player.GetComponent<WeaponSelect>().selectedWeapon.attack == true)
         {
-            audioSource.PlayOneShot(shoot, 2f);
+            audioSource.PlayOneShot(shoot, 1f);
             player.GetComponent<WeaponSelect>().selectedWeapon.attack = false;
         }
     }
@@ -48,7 +51,7 @@ public class AudioPlayer : MonoBehaviour //Lachlan
     {
         if (player.GetComponent<WeaponSelect>().selectedWeapon.reloadSFX == true)
         {
-            audioSource.PlayOneShot(reload, 1f);
+            audioSource.PlayOneShot(reload, 0.6f);
             player.GetComponent<WeaponSelect>().selectedWeapon.reloadSFX = false;
         }
     }

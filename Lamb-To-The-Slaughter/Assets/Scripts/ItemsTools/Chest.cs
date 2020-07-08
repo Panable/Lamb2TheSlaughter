@@ -59,7 +59,7 @@ public class Chest : MonoBehaviour
         {
 
             anim.SetBool("openChest", true);
-            audioSource.PlayOneShot(chestCreak, 60f);
+            audioSource.PlayOneShot(chestCreak, 20f);
             Invoke("ToolKillDelay", 0.2f);
 
         }

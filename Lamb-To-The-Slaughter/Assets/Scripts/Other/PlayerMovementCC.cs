@@ -41,6 +41,11 @@ public class PlayerMovementCC : MonoBehaviour //Dhan
 
     public bool jumping = true;
 
+    //Audio
+    public AudioSource jumpSource;
+    private double jumpTimer = 0.52f;
+    private bool jumpStart;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -64,12 +69,12 @@ public class PlayerMovementCC : MonoBehaviour //Dhan
 
         Color Lcolor = new Color(1f, 0f, 0f);
         tPcA.intensity.Override(0.161f);
+        jumpSource.loop = false;
+        jumpStart = false;
     }
     // Update is called once per frame
     void Update()
     {
-//        Debug.Log("The player can teleport: " + canTeleport);
-
         if (Speed() > 0)
         {
             anim.SetFloat("Speed", 1f);
@@ -98,6 +103,18 @@ public class PlayerMovementCC : MonoBehaviour //Dhan
         if (Input.GetButton("PS"))
         {
             SceneManager.LoadScene("MainMenu");
+        }
+
+        if (jumpStart == true)
+        {
+            jumpTimer -= Time.deltaTime;
+
+            if (jumpTimer <= 0)
+            {
+                jumpSource.Play();
+                jumpTimer = 0.52f;
+                jumpStart = false;
+            }
         }
     }
 
@@ -166,6 +183,8 @@ public class PlayerMovementCC : MonoBehaviour //Dhan
     {
 
         verticalVelocity = jumpHeight;
+        //jumpSource.Play();
+        jumpStart = true;
     }
 
     #region Camera Movement Code

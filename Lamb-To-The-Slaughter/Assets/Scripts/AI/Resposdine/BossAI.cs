@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Audio;
 
 public class BossAI : MonoBehaviour
 {
@@ -61,6 +62,13 @@ public class BossAI : MonoBehaviour
 	public Vector3 particleOffset;
 	GameObject[] skulkCount;
 
+	//Audio Stuff
+    [Header("Audio")]
+	public AudioSource audioSource;
+	public AudioClip[] meleeAttack;
+	public AudioClip[] projectileAttack;
+	public AudioClip[] spawnAttack;
+
 	// Start is called before the first frame update
 	void Awake()
     {
@@ -77,6 +85,7 @@ public class BossAI : MonoBehaviour
 		resAI.isStopped = false;
 		transform.LookAt(player.transform.position);
 		resAI.destination = player.transform.position;
+		audioSource.loop = false;
 	}
 
     private void FixedUpdate()
@@ -195,7 +204,9 @@ public class BossAI : MonoBehaviour
 		Rigidbody projectileInstance = Instantiate(projectile, projectileAnchor.position, projectileAnchor.localRotation);
 		projectileInstance.velocity = force * projectileAnchor.forward;
 		Instantiate(shotParticles, projectileAnchor.position, Quaternion.identity);
-    }
+		audioSource.clip = projectileAttack[Random.Range(0, projectileAttack.Length)];
+		audioSource.Play();
+	}
 
     private void OnEnable()
     {
@@ -294,6 +305,8 @@ public class BossAI : MonoBehaviour
 		if (canMelee)
 		{
 			strikeCount = Random.Range(1, strikeTypes);
+            audioSource.clip = meleeAttack[Random.Range(0, meleeAttack.Length)];
+			audioSource.Play();
 			canMelee = false;
 		}
 
@@ -357,6 +370,8 @@ public class BossAI : MonoBehaviour
 			if (skulkCount.Length - 1 < 1)
 			{
 				Instantiate(skulk, spawnAnchor.position, Quaternion.identity);
+				audioSource.clip = spawnAttack[Random.Range(0, spawnAttack.Length)];
+				audioSource.Play();
 			}
 		}
         else if (finalStage)
@@ -364,6 +379,8 @@ public class BossAI : MonoBehaviour
 			if (skulkCount.Length - 1 < 2)
 			{
 				Instantiate(skulk, spawnAnchor.position, Quaternion.identity);
+				audioSource.clip = spawnAttack[Random.Range(0, spawnAttack.Length)];
+				audioSource.Play();
 			}
 		}
 	}
