@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.Audio;
 
 public class WeaponSelect : MonoBehaviour
 {
@@ -43,10 +44,13 @@ public class WeaponSelect : MonoBehaviour
     public Material[] gunPower;
     public GameObject damageParticles;
 
-    //Sound
+    //Audio
     public AudioSource audioSource;
     public AudioClip heal;
     public bool AOEsoundplay;
+
+    public AudioSource audioSourceThrow;
+    public AudioClip[] bombThrowAudio;
 
     [Header("Bomb Prefabs")]
     [SerializeField] Rigidbody gravityBomb;
@@ -68,7 +72,7 @@ public class WeaponSelect : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         ph = player.GetComponent<PlayerHealth>();
         AOEv.color.Override(originalV);
-        audioSource = GetComponent<AudioSource>();
+        audioSourceThrow.loop = false;
     }
 
     //Instantiating
@@ -96,8 +100,6 @@ public class WeaponSelect : MonoBehaviour
             selectedWeapon = weaponToStartWith;
         else
             Debug.LogError("Starting Weapon has not been assigned");
-
-
     }
 
     private void SwitchWeapon(BaseWeapon WeaponToSwitchTo)
@@ -305,7 +307,7 @@ public class WeaponSelect : MonoBehaviour
     {
         if (Input.GetButtonDown("Medpack") && GetComponent<Inventory>().medpack >= 1)
         {
-            audioSource.PlayOneShot(heal, 60f);
+            audioSource.PlayOneShot(heal, 30f);
             GetComponent<Health>().currentHealth += 10;
             GetComponent<Inventory>().medpack--;
         }
@@ -317,6 +319,7 @@ public class WeaponSelect : MonoBehaviour
 
     public bool isBombThrowing()
     {
+        player.GetComponent<WeaponSelect>().AOEsoundplay = false;
         bool gravityBomb = anim.GetCurrentAnimatorStateInfo(0).IsName("PlayerRig|Gun_ThrowBomb_B_40");
         bool gasBomb = anim.GetCurrentAnimatorStateInfo(0).IsName("PlayerRig|Gun_ThrowBomb_G_40");
         bool explosiveBomb = anim.GetCurrentAnimatorStateInfo(0).IsName("PlayerRig|Gun_ThrowBomb_E_40");
@@ -330,6 +333,9 @@ public class WeaponSelect : MonoBehaviour
         {
             throwingBomb = true;
             //Instantiate Bomb Here
+            audioSourceThrow.loop = false;
+            audioSourceThrow.clip = bombThrowAudio[UnityEngine.Random.Range(0, bombThrowAudio.Length)];
+            audioSourceThrow.Play();
             anim.SetBool("GravityBomb", true);
             GetComponent<Inventory>().gravityBomb--;
 
@@ -350,6 +356,9 @@ public class WeaponSelect : MonoBehaviour
         {
             throwingBomb = true;
             //instantiateBombs
+            audioSourceThrow.loop = false;
+            audioSourceThrow.clip = bombThrowAudio[UnityEngine.Random.Range(0, bombThrowAudio.Length)];
+            audioSourceThrow.Play();
             anim.SetBool("ExplosiveBomb", true);
             GetComponent<Inventory>().explosionBomb--;
             yield return new WaitForSeconds(timetowait);
@@ -369,6 +378,9 @@ public class WeaponSelect : MonoBehaviour
                 Destroy(BombScript.teleport);
             throwingBomb = true;
             //instantiateBomb
+            audioSourceThrow.loop = false;
+            audioSourceThrow.clip = bombThrowAudio[UnityEngine.Random.Range(0, bombThrowAudio.Length)];
+            audioSourceThrow.Play();
             anim.SetBool("TeleportBomb", true);
             GetComponent<Inventory>().teleportBomb--;
             yield return new WaitForSeconds(timetowait);
@@ -386,6 +398,9 @@ public class WeaponSelect : MonoBehaviour
         {
             throwingBomb = true;
             //instantiateBomb
+            audioSourceThrow.loop = false;
+            audioSourceThrow.clip = bombThrowAudio[UnityEngine.Random.Range(0, bombThrowAudio.Length)];
+            audioSourceThrow.Play();
             anim.SetBool("GasBomb", true);
             GetComponent<Inventory>().gasBomb--;
             yield return new WaitForSeconds(timetowait);
