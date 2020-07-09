@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class BaseEnemy : Component
+public abstract class BaseEnemy : Component //NEEDS COMMENTING
 {
     [HideInInspector]
     public GameObject obj;
