@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class EndGame : MonoBehaviour
+public class EndGame : MonoBehaviour //NEEDS COMMENTING
 {
     public bool Finish;
 

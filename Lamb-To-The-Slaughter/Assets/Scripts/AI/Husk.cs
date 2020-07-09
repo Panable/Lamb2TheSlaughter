@@ -3,34 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Husk : MonoBehaviour //Lachlan
+public class Husk : MonoBehaviour //Ansaar & Dhan
 {
-    //For Animations
+    #region Variables
+    [SerializeField]
+    private bool inTrigger;
+    private bool attacking = false;
+    private NavMeshAgent huskAgent;
+    private Transform player;
+
     public Animator anim;
-    public ParticleSystem Injured;
-    bool inTrigger;
+    #endregion
 
-    //Components for the enemy + know where player is
-    public Transform player;
-    public NavMeshAgent huskAgent;
-
+    //Initialisation
     void OnEnable()
     {
-        // Gets the enemy, Finds and targets the players location.
         huskAgent = GetComponent<NavMeshAgent>();
         player = GameObject.FindWithTag("Player").transform;
         huskAgent.isStopped = false;
     }
 
+    //Move the Husk w/ Appropriate animations
     private void Update()
-    {
-        //Debug.Log(huskAgent.isStopped);
-
-        huskMoving();
-    }
-
-    //Update animation depending on if its moving
-    void huskMoving()
     {
         if (huskAgent.isStopped)
         {
@@ -45,21 +39,18 @@ public class Husk : MonoBehaviour //Lachlan
         }
     }
 
+    //Attack if player is in trigger
     void OnTriggerStay(Collider collision)
     {
         if (attacking) return;
-        //When hits the player
         if (collision.gameObject.tag == "Player")
         {
             inTrigger = true;
-            //Debug.Log("Contact");
             StartCoroutine(attack(0.5f, collision));
-
-            //huskAgent.isStopped = true;
-            ///collision.gameObject.GetComponent<Health>().TakeDamage(10f);
-            //huskAgent.isStopped = false;
         }
     }
+
+    //Attack Control
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player")
@@ -68,8 +59,7 @@ public class Husk : MonoBehaviour //Lachlan
         }
     }
 
-    bool attacking = false;
-
+    //Attack Coroutine
     IEnumerator attack(float strikeTime, Collider collision)
     {
         attacking = true;

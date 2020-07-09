@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class AudioManager : MonoBehaviour //Lachlan
+public class AudioManager : MonoBehaviour //NEEDS COMMENTING
 {
 
     //IT DOESN'T  WORK AT THE MOMENT
     //NEED TO UPDATE THE OTHER SCRIPT BUT ITS 5AM AND I WANNA SLEEP. SORRY. <3
+    //It's all good, love <3
     private static readonly string firstPlay = "First Play";
     private static readonly string backgroundPref = "BackgroundPref";
     private static readonly string soundEffectPref = "SoundEffectPref";

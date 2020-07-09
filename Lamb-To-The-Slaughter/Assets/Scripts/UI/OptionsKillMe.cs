@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class OptionsKillMe : MonoBehaviour //Lachlan's Setting
-{
+public class OptionsKillMe : MonoBehaviour ////NEEDS COMMENTING
     public AudioMixer volumeMaster;
 
     public AudioMixer volumeSFX;

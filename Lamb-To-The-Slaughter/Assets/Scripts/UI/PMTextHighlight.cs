@@ -4,27 +4,31 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class PMTextHighlight : MonoBehaviour
+public class PMTextHighlight : MonoBehaviour //Ansaar
 {
+    #region Variables
+    [SerializeField]
+    private Color lowlighted = new Color(0.6981f, 0.1679f, 0.1679f);
+    private Color highlighted = new Color(0.1777f, 0.8018f, 0.5832f);
+    private bool isHighlighted;
+
     public TMP_Text pauseMenuOption;
+    #endregion
 
-    Color lowlighted = new Color(0.6981f, 0.1679f, 0.1679f);
-    Color highlighted = new Color(0.1777f, 0.8018f, 0.5832f);
-
-    bool isHighlighted;
-
-    // Start is called before the first frame update
+    //Initialisation
     void Start()
     {
         isHighlighted = false;
         pauseMenuOption.color = lowlighted;
     }
 
+    //Highlight text under cursor
     public void Highlight()
     {
         pauseMenuOption.color = highlighted;
     }
 
+    //Lowlight text under cursor
     public void LowLight()
     {
         pauseMenuOption.color = lowlighted;

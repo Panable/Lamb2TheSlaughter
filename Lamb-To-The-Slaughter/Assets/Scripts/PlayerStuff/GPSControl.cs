@@ -2,19 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GPSControl : MonoBehaviour
+public class GPSControl : MonoBehaviour //Ansaar
 {
+    #region Variables
+    [SerializeField]
+    private Vector3 cameraPos;
+    private Vector3 playerPos;
 
     public Transform player;
-    Vector3 cameraPos;
-    Vector3 playerPos;
-    // Start is called before the first frame update
+    #endregion
+
+    //Initialisation
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    // Update is called once per frame
+    //Controls GPS Camera's Rotation
     void Update()
     {
         playerPos = new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z);

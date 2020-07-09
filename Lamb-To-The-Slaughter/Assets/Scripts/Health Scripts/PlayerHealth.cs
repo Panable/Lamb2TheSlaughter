@@ -3,50 +3,42 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.SceneManagement;
 using UnityEngine.Rendering.Universal;
 
-public class PlayerHealth : Health
+public class PlayerHealth : Health //Ansaar(Graphics) & Lachlan(Audio & Death)
 {
-    //Damage Feedback Varables
+    #region Variables
+    [SerializeField]
+    private Color safeColour = new Color(0f, 0f, 0f, 0f);
+    private Color hurtColour = new Color(1f, 1f, 1f, 0.4f);
+    private bool getDamage;
+    private float delayTimer = 0.2f;
+    private int healthToDisplay;
+    private bool canCountDown;
+    private bool isDoneCounting;
+    private ColorAdjustments damageCA;
+    private WeaponSelect ws;
+    private string ogText;
+
     public Image overlay;
-    Color safeColour = new Color(0f, 0f, 0f, 0f);
-    Color hurtColour = new Color(1f, 1f, 1f, 0.4f);
-    bool getDamage;
     public CameraShake cs;
-    [Header("Damage Delay Timer")]
-    float delayTimer = 0.2f;
-    int healthToDisplay;
-    bool canCountDown;
-    bool isDoneCounting;
-    public UnityEngine.Rendering.Universal.ColorAdjustments damageCA;
     public UnityEngine.Rendering.VolumeProfile vp;
     public Color deathWarning;
     public Color originalColor;
-
-    [Header("Other")]
-    //for death screen
     public GameObject player;
     public GameObject deathScreen;
     public Camera deathCamera;
-
-    //When Health is over 100/overdrive function
-    WeaponSelect ws;
     public static bool overDrive = false;
-
-    //UI Variables
     public TMP_Text healthText;
-    string ogText;
     public Gradient textColor;
     public TMP_Text healthValue;
-
-    [Header("Audio")]
-    //Audio
     public AudioSource audioSourceP;
     public AudioClip[] playerCries;
     public AudioSource audioSourceLowHealth;
     public AudioClip lowHealth;
+    #endregion
 
+    //Properties for when killed
     public override void OnDeath()
     {
         damageCA.colorFilter.value = originalColor;
@@ -56,7 +48,7 @@ public class PlayerHealth : Health
         Time.timeScale = 0;
     }
 
-    // Start is called before the first frame update
+    //Initialisation
     protected override void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -67,11 +59,13 @@ public class PlayerHealth : Health
         PostProcessConfiguration();
     }
 
+    //GUI health display failsafe
     public void OnMedPackUpdate()
     {
         healthToDisplay = (int)currentHealth;
     }
-    // Update is called once per frame
+
+    //Regulate Health GUI & Death Check
     void Update()
     {
         if (Input.GetButtonDown("Medpack"))
@@ -108,6 +102,7 @@ public class PlayerHealth : Health
         DeathCheck();
     }
 
+    //Properties for when taking damage
     public override void TakeDamage(float amount)
     {
         //we are taking dmg here
@@ -126,6 +121,7 @@ public class PlayerHealth : Health
         getDamage = true;
     }
 
+    //Blood overlay when taking damage
     void DamageOverlayControl()
     {
         if (getDamage)
@@ -154,6 +150,7 @@ public class PlayerHealth : Health
         }
     }
 
+    //Death Check
     void DeathCheck()
     {
         if (healthToDisplay <= 0)
@@ -162,6 +159,7 @@ public class PlayerHealth : Health
         }
     }
 
+    //Shuffle GUI Health
     void UIHealthShuffle()
     {
         if (canCountDown)
@@ -175,6 +173,7 @@ public class PlayerHealth : Health
         }
     }
 
+    //Configure Post-Processing Settings
     void PostProcessConfiguration()
     {
         ColorAdjustments cA;

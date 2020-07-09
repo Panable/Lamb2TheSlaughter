@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class BossUI : MonoBehaviour
+public class BossUI : MonoBehaviour //NEEDS COMMENTING
 {
     //UI Properties
     public GameObject bossUI;

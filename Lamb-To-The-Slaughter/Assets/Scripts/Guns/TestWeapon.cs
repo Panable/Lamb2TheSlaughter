@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestWeapon : BaseWeapon
+public class TestWeapon : BaseWeapon //NEEDS COMMENTING
 {
     WeaponSelect weaponSelect;
     public static GameObject player;

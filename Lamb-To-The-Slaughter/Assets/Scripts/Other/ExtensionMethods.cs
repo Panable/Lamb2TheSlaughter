@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class ExtensionMethods
+public static class ExtensionMethods //NEEDS COMMENTING
 {
 
     public static Vector2 Round(this Vector2 vector2, int decimalPlaces = 2)

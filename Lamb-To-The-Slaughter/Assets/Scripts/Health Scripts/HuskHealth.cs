@@ -3,29 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class HuskHealth : Health //Dhan
+public class HuskHealth : Health //Ansaar(Particles) & Lachlan(Audio)
 {
+    #region Variables
     public ParticleSystem hurtParticles;
     public BoxCollider collider;
-    Vector3 particleLocation;
+    public Vector3 particleLocation;
 
-    //Audio
     public AudioSource audioSource;
     public AudioClip[] huskCry;
+    #endregion
 
-    // Start is called before the first frame update
+    //Initialisation
     protected override void Start()
     {
         base.Start();
         audioSource.loop = false;
     }
 
-    // Update is called once per frame
+    //Update the location of particles
     void Update()
     {
       particleLocation = transform.TransformPoint(collider.center);
     }
 
+    //Properties when taking damage
     public override void TakeDamage(float amount)
     {
         //Plays Audio when Husk is damaged

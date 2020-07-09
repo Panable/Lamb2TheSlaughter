@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ParticleDestroy : MonoBehaviour
+public class ParticleDestroy : MonoBehaviour //Ansaar
 {
+    #region Variables
     public float timer;
     public ParticleSystem sparks;
     public ParticleSystem flash;
     public GameObject anchor;
-
-    //Classification Int
     public string anchorHolder;
+    #endregion
 
-    // Start is called before the first frame update
+    //Initialisation
     void Awake()
     {
         if (anchorHolder == "Player")
@@ -33,12 +33,13 @@ public class ParticleDestroy : MonoBehaviour
         Invoke("DestroyParticle", timer);
     }
 
+    //Set particle anchor
     private void Update()
     {
         transform.position = anchor.transform.position;
     }
 
-    // Update is called once per frame
+    //Destory particle
     void DestroyParticle()
     {
         Destroy(gameObject);

@@ -3,31 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class MaggHealth : Health //Ansaar
+public class MaggHealth : Health //Ansaar(Particles) & Lachlan(Audio)
 {
+    #region Variables
     public GameObject deathParticles;
     public CapsuleCollider collider;
     public Transform particleLocation;
-    private AudioSource audioSourceM;
+    public AudioSource audioSourceM;
     public AudioClip cryM;
-
-    Vector3 angryScale = new Vector3(1.5f, 1.5f, 1.5f);
+    public Vector3 angryScale = new Vector3(1.5f, 1.5f, 1.5f);
     public bool unharmed = true;
+    #endregion
 
+    //Properties for when killed
     public override void OnDeath()
     {
         GameObject particles = Instantiate(deathParticles, particleLocation.position, Quaternion.identity);
         particles.transform.localScale = angryScale / 2;
         Destroy(gameObject);
     }
-    // Start is called before the first frame update
+
+    //Initialisation
     protected override void Start()
     {
         base.Start();
         audioSourceM = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
+    //Death & Roam/Rage check
     void Update()
     {
         if (!unharmed)
@@ -41,15 +44,13 @@ public class MaggHealth : Health //Ansaar
         }
     }
 
+    //Properties for when taking damage
     public override void TakeDamage(float amount)
     {
-        //we are taking dmg here
         audioSourceM.PlayOneShot(cryM, 20f);
         base.TakeDamage(amount);
 
         unharmed = false;
-        //add shit you want after damage is taken here
-        //Instantiate(hurtParticles, particleLocation.position, transform.localRotation);
     }
 
 }

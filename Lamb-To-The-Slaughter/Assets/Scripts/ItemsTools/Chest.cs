@@ -1,31 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Audio;
-using TMPro;
 
-public class Chest : MonoBehaviour
+public class Chest : MonoBehaviour //Ansaar
 {
-    //Chest Functionality
-    Animator anim;
-    Collider col;
+    #region Variables
+    private Animator anim;
+    private Collider col;
+    private int num;
+    private string toolTag;
+
     public bool toolAccessible;
-    int num;
     public GameObject activeTool;
     public GameObject medPack;
-
-    //Inventory
     public GameObject player;
     public AudioSource audioSource;
     public AudioClip chestCreak;
-
     public GameObject[] chestContents;
+    #endregion
 
-    // Start is called before the first frame update
+    //Initialisation
     void Start()
     {
-        //activeGuide.gameObject.SetActive(false);
         player = GameObject.FindGameObjectWithTag("Player");
         anim = GetComponent<Animator>();
         col = GetComponent<SphereCollider>();
@@ -39,6 +35,7 @@ public class Chest : MonoBehaviour
             if (chestContents[i] == activeTool)
             {
                 activeTool.SetActive(true);
+                toolTag = activeTool.tag;
             }
             else
             {
@@ -47,11 +44,13 @@ public class Chest : MonoBehaviour
         }
     }
 
+    //Make tools accessible
     void ToolKillDelay()
     {
         toolAccessible = true;
     }
 
+    //Pick Up Tool & Medpack
     private void OnTriggerStay(Collider other)
     {
 
@@ -66,25 +65,24 @@ public class Chest : MonoBehaviour
 
         if (toolAccessible && Input.GetButtonDown("Interact"))
         {
-            if (activeTool.CompareTag("Bomb_Explosive"))
+            switch (toolTag)
             {
-                player.GetComponent<Inventory>().explosionBomb++;
-                activeTool.SetActive(false);
-            }
-            if (activeTool.CompareTag("Bomb_Teleport"))
-            {
-                player.GetComponent<Inventory>().teleportBomb++;
-                activeTool.SetActive(false);
-            }
-            if (activeTool.CompareTag("Bomb_Gas"))
-            {
-                player.GetComponent<Inventory>().gasBomb++;
-                activeTool.SetActive(false);
-            }
-            if (activeTool.CompareTag("Bomb_Gravity"))
-            {
-                player.GetComponent<Inventory>().gravityBomb++;
-                activeTool.SetActive(false);
+                case "Bomb_Explosive":
+                    player.GetComponent<Inventory>().explosionBomb++;
+                    activeTool.SetActive(false);
+                    break;
+                case "Bomb_Teleport":
+                    player.GetComponent<Inventory>().explosionBomb++;
+                    activeTool.SetActive(false);
+                    break;
+                case "Bomb_Gas":
+                    player.GetComponent<Inventory>().gasBomb++;
+                    activeTool.SetActive(false);
+                    break;
+                case "Bomb_Gravity":
+                    player.GetComponent<Inventory>().gravityBomb++;
+                    activeTool.SetActive(false);
+                    break;
             }
 
             medPack.SetActive(false);

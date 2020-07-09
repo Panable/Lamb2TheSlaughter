@@ -4,22 +4,20 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Audio;
 
-public class BossAI : MonoBehaviour
+public class BossAI : MonoBehaviour //Ansaar
 {
-    //Components
+    #region Variables
     [Header("Public Components")]
 	Animator anim;
 	SphereCollider meleeTrigger;
 	public ResHealth rH;
 	NavMeshAgent resAI;
 
-	//Melee Attack Properties
 	[Header("Melee Properties")]
 	public int strikeCount;
     public bool canMelee;
 	public CapsuleCollider weapon;
 
-	//Projectile Attack Properties
 	[Header("Projectile Properties")]
 	public Rigidbody projectile;
     public Transform projectileAnchor;
@@ -31,7 +29,6 @@ public class BossAI : MonoBehaviour
 	float shootTimer;
     public GameObject shotParticles;
 
-	//AOE Attack Properties
 	[Header("AOE Properties")]
 	public float debugAOEtimer;
 	public GameObject shockwave;
@@ -39,13 +36,11 @@ public class BossAI : MonoBehaviour
 	bool canShockwave;
 	int numOfsW;
 
-	//Other Related Properties
 	[Header("Other Properties")]
 	public ParticleSystem deathParticles;
     public float rHealth;
 	public bool bossIsActive = false;
 
-	//Combat Related Properties
 	[Header("Combat Properties")]
 	public int battleStage;
 	public Vector3 originPos;
@@ -53,7 +48,6 @@ public class BossAI : MonoBehaviour
 	public float agentDistance;
 	public bool focusPlayer;
 
-	//Spawn Attack Properties
 	[Header("Spawn Properties")]
 	public bool canSpawn;
 	public Transform spawnAnchor;
@@ -62,32 +56,31 @@ public class BossAI : MonoBehaviour
 	public Vector3 particleOffset;
 	GameObject[] skulkCount;
 
-	//Audio Stuff
     [Header("Audio")]
 	public AudioSource audioSource;
 	public AudioClip[] meleeAttack;
 	public AudioClip[] projectileAttack;
 	public AudioClip[] spawnAttack;
+    #endregion
 
-	// Start is called before the first frame update
-	void Awake()
+    //Initialisation
+    void Awake()
     {
-		bossIsActive = true;
-
-        //Find Components & References
 		anim = GetComponent<Animator>();
 		resAI = GetComponent<NavMeshAgent>();
 		meleeTrigger = GetComponent<SphereCollider>();
 		player = GameObject.FindGameObjectWithTag("Player");
 
-		//Initialise Properties
 		originPos = transform.position;
 		resAI.isStopped = false;
 		transform.LookAt(player.transform.position);
 		resAI.destination = player.transform.position;
 		audioSource.loop = false;
+		bossIsActive = true;
+		canShoot = false;
 	}
 
+    //Look At Player
     private void FixedUpdate()
     {
         //Regulates orientation
@@ -100,14 +93,13 @@ public class BossAI : MonoBehaviour
 			transform.LookAt(originPos);
 		}
     }
-    // Update is called once per frame
+
+    //Regulate Animations & Battle Stages
     void Update()
     {
-		//Debug.Log(battleStage);
 		rHealth = rH.currentHealth;
 		weapon.enabled = canMelee;
 
-		//Animator Controls
 		if (resAI.isStopped == false)
 		{
 			anim.SetFloat("moveSpeed", 1f);
@@ -119,7 +111,6 @@ public class BossAI : MonoBehaviour
 		anim.SetInteger("strikeCount", strikeCount);
 		anim.SetBool("shootAttack", canShoot);
 
-		//Distinguish & Call Battle Functions
 		if (rHealth <= 100 && rHealth > 80)
 		{
 			battleStage = 1;
@@ -208,11 +199,6 @@ public class BossAI : MonoBehaviour
 		audioSource.Play();
 	}
 
-    private void OnEnable()
-    {
-		canShoot = false;
-    }
-
     //First stage of the battle
     void BattleStageOne()
     {
@@ -272,13 +258,13 @@ public class BossAI : MonoBehaviour
 		}
 	}
 
-	//Find distance from agent to destination
+	//Return distance from agent to destination
 	void FindDistance(Vector3 destination)
 	{
 		agentDistance = Vector3.Distance(transform.position, destination);
 	}
 
-    //Adaptable AOE Function
+    //AOE attack Regulator
 	void AOEattack(int numOfShockwaves)
     {
 		canMelee = false;
@@ -290,18 +276,15 @@ public class BossAI : MonoBehaviour
         if (agentDistance < 0.3)
         {
 			canShockwave = true;
-            //Continued in update
 		}
 	}
 
-	//Adaptable Melee Attack & Regulator
+	//Melee Attack Regulator
 	void StrikeAttack(int strikeTypes)
     {
-		//Melee Attack
 		resAI.destination = player.transform.position;
 		FindDistance(player.transform.position);
 
-		//Randomises strike type & takes into account the battle stage
 		if (canMelee)
 		{
 			strikeCount = Random.Range(1, strikeTypes);
@@ -323,20 +306,17 @@ public class BossAI : MonoBehaviour
 		anim.SetBool("canMelee", canMelee);
 	}
 
-	//Spawns a shockwave (taking into account how often and how many
+	//Shockwave Attack Initialiser
 	void Shockwave(float numTimer)
     {
-        //animator control
 		anim.SetBool("AOEattack", canShockwave);
 
 		if (canShockwave)
 		{
-			//resAI.isStopped = true;
 			focusPlayer = true;
 
 			StartCoroutine(InvokeShockwave(1, numOfsW));
 
-			//Reset AOE
 			resAI.isStopped = false;
 			resAI.stoppingDistance = 10f;
 			timer = numTimer;
@@ -344,13 +324,7 @@ public class BossAI : MonoBehaviour
 		}
 	}
 
-    //Resets properties
-    private void Reset()
-    {
-		maxShootingTime = 10f;
-    }
-
-    //Regulates how many and how frequently a shockwave is spawned
+    //Shockwave Attack
     IEnumerator InvokeShockwave(float interval, int invokeCount)
     {
         for (int i = 0; i < invokeCount; i++)
@@ -361,6 +335,7 @@ public class BossAI : MonoBehaviour
         }
     }
 
+    //Spawn Attack
     void SpawnAttack( bool finalStage)
     {
 		skulkCount = GameObject.FindGameObjectsWithTag("Enemy");

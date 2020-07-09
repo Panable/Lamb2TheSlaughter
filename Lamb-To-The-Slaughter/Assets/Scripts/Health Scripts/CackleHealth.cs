@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CackleHealth : Health //Dhan
+public class CackleHealth : Health //Ansaar(Particles) & Lachlan(Audio)
 {
+    #region Variables
     public ParticleSystem hurtParticles;
     public SphereCollider hitBox;
     public Transform particleLocation;
 
-    //Audio
     public AudioClip[] cackleCry;
     public AudioSource sourceCry;
     public AudioClip[] laughs;
     public AudioSource sourceLaugh;
+    #endregion
 
-    // Start is called before the first frame update
+    //Initialisation
     protected override void Start()
     {
         base.Start();
@@ -24,16 +25,14 @@ public class CackleHealth : Health //Dhan
         sourceLaugh.Play();
     }
 
+    //Properties when taking damage
     public override void TakeDamage(float amount)
     {
-        //Playing Audio when hit
         sourceCry.clip = cackleCry[Random.Range(0, cackleCry.Length)];
         sourceCry.Play();
 
-        //we are taking dmg here
         base.TakeDamage(amount);
 
-        //add shit you want after damage is taken here
         Instantiate(hurtParticles, particleLocation.position, transform.rotation);
     }
 }

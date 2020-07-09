@@ -2,25 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GunRecoil : MonoBehaviour
+public class GunRecoil : MonoBehaviour //NEEDS COMMENTING
 {
-    // First time lerps back then it slerps back? (When slerping only y and z axis will be minded)
-
-    //Local transform vectors
+    #region Variables
     public Vector3 originalPos;
-    public Vector3 lerpPos; //how far back is it going to lerp after fire
+    public Vector3 lerpPos;
     public Vector3 currentPos;
-
     public float lerpSpeed = 1f;
     public float slerpSpeed = 10f;
-
     public float lerpBackDistance = 1f;
-
     public bool initialRecoil = false;
-
     float lerpIndex;
     float slerpIndex;
+    #endregion
 
+    //Initialisation
     public void Start()
     {
         originalPos = transform.localPosition;

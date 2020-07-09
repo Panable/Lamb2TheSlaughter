@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BloodMessages : MonoBehaviour
+public class BloodMessages : MonoBehaviour //Ansaar
 {
-    //Manager properties
+    #region Variables
+    [SerializeField]
+    private Renderer bMplaneRenderer;
+
     public GameObject[] bMplane;
     public Texture[] bMtexture;
-    Renderer bMplaneRenderer;
+    #endregion
 
-    //For convenience reasons, teleport bomb limit function also occurs here
-    [SerializeField] private GameObject[] foundTpBombs;
-
-    // Start is called before the first frame update
+    //Initialisation (Set Blood Messages & Control TP Bomb Count
     void Awake()
     {
-        //TeleportBombLimit();
+        TeleportBombLimit();
 
         bMplane = GameObject.FindGameObjectsWithTag("BloodMessage");
 
@@ -53,7 +53,7 @@ public class BloodMessages : MonoBehaviour
         KillExcess();
     }
 
-    // Update is called once per frame
+    //Remove unused blood messages
     void KillExcess()
     {
         bMplane = GameObject.FindGameObjectsWithTag("BloodMessage");
@@ -63,6 +63,7 @@ public class BloodMessages : MonoBehaviour
         }
     }
 
+    //Shuffle blood messages
     void ShuffleArray(GameObject[] planeAnchors)
     {
         for (int i = planeAnchors.Length - 1; i > 0; i--)
@@ -73,21 +74,4 @@ public class BloodMessages : MonoBehaviour
             planeAnchors[r] = tmp;
         }
     }
-
-    void TeleportBombLimit()
-    {
-        foundTpBombs = GameObject.FindGameObjectsWithTag("Bomb_Teleport");
-        if (foundTpBombs.Length > 1)
-        {
-            foundTpBombs[0].tag = "Untagged";
-            foreach (GameObject removedBomb in foundTpBombs)
-            {
-                if (removedBomb.tag == "Bomb_Teleport")
-                {
-                    removedBomb.SetActive(false);
-                }
-            }
-        }
-    }
-
 }

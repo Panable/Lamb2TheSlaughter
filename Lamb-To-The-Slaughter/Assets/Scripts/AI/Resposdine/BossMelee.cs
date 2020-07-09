@@ -2,18 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossMelee : MonoBehaviour
+public class BossMelee : MonoBehaviour //Ansaar
 {
-    bool meleeHit = false;
-    GameObject player;
+    #region Variables
+    [SerializeField]
+    private bool meleeHit = false;
+    private GameObject player;
+    #endregion
 
-    // Start is called before the first frame update
+    //Find the player
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    // Update is called once per frame
+    // Damage the player
     void Update()
     {
         if (meleeHit)
@@ -23,6 +26,7 @@ public class BossMelee : MonoBehaviour
         }
     }
 
+    //Control Player Damage
     private void OnTriggerEnter(Collider other)
     {
        if (other.tag == "Player")

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerDeath : MonoBehaviour
+public class PlayerDeath : MonoBehaviour //NEEDS COMMENTING
 {
     public GameObject UI;
     public GameObject deathScreen;

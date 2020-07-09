@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class controllerMaping : MonoBehaviour
+public class controllerMaping : MonoBehaviour //NEEDS COMMENTING
 {
     public bool IsLeft, IsRight, IsUp, IsDown;
     private float _LastX, _LastY;

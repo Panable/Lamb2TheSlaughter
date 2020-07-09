@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovementCCAcceleration : MonoBehaviour
+public class PlayerMovementCCAcceleration : MonoBehaviour //NEEDS COMMENTING
 {
 
     [Header("Camera")]

@@ -2,67 +2,51 @@
 using UnityEngine.AI;
 using UnityEngine.Audio;
 
-public class Maggots : MonoBehaviour //Lachlan
+public class Maggots : MonoBehaviour //Lachlan & Ansaar
 {
-    //Maggot's Gameobject components
+    #region Variables
+    [SerializeField]
     private NavMeshAgent maggotAgent;
-    private Rigidbody maggotRB;
-    public Transform player;
-    MaggHealth mh;
-
-    //Particles to spawn when damaged
-    public ParticleSystem Injured;
-
-    //Variables forwonder
-    public float wanderRadius = 50;
-    public float wanderTimer = 3.7f;
+    private Transform player;
+    private MaggHealth mh;
+    private float wanderRadius = 50;
+    private float wanderTimer = 3.7f;
     private float timer;
-    public float bounceThreshold;
-
-    //Variables for bouncyboi
-    float bounceHeight;
-    public GameObject mainBone;
-    public float colSpeed;
-    public float colHeight;
-    Vector3 colPos;
-    public float freeze;
-
-    //Bounce Audio
-    public AudioClip bounce;
+    private float bounceThreshold = 1.15f;
+    private float bounceHeight;
+    private float colSpeed = 30f;
+    private float colHeight = 4f;
+    private Vector3 colPos;
+    private CapsuleCollider col;
     private AudioSource audioSource;
     private bool justBounced;
 
-    //CollisionFix
-    CapsuleCollider col;
+    public AudioClip bounce;
+    public GameObject mainBone;
+    #endregion
 
-    //Finds The Componenets Neccessary for the enemy to move and finds the target to avoid.
+    //Initialisation
     void OnEnable()
     {
         mh = GetComponent<MaggHealth>();
         col = gameObject.GetComponent<CapsuleCollider>();
         maggotAgent = GetComponent<NavMeshAgent>();
-        maggotRB = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
         timer = wanderTimer;
         player = GameObject.FindGameObjectWithTag("Player").transform;
         colPos = col.center;
     }
 
+    //Damage the player
     void OnCollisionEnter(Collision collision)
     {
-        if (mh.unharmed)
-        {
-            //Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
-            //maggotAgent.SetDestination(newPos);
-            //timer = 0;
-        }
-
         if (collision.gameObject.tag == "Player")
         {
             player.GetComponent<Health>().TakeDamage(6f);
         }
     }
 
+    //Sound Control
     void BounceSound()
     {
         if (justBounced == true)
@@ -72,7 +56,7 @@ public class Maggots : MonoBehaviour //Lachlan
         }
     }
 
-    //Update the timer to change direction when it runs out
+    //Control between Roam AI & Raged AI
     void Update()
     {
         if (mh.unharmed)
@@ -91,6 +75,7 @@ public class Maggots : MonoBehaviour //Lachlan
         timer += Time.deltaTime;
     }
 
+    //Set a random destination for the Roam AI
     public void NewBouncePos()
     {
         if (timer >= wanderTimer)
@@ -108,7 +93,7 @@ public class Maggots : MonoBehaviour //Lachlan
         }
     }
 
-    //Make Maggot bounce
+    //Control the hitbox to follow the magg's bounce
     public void bouncyBoi()
     {
         RaycastHit hit;
@@ -137,7 +122,7 @@ public class Maggots : MonoBehaviour //Lachlan
         }
     }
 
-    //Getting random location
+    //Find a random location on the navmesh
     public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
     {
         Vector3 randDirection = Random.insideUnitSphere * dist;

@@ -1,34 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
-public class ResHealth : Health
+public class ResHealth : Health //Ansaar
 {
-    //Health Properties
+    #region Variables
+    [SerializeField]
+    private Vector3 particleLocation;
+    private PauseMenu bossUI;
+    private GameObject deathParticles;
+
     public float health;
     public bool isDead = false;
     public ParticleSystem hurtParticles;
-    Vector3 particleLocation;
     public CapsuleCollider mainCollider;
     public GameObject canvas;
-    PauseMenu bossUI;
-    GameObject deathParticles;
-    GameObject[] skulksLeft;
+    #endregion
 
+    //Properties for when killed
     public override void OnDeath()
     {
         deathParticles.SetActive(true);
         Destroy(gameObject);
     }
 
-    void Kill()
-    {
-        Destroy(gameObject);
-    }
-
-    // Start is called before the first frame update
+    //Initialisation
     void Start()
     {
         base.Start();
@@ -39,7 +35,7 @@ public class ResHealth : Health
         bossUI.bossName.SetText("Resposdine: ");
     }
 
-    // Update is called once per frame
+    //GUI, Particle Location Control & Death Check
     void Update()
     {
         particleLocation = transform.TransformPoint(mainCollider.center);
@@ -53,6 +49,7 @@ public class ResHealth : Health
         }
     }
 
+    //Properties when taking damage
     public override void TakeDamage(float amount)
     {
         base.TakeDamage(amount);

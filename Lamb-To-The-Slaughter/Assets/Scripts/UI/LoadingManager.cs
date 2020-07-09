@@ -6,7 +6,7 @@ using UnityEngine.Video;
 using TMPro;
 using System.Runtime.CompilerServices;
 
-public class LoadingManager : MonoBehaviour
+public class LoadingManager : MonoBehaviour //NEEDS COMMENTING
 {
     public GameObject loadingScreen;
     public GameObject mainMenuUI;

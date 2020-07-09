@@ -2,7 +2,7 @@
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class PauseMenu : MonoBehaviour //Lachlan
+public class PauseMenu : MonoBehaviour //NEEDS COMMENTING
 {
     public GameObject pauseMenu;
     public GameObject controlsGuide;

@@ -2,32 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProceduralEnemySelection : MonoBehaviour
+public class ProceduralEnemySelection : MonoBehaviour //Ansaar
 {
-    int chanceValue;
-    bool hasSpawned = false;
-    public GameObject spawnParticle;
-    public GameObject[] Enemies;
+    #region Variables
+    [SerializeField]
+    private int chanceValue;
+    private bool hasSpawned = false;
 
-    [Header("Particle Scales")]
-    public float scaleFactor;
     [Tooltip("Order:\n-Cackles\n-Crawlers\n-Husks\n-Maggs\n-Resposdine\n-Skulks")]
     public Vector3[] particleScales;
 
-    private void Start()
-    {
-
-    }
-
-    // Start is called before the first frame update
-    void Update()
-    {
-
-    }
-
+    public GameObject spawnParticle;
+    public GameObject[] Enemies;
+    public float scaleFactor;
     public static float waitBeforeSpawn = 1.5f;
+    #endregion 
 
-    // Update is called once per frame
+    //Spawn Enemy with random chance & size
     public IEnumerator Spawn()
     {
         chanceValue = Random.Range(0, 9);
@@ -48,6 +39,7 @@ public class ProceduralEnemySelection : MonoBehaviour
         }
     }
 
+    //Configure the scale of the particle system based on enemy
     Vector3 ParticleScaleConfiguration(GameObject enemy)
     {
         switch (enemy.name)

@@ -2,13 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
-using UnityEngine.UI;
 
 public class BombScript : MonoBehaviour //Ansaar
 {
-
-    public static GameObject teleport;
+    #region Variables
+    [SerializeField]
+    private Transform player;
+    private CameraShake cameraShake;
+    private GameObject cam;
+    private bool hitGround;
+    private string bombTag;
+    private bool done = false;
 
     //ExplosiveBombs
     public float explosiveForce;
@@ -19,7 +23,7 @@ public class BombScript : MonoBehaviour //Ansaar
     //GasBombs
     public float gasDamage;
     public float gasRadius;
-    bool bombActive;
+    public bool bombActive;
     public GameObject gasParticleSystem;
     public GameObject gasBombIcon;
 
@@ -32,17 +36,11 @@ public class BombScript : MonoBehaviour //Ansaar
     //TeleportBombs
     public Transform tpLocation;
     public GameObject tpParticleSystem;
-    PlayerMovementCC pmcc;
     public GameObject teleportBombIcon;
+    public static GameObject teleport;
+    #endregion
 
-    Transform player;
-    CameraShake cameraShake;
-    GameObject cam;
-
-    bool hitGround;
-    string bombTag;
-
-    // Start is called before the first frame update
+    //Initialise
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -52,11 +50,10 @@ public class BombScript : MonoBehaviour //Ansaar
         bombTag = gameObject.tag;
     }
 
-    // Update is called once per frame
+    //Check Bomb Type
     void Update()
     {
         if (!hitGround) return;
-        Debug.Log("Swi");
         switch (bombTag)
         {
             case "Bomb_Gravity":
@@ -74,43 +71,38 @@ public class BombScript : MonoBehaviour //Ansaar
         }
     }
 
+    //Check Collision
     private void OnCollisionEnter(Collision collision)
     {
         hitGround = true;
     }
 
-    bool done = false;
-
+    //Explosive Bomb Function
     private void ExplosiveBomb()
     {
         if (done) return;
         done = true;
         MeshRenderer rend = GetComponent<MeshRenderer>();
         explosiveParticleSystem.SetActive(true);
-        //explosiveBombIcon.SetActive(true);
         Collider[] nearbyEnemy = Physics.OverlapSphere(transform.position, explosiveRadius);
         foreach (Collider hit in nearbyEnemy)
         {
-            Debug.Log("do dmg");
             Rigidbody forceRb = hit.GetComponent<Rigidbody>();
 
-            //StartCoroutine(cameraShake.Shake(0.25f, 1f));
-            //Do damage
             if (hit.tag == "Enemy")
                 hit.GetComponent<Health>().TakeDamage(20);
 
             rend.enabled = false;
             Invoke("DestroyBomb", 1f);
-            //explosiveBombIcon.SetActive(false);
         }
     }
 
+    //Gas Bomb Function
     private void GasBomb()
     {
         bombActive = true;
         gasParticleSystem.SetActive(true);
         Invoke("DeactivateGasBomb", 5f);
-        //gasBombIcon.SetActive(true);
 
         Collider[] nearbyEnemy = Physics.OverlapSphere(transform.position, gasRadius);
 
@@ -123,15 +115,13 @@ public class BombScript : MonoBehaviour //Ansaar
                 enemyTransform.GetComponent<Health>().TakeDamage(gasDamage * Time.deltaTime);
             }
         }
-        //gasBombIcon.SetActive(false);
     }
 
-
+    //Gravity Bomb Function
     private void GravityBomb()
     {
         gravityParticleSystem.SetActive(true);
         Invoke("DeactivateGravBomb", 5f);
-        //gravityBombIcon.SetActive(true);
 
         Collider[] nearbyEnemy = Physics.OverlapSphere(transform.position, gravityRadius);
         foreach (Collider hit in nearbyEnemy)
@@ -144,10 +134,9 @@ public class BombScript : MonoBehaviour //Ansaar
                 enemy.transform.position = Vector3.Lerp(enemy.transform.position, gameObject.transform.position, Time.deltaTime * gravityForce);
             }
         }
-
-        //gravityBombIcon.SetActive(false);
     }
 
+    //Teleport Bomb Function
     private void TeleportBomb()
     {
         teleport = gameObject;
@@ -156,26 +145,25 @@ public class BombScript : MonoBehaviour //Ansaar
         rb.isKinematic = true;
         rb.velocity = Vector3.zero;
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;
-        //tpLocation = gameObject.transform;
-        //teleportBombIcon.SetActive(true);
         tpParticleSystem.SetActive(true);
         bombActive = true;
         player.GetComponent<PlayerMovementCC>().TeleportFunction(gameObject);
-        //tpLocation.position = gameObject.transform.position;
-        //teleportBombIcon.SetActive(false);
     }
 
+    //Destroy Bomb
     private void DestroyBomb()
     {
         Destroy(gameObject);
     }
 
+    //Remove Functionality (GravBomb)
     private void DeactivateGravBomb()
     {
         Destroy(gravityParticleSystem);
         Destroy(this);
     }
 
+    //Remove Functionality (GasBomb)
     private void DeactivateGasBomb()
     {
         Destroy(gasParticleSystem);

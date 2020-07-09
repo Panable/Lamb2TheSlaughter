@@ -5,27 +5,25 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class VolumeButton : MonoBehaviour //Lachlan made the buttons work, Ansaar converted the values into words & percentages.
+public class VolumeButton : MonoBehaviour //Lachlan (UI Functionality) & Ansaar (Value Conversion)
 {
-    public Slider BGvolume;
+    #region Variables
+    private int displayedMusicValue;
+    private int musicValue;
+    private int soundValue;
 
-    public Slider SFXvolume;
-
-    int displayedMusicValue;
-
-    //Heck of a lot of text objects
     public TMP_Text BGMText;
     public TMP_Text BGMTextUnder;
     public TMP_Text SFXText;
     public TMP_Text SFXTextUnder;
     public TMP_Text QualityText;
     public TMP_Text QualityTextUnder;
-
+    public Slider BGvolume;
+    public Slider SFXvolume;
     public int qualityLevel;
+    #endregion
 
-    int musicValue;
-    int soundValue;
-
+    //Initialisation
     private void Start()
     {
         musicValue = 100;
@@ -104,6 +102,7 @@ public class VolumeButton : MonoBehaviour //Lachlan made the buttons work, Ansaa
         SFXTextUnder.SetText(soundValue.ToString() + "%");
     }
 
+    //Value Regulation
     private void Update()
     {
         //Debug.Log(qualityLevel);
@@ -117,6 +116,7 @@ public class VolumeButton : MonoBehaviour //Lachlan made the buttons work, Ansaa
         qualityLevel = QualitySettings.GetQualityLevel();
     }
 
+    //Converts Decibel to a displayable percentage value (Music)
     void MusicDecibelConverter()
     {
         if (musicValue == 0)
@@ -165,6 +165,7 @@ public class VolumeButton : MonoBehaviour //Lachlan made the buttons work, Ansaa
         }
     }
 
+    //Converts Decibel to a displayable percentage value (SFX)
     void SoundEffectDecibelConverter()
     {
 
@@ -214,6 +215,7 @@ public class VolumeButton : MonoBehaviour //Lachlan made the buttons work, Ansaa
         }
     }
 
+    //Converts Quality to a displayable string
     void QualityLevelConverter()
     {
         if (qualityLevel == 0)
@@ -238,12 +240,13 @@ public class VolumeButton : MonoBehaviour //Lachlan made the buttons work, Ansaa
         }
     }
 
-
+    //Set the Graphic Quality
     public void SetQuality(int qualityIndex)
     {
         QualitySettings.SetQualityLevel(qualityIndex);
     }
 
+    //Increase Graphic Quality
     public void QualityPlus()
     {
         if (qualityLevel == 3)
@@ -259,6 +262,7 @@ public class VolumeButton : MonoBehaviour //Lachlan made the buttons work, Ansaa
         QualityTextUnder.SetText(qualityLevel.ToString());
     }
 
+    //Decrease Graphic Quality
     public void QualityMinuis()
     {
         if (qualityLevel == 0)

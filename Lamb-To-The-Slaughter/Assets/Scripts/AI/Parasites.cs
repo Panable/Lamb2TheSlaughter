@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Parasites : MonoBehaviour
+public class Parasites : MonoBehaviour //Ansaar
 {
-    [SerializeField] bool dissolveOn;
-    [SerializeField] float dissolveControl;
-    [SerializeField] Material dissolve;
-    [SerializeField] GameObject matHolder;
-    [SerializeField] Renderer rend;
-    public bool DissolvedOut;
+    #region Variables
+    [SerializeField]
+    private bool dissolveOn;
+    private float dissolveControl;
+    private Material dissolve;
+    private GameObject matHolder;
+    private Renderer rend;
 
-    // Start is called before the first frame update
+    public bool DissolvedOut;
+    #endregion
+
+    //Initialisation
     void Start()
     {
         matHolder = transform.GetChild(1).gameObject;
@@ -21,7 +25,7 @@ public class Parasites : MonoBehaviour
         DissolvedOut = false;
     }
 
-    // Update is called once per frame
+    //Control the dissolve
     void Update()
     {
         dissolveControl = Mathf.Clamp(dissolveControl, 0, 1);
@@ -44,11 +48,13 @@ public class Parasites : MonoBehaviour
         
     }
 
+    //Called via Room Manager Class to dissolve in
     public void DissolveIn()
     {
         dissolveOn = true;
     }
 
+    //Called via Room Manager Class to dissolve out
     public void DissolveOut()
     {
         dissolveOn = false;

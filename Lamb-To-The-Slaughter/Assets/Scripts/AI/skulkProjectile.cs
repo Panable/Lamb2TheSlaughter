@@ -2,23 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class skulkProjectile : MonoBehaviour
+public class skulkProjectile : MonoBehaviour //Ansaar
 {
-    Rigidbody rb;
-    SphereCollider col;
-    // Start is called before the first frame update
+    #region Variables
+    [SerializeField]
+    private Rigidbody rb;
+    private SphereCollider col;
+    #endregion
+
+    //Initialisation
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
         col = GetComponent<SphereCollider>();
     }
 
-    // Update is called once per frame
-    void KillProjectile()
-    {
-        Destroy(gameObject);
-    }
-
+    //Damage player or Kill Projectile
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
@@ -32,5 +31,11 @@ public class skulkProjectile : MonoBehaviour
             rb.useGravity = false;
             Invoke("KillProjectile", 2f);
         }
+    }
+
+    //Invoked function to Kill Projectile
+    void KillProjectile()
+    {
+        Destroy(gameObject);
     }
 }

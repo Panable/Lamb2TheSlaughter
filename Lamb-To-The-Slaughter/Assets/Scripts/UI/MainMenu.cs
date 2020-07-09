@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
 
-public class MainMenu : MonoBehaviour //Lachlan
+public class MainMenu : MonoBehaviour ////NEEDS COMMENTING
 {
 
     public AudioClip startClip;

@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ParticleKill : MonoBehaviour
+public class ParticleKill : MonoBehaviour //Ansaar
 {
     public float timer;
-    // Start is called before the first frame update
+
+    //Initialisation
     void Awake()
     {
         Invoke("DestroyParticle", timer);
     }
 
-    // Update is called once per frame
+    //Destroy Particles
     void DestroyParticle()
     {
         Destroy(gameObject);

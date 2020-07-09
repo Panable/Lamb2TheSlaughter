@@ -4,7 +4,7 @@ using UnityEngine;
 
 [ExecuteInEditMode]
 
-public class ColliderCount : MonoBehaviour
+public class ColliderCount : MonoBehaviour //NEEDS COMMENTING
 {
     public BoxCollider boxCol;
     public int colliderAmount = 0;

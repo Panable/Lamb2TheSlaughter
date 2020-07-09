@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour //Ansaar
 {
+    #region Variables
+    [SerializeField]
+    private float panSpeed = 5f;
+    Camera cam;
+    float distance;
+    int posCount;
+
     public Transform startGame;
     public Transform options;
     public Transform blackPrism;
     public Transform exitGame;
-    float panSpeed = 5f;
-
     public GameObject startGameButton;
     public GameObject exitGameButton;
     public GameObject musicButtonPlus;
@@ -18,14 +23,9 @@ public class CameraMovement : MonoBehaviour //Ansaar
     public GameObject soundButtonMinus;
     public GameObject graphicButtonPlus;
     public GameObject graphicButtonMinus;
+    #endregion
 
-    Camera cam;
-
-    float distance;
-
-    int posCount;
-
-    // Start is called before the first frame update
+    //Initialisation
     void Start()
     {
         cam = GetComponent<Camera>();
@@ -44,12 +44,10 @@ public class CameraMovement : MonoBehaviour //Ansaar
         graphicButtonMinus.SetActive(false);
     }
 
-    // Update is called once per frame
+    //Menu Camera Movement & Element Regulation
     void Update()
     {
         PositionCount();
-        //Debug.Log(posCount);
-
 
         if (posCount == 5)
         {
@@ -131,6 +129,7 @@ public class CameraMovement : MonoBehaviour //Ansaar
         }
     }
 
+    //Determine which position the camera is in
     public void PositionCount()
     {
         if (Input.GetButtonDown("Right"))
@@ -143,11 +142,13 @@ public class CameraMovement : MonoBehaviour //Ansaar
         }
     }
 
+    //Button Function for next page
     public void NextPage()
     {
         posCount = posCount + 1;
     }
 
+    //Button Function for precious page
     public void PreviousPage()
     {
         posCount = posCount - 1;

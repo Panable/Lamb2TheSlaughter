@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Audio;
 
-public class WeaponSelect : MonoBehaviour
+public class WeaponSelect : MonoBehaviour //NEEDS COMMENTING
 {
     public enum Weapon
     {

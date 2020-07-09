@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class randomBGM : MonoBehaviour //Lachlan
+public class randomBGM : MonoBehaviour //NEEDS COMMENTING
 {
     //Audio
     public AudioSource audioSourceBGM;

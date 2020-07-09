@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class GUI : MonoBehaviour //Lachlan
+public class GUI : MonoBehaviour ////NEEDS COMMENTING
 {
     GameObject player;
     bool dead;

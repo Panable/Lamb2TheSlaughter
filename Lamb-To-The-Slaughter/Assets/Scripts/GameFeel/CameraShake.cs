@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraShake : MonoBehaviour
+public class CameraShake : MonoBehaviour //Ansaar
 {
-    public Transform armature;
-
+    //Shake Camera
     public IEnumerator Shake (float duration, float magnitude)
     {
         Vector3 originalPos = new Vector3(0, 1, 0);

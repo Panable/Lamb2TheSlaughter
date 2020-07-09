@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class intro : MonoBehaviour
+public class intro : MonoBehaviour //NEEDS COMMENTING
 {
     public float timer;
 

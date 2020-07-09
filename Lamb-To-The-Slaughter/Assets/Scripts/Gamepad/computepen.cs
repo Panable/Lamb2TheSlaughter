@@ -5,7 +5,7 @@ using System.Security.Permissions;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class computepen : MonoBehaviour
+public class computepen : MonoBehaviour //NEEDS COMMENTING
 {
 
     public BoxCollider roomprefab1;

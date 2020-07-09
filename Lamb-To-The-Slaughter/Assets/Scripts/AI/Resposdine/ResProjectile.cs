@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResProjectile : MonoBehaviour
+public class ResProjectile : MonoBehaviour //Ansaar
 {
-    public Vector3 hitScale;
-    Rigidbody rb;
-    SphereCollider sc;
-    public ResHealth rHealth;
-    GameObject resposdine;
-    Renderer rend;
-    public GameObject flares;
+    #region Variables
+    [SerializeField]
+    private Rigidbody rb;
+    private SphereCollider sc;
+    private GameObject resposdine;
+    private Renderer rend;
 
-    // Start is called before the first frame update
+    public ResHealth rHealth;
+    public GameObject flares;
+    public Vector3 hitScale;
+    #endregion
+
+    //Initialisation
     void Awake()
     {
         resposdine = GameObject.FindGameObjectWithTag("Enemy");
@@ -22,7 +26,7 @@ public class ResProjectile : MonoBehaviour
         rend = GetComponent<Renderer>();
     }
 
-    // Update is called once per frame
+    //Control Projectile color
     void Update()
     {
         if (rHealth == null)
@@ -32,6 +36,7 @@ public class ResProjectile : MonoBehaviour
         }
     }
 
+    //Regulate collision effect
     private void OnCollisionEnter(Collision other)
     {
         transform.localScale = hitScale;
@@ -41,6 +46,7 @@ public class ResProjectile : MonoBehaviour
         sc.radius = 0.4f;
     }
 
+    //Damage Player
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Player")

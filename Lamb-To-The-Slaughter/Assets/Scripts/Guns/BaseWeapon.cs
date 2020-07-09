@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class BaseWeapon
+public abstract class BaseWeapon //NEEDS COMMENTING
 {
     public RaycastHit raycastHit;
     public bool canShoot = true;

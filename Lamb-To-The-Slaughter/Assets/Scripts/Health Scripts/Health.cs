@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 
-public abstract class Health : MonoBehaviour //Dhan
+public abstract class Health : MonoBehaviour //NEEDS COMMENTING
 {
     public float maxHealth;
     public float currentHealth;
