@@ -293,7 +293,7 @@ public class BossAI : MonoBehaviour //Ansaar
 			canMelee = false;
 		}
 
-		if (agentDistance < resAI.stoppingDistance - 1)
+		if (agentDistance < resAI.stoppingDistance)
 		{
 			canMelee = true;
 		}

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 
 public class OptionsKillMe : MonoBehaviour ////NEEDS COMMENTING
+{
     public AudioMixer volumeMaster;
 
     public AudioMixer volumeSFX;
