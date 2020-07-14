@@ -15,6 +15,7 @@ public class BloodMessages : MonoBehaviour //Ansaar
     //Initialisation (Set Blood Messages & Control TP Bomb Count
     void Awake()
     {
+        TeleportBombLimit();
 
         bMplane = GameObject.FindGameObjectsWithTag("BloodMessage");
 

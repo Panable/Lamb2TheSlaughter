@@ -42,7 +42,6 @@ public class WeaponSelect : MonoBehaviour //NEEDS COMMENTING
     Color setV;
     public Gradient glassColour;
     public Material[] gunPower;
-    public Material bubbleShader;
     public GameObject damageParticles;
 
     //Audio
@@ -449,8 +448,6 @@ public class WeaponSelect : MonoBehaviour //NEEDS COMMENTING
         float currentAmmo = selectedWeapon.current_ammo;
 
         float scaledValue = currentAmmo / 10;
-
-        bubbleShader.SetColor("Color_29025F83", glassColour.Evaluate(scaledValue));
 
         foreach (Material mat in gunPower)
         {
