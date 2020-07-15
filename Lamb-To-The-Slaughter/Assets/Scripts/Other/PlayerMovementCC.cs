@@ -13,6 +13,7 @@ public class PlayerMovementCC : MonoBehaviour ////NEEDS COMMENTING
     [SerializeField] private float mouseSensitivity = 2.0f;
     [SerializeField] private float pitchRange;
     public Camera playerCamera;
+    public Camera GPScamera;
     private float RotateY;
 
     public UnityEngine.Rendering.Universal.ChromaticAberration tPcA;
@@ -56,12 +57,13 @@ public class PlayerMovementCC : MonoBehaviour ////NEEDS COMMENTING
         if (playerCamera == null)
             playerCamera = GetComponent<Camera>();
 
+        GPScamera.enabled = false;
         ws = GetComponent<WeaponSelect>();
         ph = GetComponent<PlayerHealth>();
         movementSpeed = walkSpeed;
 
         ChromaticAberration cA;
-
+         
         if (vp.TryGet<ChromaticAberration>(out cA))
         {
             tPcA = cA;
@@ -236,6 +238,7 @@ public class PlayerMovementCC : MonoBehaviour ////NEEDS COMMENTING
     {
         if (Input.GetButton("GPS"))
         {
+            GPScamera.enabled = true;
             anim.SetBool("GPSmode", true);
             ws.enabled = false;
             if (Input.GetButtonDown("Fire1") && canTeleport)
@@ -243,7 +246,8 @@ public class PlayerMovementCC : MonoBehaviour ////NEEDS COMMENTING
                 anim.SetBool("Teleport", true);
                 tPcA.intensity.Override(1f);
                 teleporting = true;
-            } else
+            }
+            else
             {
                 teleporting = false;
             }
@@ -251,6 +255,7 @@ public class PlayerMovementCC : MonoBehaviour ////NEEDS COMMENTING
         else if (Input.GetButtonUp("GPS"))
         {
             anim.SetBool("GPSmode", false);
+            GPScamera.enabled = false;
             ws.enabled = true;
         }
     }
