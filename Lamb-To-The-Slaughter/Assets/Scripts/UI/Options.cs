@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class OptionsKillMe : MonoBehaviour ////NEEDS COMMENTING
+public class Options : MonoBehaviour //Lachlan
 {
+    //Audio Mixer Groups
     public AudioMixer volumeMaster;
-
     public AudioMixer volumeSFX;
 
     //Set's slider to volume to match with mixer for BGM

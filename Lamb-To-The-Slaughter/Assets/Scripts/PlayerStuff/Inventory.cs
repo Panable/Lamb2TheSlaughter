@@ -19,7 +19,7 @@ public class Inventory : MonoBehaviour //Lachlan
     public TMP_Text medpackTXT;
     #endregion
 
-    //Controls Inventory
+    //Updates UI to current inventory INT
     private void Update()
     {
         explosionBombTXT.text = explosionBomb.ToString();

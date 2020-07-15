@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-/// <summary>
-/// Stores temporary instantiated objects, collider information, room manager information, and position of door orientations
-/// </summary>
-public class Door
+public class Door // Dhan
 {
+    /// <summary>
+    /// Stores temporary instantiated objects, collider information, room manager information, and position of door orientations
+    /// </summary>
+
     GameObject prefab;
     public GameObject instantiatedPrefab;
     public BoxCollider collider;
@@ -22,7 +23,6 @@ public class Door
         if (collider == null)
             Debug.LogError(prefab.name);
         roomManager = instantiatedPrefab.GetComponent<RoomManager>();
-        //instantiatedPrefab.SetActive(false);
     }
 
     public GameObject activateObj(Vector3 pos, Quaternion rot)
@@ -32,10 +32,4 @@ public class Door
         collider = instantiatedPrefab.GetComponent<RoomManager>().InstantiateCollider();
         return instantiatedPrefab;
     }
-
-    public void deactivateObj()
-    {
-       //instantiatedPrefab.SetActive(false);
-    }
-
 }

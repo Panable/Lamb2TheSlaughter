@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class RoomManager : MonoBehaviour
+public class RoomManager : MonoBehaviour //Dhan
 {
 
     public Transform gpsPlane;

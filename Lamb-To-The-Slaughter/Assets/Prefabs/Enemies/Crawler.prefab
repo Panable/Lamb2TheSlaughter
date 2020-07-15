@@ -230,8 +230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d270bac97f3c14c5ca315ea0dea79525, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  agent: {fileID: 8505063144744430140}
+  anim: {fileID: 0}
 --- !u!114 &5377038534910262343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,9 +250,12 @@ MonoBehaviour:
   timeTillRegen: 0
   hurtParticles: {fileID: 1426344824135655946, guid: 48d77c6c4472d44ba8638099af421e30,
     type: 3}
+  particleLocation: {x: 0, y: 0, z: 0}
+  collider: {fileID: 0}
   audioSourceC: {fileID: 5696055263102449256}
   sourceLaugh: {fileID: 0}
-  laughs: []
+  laughs:
+  - {fileID: 0}
   cryC:
   - {fileID: 8300000, guid: 3616e28eb28e047058417dadc18be06d, type: 3}
   - {fileID: 8300000, guid: d4db3fbaa17eb4ea6b8d330623dde0d7, type: 3}

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour //Ansaar
 {
+    //Camera movement for the main menu
     #region Variables
     [SerializeField]
     private float panSpeed = 5f;

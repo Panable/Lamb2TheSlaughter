@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class EndDoor : MonoBehaviour
+public class EndDoor : MonoBehaviour //Lachlan
 {
     public bool endDoorEntered;
 

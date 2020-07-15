@@ -2,19 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoomGenerator : MonoBehaviour
+public class RoomGenerator : MonoBehaviour //Dhan
 {
     private List<Room> roomPrefabsToTryGenerate;
     private List<Room> x;
 
     //Generate every position of a current room
     //switch room
-
-    public void Awake()
-    {
-
-
-    }
 
     /// <summary>
     /// Try and generate a room at a door with transform 'spawndoor' and roommanager 'rm'

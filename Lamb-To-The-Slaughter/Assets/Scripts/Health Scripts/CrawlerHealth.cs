@@ -11,8 +11,6 @@ public class CrawlerHealth : Health //Ansaar(Particles) & Lachlan(Audio)
     public CapsuleCollider collider;
 
     public AudioSource audioSourceC;
-    public AudioSource sourceLaugh;
-    public AudioClip[] laughs;
     public AudioClip[] cryC;
     #endregion
 
@@ -22,9 +20,6 @@ public class CrawlerHealth : Health //Ansaar(Particles) & Lachlan(Audio)
     {
         base.Start();
         collider = GetComponent<CapsuleCollider>();
-        sourceLaugh.clip = laughs[Random.Range(0, laughs.Length)];
-        sourceLaugh.loop = true;
-        sourceLaugh.Play();
     }
 
     //Properties when taking damage

@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-public class randomBGM : MonoBehaviour //NEEDS COMMENTING
+public class randomBGM : MonoBehaviour //Lachlan
 {
-    //Audio
+    //Audio source and BGM array
     public AudioSource audioSourceBGM;
     public AudioClip[] BGM;
 
-    // Start is called before the first frame update
+    //Gets audio source and plays a random song from the BGM array and turns loop to true.
     void Awake()
     {
         audioSourceBGM = GetComponent<AudioSource>();

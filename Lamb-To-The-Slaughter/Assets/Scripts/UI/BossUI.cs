@@ -3,20 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class BossUI : MonoBehaviour //NEEDS COMMENTING
+public class BossUI : MonoBehaviour //Lachlan
 {
-    //UI Properties
+    //UI Properties to be assigned in inspector
     public GameObject bossUI;
     public TMP_Text bossHealth;
     public TMP_Text bossName;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
 }

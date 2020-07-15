@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Res_Shockwave : MonoBehaviour
+public class Res_Shockwave : MonoBehaviour //Ansaar
 {
     Vector3 waveRange = new Vector3(200, 200, 100);
     public float waveSpeed;

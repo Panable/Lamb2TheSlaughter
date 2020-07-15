@@ -1,21 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Audio;
 
-public class MainMenu : MonoBehaviour ////NEEDS COMMENTING
+public class MainMenu : MonoBehaviour //Lachlan
 {
-
+    //Audio for BGM and SFX + source to play them on
     public AudioClip startClip;
     public AudioClip leaveClip;
     public AudioSource main;
+
+    //UI elements
     public GameObject mainMenuUI;
     public GameObject loadingMenu;
 
+    //Buttons for play and exit
     public GameObject playgame;
     public GameObject exitgame;
 
+    //Set the time to normal, confine the cursor, get audiosource and set menuUI active
     void Start()
     {
         Time.timeScale = 1;
@@ -25,6 +26,7 @@ public class MainMenu : MonoBehaviour ////NEEDS COMMENTING
         loadingMenu.SetActive(false);
     }
 
+    //Depending on what screen/button is in view either play game or quit game.
     private void Update()
     {
         if (Input.GetButton("Submit"))
@@ -40,7 +42,7 @@ public class MainMenu : MonoBehaviour ////NEEDS COMMENTING
         }
     }
 
-    // When button is pressed, Load the scene 
+    // When button is pressed, Play SFX and Load scene 
     public void playGame()
     {
         main.volume = 0.5f;
@@ -48,7 +50,7 @@ public class MainMenu : MonoBehaviour ////NEEDS COMMENTING
         SceneManager.LoadScene(2);
     }
 
-    //When button is pressed the game will quit and print to the console, "Game Quit"
+    //When button is pressed the game will play a SFX and quit and print to the console, "Game Quit" if applicable.
     public void quitGame()
     {
         main.volume = 0.1f;

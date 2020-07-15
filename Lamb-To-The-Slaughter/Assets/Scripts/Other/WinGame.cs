@@ -26,7 +26,7 @@ public class WinGame : MonoBehaviour //Lachlan
         if (!winScreen) //Find the winScreen incase Awake function fails.
         {
             winScreen = GameObject.FindGameObjectWithTag("WinScreen");
-            Debug.Log("Finding Win Screen Brb");
+            Debug.Log("Finding Win Screen");
             return;
         }
         

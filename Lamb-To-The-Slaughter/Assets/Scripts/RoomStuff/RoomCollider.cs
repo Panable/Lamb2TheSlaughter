@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 
-public class RoomCollider : MonoBehaviour
+public class RoomCollider : MonoBehaviour //Dhan
 {
     RoomManager rm;
     bool spawnedEnemies = false;
@@ -92,15 +92,4 @@ public class RoomCollider : MonoBehaviour
             InitiateBattle();
         }
     }
-
-    private void OnTriggerStay(Collider other)
-    {
-
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-
-    }
-
 }
