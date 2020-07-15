@@ -88,7 +88,6 @@ public class RoomCollider : MonoBehaviour //Dhan
             if (BombScript.teleport != null)
                 Destroy(BombScript.teleport);
 
-            Destroy(GetComponent<BoxCollider>());
             InitiateBattle();
         }
     }

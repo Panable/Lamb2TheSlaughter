@@ -7,7 +7,7 @@ public abstract class BaseWeapon //NEEDS COMMENTING
 {
     public RaycastHit raycastHit;
     public bool canShoot = true;
-    protected LayerMask ignoreLayer;
+    protected int ignoreLayer;
     public bool reloading = false;
     public int current_ammo;
     public bool aiming = false;
@@ -34,7 +34,7 @@ public abstract class BaseWeapon //NEEDS COMMENTING
     {
         RaycastHit hit;
         Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
-            out hit, weaponAttributes.Range);
+            out hit, weaponAttributes.Range, ignoreLayer, QueryTriggerInteraction.Ignore);
         return hit;
     }
 
@@ -42,7 +42,7 @@ public abstract class BaseWeapon //NEEDS COMMENTING
     {
         RaycastHit hit;
         Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward,
-            out hit);
+            out hit, Mathf.Infinity, ignoreLayer, QueryTriggerInteraction.Ignore);
         return hit;
     }
 
@@ -50,7 +50,8 @@ public abstract class BaseWeapon //NEEDS COMMENTING
     {
         this.weaponSelect = weaponSelect;
         current_ammo = weaponAttributes.Ammo;
-        ignoreLayer = LayerMask.NameToLayer("ignore");
+        ignoreLayer = (1 << 10);
+        ignoreLayer = ~ignoreLayer;
         this.weaponAttributes = weaponAttributes;
     }
 
