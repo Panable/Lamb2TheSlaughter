@@ -45,7 +45,7 @@ public class MainMenu : MonoBehaviour ////NEEDS COMMENTING
     {
         main.volume = 0.5f;
         main.PlayOneShot(startClip);
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     //When button is pressed the game will quit and print to the console, "Game Quit"
