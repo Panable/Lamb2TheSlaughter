@@ -13,11 +13,8 @@ public class VolumeButton : MonoBehaviour //Lachlan (UI Functionality) & Ansaar 
     private int soundValue;
 
     public TMP_Text BGMText;
-    public TMP_Text BGMTextUnder;
     public TMP_Text SFXText;
-    public TMP_Text SFXTextUnder;
     public TMP_Text QualityText;
-    public TMP_Text QualityTextUnder;
     public Slider BGvolume;
     public Slider SFXvolume;
     public int qualityLevel;
@@ -34,11 +31,8 @@ public class VolumeButton : MonoBehaviour //Lachlan (UI Functionality) & Ansaar 
         //This Ensures the text changes to the current setting
         QualitySettings.SetQualityLevel(qualityLevel);
         QualityText.SetText(qualityLevel.ToString());
-        QualityTextUnder.SetText(qualityLevel.ToString());
         BGMText.SetText(musicValue.ToString() + "%");
-        BGMTextUnder.SetText(musicValue.ToString() + "%");
         SFXText.SetText(soundValue.ToString() + "%");
-        SFXTextUnder.SetText(soundValue.ToString() + "%");
 
     }
 
@@ -54,7 +48,6 @@ public class VolumeButton : MonoBehaviour //Lachlan (UI Functionality) & Ansaar 
             musicValue += 10;
         }
         BGMText.SetText(musicValue.ToString() + "%"); //Add the text component here and above make it public! :D
-        BGMTextUnder.SetText(musicValue.ToString() + "%");
     }
 
     //Lowers Background Music
@@ -69,7 +62,6 @@ public class VolumeButton : MonoBehaviour //Lachlan (UI Functionality) & Ansaar 
             musicValue -= 10;
         }
         BGMText.SetText(musicValue.ToString() + "%"); //Add the text component here and above make it public! :D
-        BGMTextUnder.SetText(musicValue.ToString() + "%");
     }
 
     //Increases Sound Effects Volume 
@@ -84,7 +76,6 @@ public class VolumeButton : MonoBehaviour //Lachlan (UI Functionality) & Ansaar 
             soundValue += 10;
         }
         SFXText.SetText(soundValue.ToString() + "%");
-        SFXTextUnder.SetText(soundValue.ToString() + "%");
     }
 
     //Decreases Sound Effects Volume
@@ -99,7 +90,6 @@ public class VolumeButton : MonoBehaviour //Lachlan (UI Functionality) & Ansaar 
             soundValue -= 10;
         }
         SFXText.SetText(soundValue.ToString() + "%");
-        SFXTextUnder.SetText(soundValue.ToString() + "%");
     }
 
     //Value Regulation
@@ -221,22 +211,18 @@ public class VolumeButton : MonoBehaviour //Lachlan (UI Functionality) & Ansaar 
         if (qualityLevel == 0)
         {
             QualityText.SetText("Low");
-            QualityTextUnder.SetText("Low");
         }
         else if (qualityLevel == 1)
         {
             QualityText.SetText("Medium");
-            QualityTextUnder.SetText("Medium");
         }
         else if (qualityLevel == 2)
         {
             QualityText.SetText("High");
-            QualityTextUnder.SetText("High");
         }
         else if(qualityLevel == 3)
         {
             QualityText.SetText("Ultra");
-            QualityTextUnder.SetText("Ultra");
         }
     }
 
@@ -259,7 +245,6 @@ public class VolumeButton : MonoBehaviour //Lachlan (UI Functionality) & Ansaar 
         }
         QualitySettings.SetQualityLevel(qualityLevel);
         QualityText.SetText(qualityLevel.ToString());
-        QualityTextUnder.SetText(qualityLevel.ToString());
     }
 
     //Decrease Graphic Quality
@@ -275,6 +260,5 @@ public class VolumeButton : MonoBehaviour //Lachlan (UI Functionality) & Ansaar 
         }
         QualitySettings.SetQualityLevel(qualityLevel);
         QualityText.SetText(qualityLevel.ToString());
-        QualityTextUnder.SetText(qualityLevel.ToString());
     }
 }
