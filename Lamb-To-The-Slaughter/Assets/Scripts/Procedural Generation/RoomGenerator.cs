@@ -144,6 +144,11 @@ public class RoomGenerator : MonoBehaviour //Dhan
         InstantiateRoomPrefabs();
     }
 
+    private void Awake()
+    {
+        InstantiateRoomPrefabs();
+    }
+
     void InstantiateRoomPrefabs()
     {
         roomPrefabsToTryGenerate = new List<Room>();

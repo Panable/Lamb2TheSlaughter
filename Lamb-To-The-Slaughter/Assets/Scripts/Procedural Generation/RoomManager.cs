@@ -86,10 +86,14 @@ public class RoomManager : MonoBehaviour //Dhan
 
     public void ActivateGPSPlane()
     {
+        if (spawnRoom)
+            return;
         InstantiateDoorLocations();
         gpsPlane.gameObject.SetActive(true);
         foreach (Transform door in doorLocations)
         {
+            if (door.childCount == 1)
+                continue;
             door.GetChild(1).gameObject.SetActive(true);
         }
     }
