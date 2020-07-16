@@ -50,6 +50,10 @@ public class ProceduralManager : MonoBehaviour //Dhan
 
     private void Awake()
     {
+        if (bossroomcurrent != null)
+        {
+            Destroy(bossroomcurrent);
+        }
         numberOfRoomsToGenerate = 20;
         numberOfRoomsGenerated = 0;
         procedurallyGenerating = true;
