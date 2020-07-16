@@ -126,7 +126,6 @@ public class WeaponSelect : MonoBehaviour //Dhan
         {
             Debug.LogError("Weapon is not avaliable.");
         }
-        selectedWeapon.ActivateWeaponHUD();
     }
 
     //returns an avaliable weapon (null if no weapon is found)
