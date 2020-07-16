@@ -15,6 +15,8 @@ public class Door // Dhan
     public Vector3 position;
     public Quaternion rotation;
     public RoomManager roomManager;
+
+    //Initializing variables
     public Door(GameObject prefab)
     {
         this.prefab = prefab;
@@ -25,7 +27,8 @@ public class Door // Dhan
         roomManager = instantiatedPrefab.GetComponent<RoomManager>();
     }
 
-    public GameObject activateObj(Vector3 pos, Quaternion rot)
+    //A temporary object to be used in generation to test for collision
+    public GameObject ActivateObj(Vector3 pos, Quaternion rot)
     {
         instantiatedPrefab.SetActive(true);
         instantiatedPrefab.transform.position = pos;

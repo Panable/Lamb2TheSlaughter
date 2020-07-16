@@ -47,7 +47,7 @@ public class PlayerMovementCC : MonoBehaviour ////NEEDS COMMENTING
     private double jumpTimer = 0.52f;
     private bool jumpStart;
 
-    // Start is called before the first frame update
+    // Initializing all variables
     void Start()
     {
         player = transform;
@@ -77,6 +77,7 @@ public class PlayerMovementCC : MonoBehaviour ////NEEDS COMMENTING
     // Update is called once per frame
     void Update()
     {
+        //changing animator states
         if (Speed() > 0)
         {
             anim.SetFloat("Speed", 1f);
@@ -91,6 +92,7 @@ public class PlayerMovementCC : MonoBehaviour ////NEEDS COMMENTING
         Movement();
         GPSmode();
 
+        //activate overdrive if avaliable
         if (PlayerHealth.overDrive)
         {
             movementSpeed = 20;
@@ -120,6 +122,7 @@ public class PlayerMovementCC : MonoBehaviour ////NEEDS COMMENTING
         }
     }
 
+    //Ground distance for animator
     public float GroundDistance()
     {
         RaycastHit hit;
@@ -130,11 +133,13 @@ public class PlayerMovementCC : MonoBehaviour ////NEEDS COMMENTING
         return 10f;
     }
 
+    //Get current speed for animator
     public float Speed()
     {
         return new Vector3(cc.velocity.x, 0, cc.velocity.z).magnitude;
     }
 
+    //Fetch movement Inputs for movement
     public void Inputs()
     {
         if (Input.GetButton("Horizontal") || Input.GetButton("Vertical") || Input.GetButton("Jump"))
@@ -154,15 +159,22 @@ public class PlayerMovementCC : MonoBehaviour ////NEEDS COMMENTING
         strafeDirection = Input.GetAxis("Horizontal");
     }
 
+    //Moving character
     void Movement()
     {
+        //get dir
         Vector3 direction = new Vector3(strafeDirection, 0, forwardDirection);
         direction = direction.normalized * movementSpeed;
+
         if (cc.isGrounded)
         {
             verticalVelocity = 0;
         }
+        
+        //Stick Character to ground if not grounded
         verticalVelocity += Physics.gravity.y * gravityMultiplier * Time.deltaTime;
+
+        //Do Jumping if Jumping
         if (Input.GetButtonDown("Jump") & cc.isGrounded & jumping)
         {
             Jump();
@@ -177,6 +189,7 @@ public class PlayerMovementCC : MonoBehaviour ////NEEDS COMMENTING
             direction.z = 0f;
         }
 
+        //move character
         direction.y = verticalVelocity;
         direction = transform.rotation * direction;
         cc.Move(direction * Time.deltaTime);
@@ -234,6 +247,7 @@ public class PlayerMovementCC : MonoBehaviour ////NEEDS COMMENTING
 
     public bool teleporting = false;
 
+    //Check if player is activating gps mode
     void GPSmode()
     {
         if (Input.GetButton("GPS"))
@@ -241,6 +255,7 @@ public class PlayerMovementCC : MonoBehaviour ////NEEDS COMMENTING
             GPScamera.enabled = true;
             anim.SetBool("GPSmode", true);
             ws.enabled = false;
+            //Activate teleport bomb if inputs are pressed and ready
             if (Input.GetButtonDown("Fire1") && canTeleport)
             {
                 anim.SetBool("Teleport", true);
@@ -260,6 +275,8 @@ public class PlayerMovementCC : MonoBehaviour ////NEEDS COMMENTING
         }
     }
 
+    //Teleport player to a location of a gameobject
+        //used with teleport bomb
     public void TeleportFunction(GameObject bomb)
     {
         if (!teleporting) 

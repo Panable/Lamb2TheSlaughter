@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class BaseWeapon //NEEDS COMMENTING
+public abstract class BaseWeapon //Dhan
 {
     public RaycastHit raycastHit;
     public bool canShoot = true;
@@ -18,6 +18,8 @@ public abstract class BaseWeapon //NEEDS COMMENTING
     public bool reloadSFX = false;
 
     public IWeaponAttributes weaponAttributes;
+
+    //includes range dmg, etc
     public interface IWeaponAttributes
     {
         float Damage { get; }
@@ -30,6 +32,7 @@ public abstract class BaseWeapon //NEEDS COMMENTING
 
     }
 
+    //raycast shooting used to determine what the player is looking at (with range)
     public RaycastHit ShootRaycast()
     {
         RaycastHit hit;
@@ -38,6 +41,7 @@ public abstract class BaseWeapon //NEEDS COMMENTING
         return hit;
     }
 
+    //raycast shooting used to determine what the player is looking at (no range)
     public RaycastHit ShootRaycastWithoutRange()
     {
         RaycastHit hit;
@@ -46,6 +50,7 @@ public abstract class BaseWeapon //NEEDS COMMENTING
         return hit;
     }
 
+    //Initialization
     public BaseWeapon(IWeaponAttributes weaponAttributes, WeaponSelect weaponSelect)
     {
         this.weaponSelect = weaponSelect;
@@ -55,6 +60,7 @@ public abstract class BaseWeapon //NEEDS COMMENTING
         this.weaponAttributes = weaponAttributes;
     }
 
+    //manages shooting weapon
     public virtual void Fire()
     {
         if (reloading || current_ammo <= 0)
@@ -69,6 +75,7 @@ public abstract class BaseWeapon //NEEDS COMMENTING
                 weaponSelect.StartCoroutine(WeaponDelay());
         }
 
+        //initializes raycast
         raycastHit = ShootRaycast();
 
 
@@ -77,6 +84,7 @@ public abstract class BaseWeapon //NEEDS COMMENTING
 
     public float weaponDelayOverdrive = 0.1f;
 
+    //weapon delay for overdrive mode
     public IEnumerator OverdriveWeaponDelay()
     {
         canShoot = false;
@@ -84,6 +92,7 @@ public abstract class BaseWeapon //NEEDS COMMENTING
         canShoot = true;
     }
 
+    //weapon delay for default mode
     public IEnumerator WeaponDelay()
     {
         canShoot = false;
@@ -93,6 +102,7 @@ public abstract class BaseWeapon //NEEDS COMMENTING
 
     public virtual void Update()
     {
+        //assign reloading attributes
         weaponSelect.anim.SetInteger("Reload", current_ammo);
         //Debug.Log("Current ammo = " + current_ammo);
         if (current_ammo <= 0 && !reloading)
@@ -108,21 +118,8 @@ public abstract class BaseWeapon //NEEDS COMMENTING
         }
 
     }
-    public void Fire2()
-    {
-        if (aiming)
-            aiming = false;
-        else
-        {
-            aiming = false;
-        }
-    }
 
-    public bool isAiming()
-    {
-        return aiming;
-    }
-
+    //reloads weapon
     public IEnumerator Reload()
     {
         reloading = true;
@@ -132,12 +129,6 @@ public abstract class BaseWeapon //NEEDS COMMENTING
         yield return new WaitForSeconds(1.1f);
         current_ammo = weaponAttributes.Ammo;
         reloading = false;
-    }
-
-    public void ActivateWeaponHUD()
-    {
-        GameObject.Destroy(GameObject.FindGameObjectWithTag("WeaponHUD"));
-        GameObject.Instantiate(weaponAttributes.weaponHUD);
     }
 
 }

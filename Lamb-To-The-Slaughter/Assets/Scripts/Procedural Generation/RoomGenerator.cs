@@ -89,7 +89,7 @@ public class RoomGenerator : MonoBehaviour //Dhan
                 if (possibleDoorSpots.Count == 0) { roomPrefabsToTryGenerate.RemoveAt(0); break; }
 
                 //spawn the first door orientation in list
-                GameObject currentDoor = possibleDoorSpots[0].activateObj(spawnDoor.position, Quaternion.identity);
+                GameObject currentDoor = possibleDoorSpots[0].ActivateObj(spawnDoor.position, Quaternion.identity);
                 currentDoor.transform.forward = spawnDoor.up;
 
                 //check for collision

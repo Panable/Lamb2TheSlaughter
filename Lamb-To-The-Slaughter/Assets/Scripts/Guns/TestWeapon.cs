@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestWeapon : BaseWeapon //NEEDS COMMENTING
+
+//inherits from baseweapon
+public class TestWeapon : BaseWeapon //Dhan
 {
     WeaponSelect weaponSelect;
     public static GameObject player;
@@ -70,6 +72,7 @@ public class TestWeapon : BaseWeapon //NEEDS COMMENTING
     }
     public static Transform target;
 
+    //initialization
     public TestWeapon(WeaponSelect weaponSelect) : base(new WeaponAttributes(), weaponSelect)
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -82,6 +85,7 @@ public class TestWeapon : BaseWeapon //NEEDS COMMENTING
         //meleeAttack;
     }
 
+    //firing weapon
     public override void Fire()
     {
         bool attack;
@@ -92,7 +96,7 @@ public class TestWeapon : BaseWeapon //NEEDS COMMENTING
 
         if (raycastHit.transform != null)
         {
-            //Debug.Log(hit.transform.name);
+            //if we hit enemy do dmg
             if (raycastHit.transform.tag == "Enemy")
             {
                 raycastHit.transform.GetComponent<Health>().TakeDamage(WeaponAttributes.Base_Damage);
@@ -101,6 +105,7 @@ public class TestWeapon : BaseWeapon //NEEDS COMMENTING
             }
         }
 
+        //if ammo gone, reload
         if (current_ammo <= 0)
         {
             Reload();

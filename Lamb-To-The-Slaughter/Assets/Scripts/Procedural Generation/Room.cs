@@ -23,6 +23,7 @@ public class Room //Dhan
     public List<Door> doorInfo = new List<Door>();
     char roomLetter;
 
+    //Initialize door orientations and the room letter
     public Room(string folderPath)
     {
         doors = Resources.LoadAll<GameObject>(folderPath).ToList();
@@ -31,11 +32,13 @@ public class Room //Dhan
 
     }
 
+    //used to replace a wall with a door in generation
     public Transform GetDoorPrefab()
     {
         return ProceduralManager.doorPrefabs[roomLetter];
     }
 
+    //populates doorInfo list
     public void GenerateDoorInfo()
     {
         foreach (GameObject door in doors)
@@ -45,6 +48,7 @@ public class Room //Dhan
         }
     }
 
+    //Ran at the end of the generation to remove the temporary instantiated prefabs
     public void DestroyAll()
     {
         foreach (Door door in doorInfo)

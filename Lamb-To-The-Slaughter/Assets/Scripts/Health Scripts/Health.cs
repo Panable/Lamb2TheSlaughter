@@ -4,8 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 
-public abstract class Health : MonoBehaviour //NEEDS COMMENTING
+public abstract class Health : MonoBehaviour //Dhan
 {
+    /// <summary>
+    /// Abstract class for health
+    /// </summary>
     public float maxHealth;
     public float currentHealth;
 
@@ -22,6 +25,7 @@ public abstract class Health : MonoBehaviour //NEEDS COMMENTING
     {
     }
 
+    //Manage dmg taking
     public virtual void TakeDamage(float amount)
     {
         regenTimer = 0.00f;
@@ -35,11 +39,13 @@ public abstract class Health : MonoBehaviour //NEEDS COMMENTING
         }
     }
 
+    //managing death
     public virtual void OnDeath()
     {
         Destroy(gameObject);
     }
 
+    //setting health
     public void SetHealth(float amount)
     {
         maxHealth = amount;
