@@ -23,5 +23,9 @@ public class intro : MonoBehaviour //Lachlan
             timer = 8.2f;
             SceneManager.LoadScene("MainMenu");
         }
+        if (Input.GetButtonDown("Submit"))
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
     }
 }

@@ -600,7 +600,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4437237543931464986}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.005
@@ -761,9 +761,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efbe03f0f86c54dcd95aeccb4fafc060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationFix: {x: 0, y: 0, z: 0}
+  hitBox: {fileID: 6311170100514573763}
   anim: {fileID: 4890924581528384528}
   player: {fileID: 0}
-  hitBox: {fileID: 6311170100514573763}
 --- !u!114 &1329712592498862405
 MonoBehaviour:
   m_ObjectHideFlags: 0

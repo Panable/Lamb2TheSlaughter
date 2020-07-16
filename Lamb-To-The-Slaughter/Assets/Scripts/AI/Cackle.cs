@@ -11,7 +11,7 @@ public class Cackle : MonoBehaviour //Ansaar
     private float hitRange = 60f;
     private float baseTriggerRadius = 0.005f;
     private float attackTriggerRadius = 0.02f;
-
+    private Vector3 startPos;
     public SphereCollider hitBox;
     public Animator anim;
     public Transform player;
@@ -21,11 +21,13 @@ public class Cackle : MonoBehaviour //Ansaar
     void OnEnable()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        startPos = transform.position;
     }
 
     //Look towards the player
     private void FixedUpdate()
     {
+        startPos = transform.position;
         rotationFix = player.position;
         rotationFix = new Vector3(rotationFix.x, 0, rotationFix.z);
         transform.LookAt(rotationFix);
@@ -55,12 +57,11 @@ public class Cackle : MonoBehaviour //Ansaar
         return temp;
     }
 
-    //Damage the player
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision col)
     {
-       if (other.CompareTag("Player"))
+        if(col.gameObject.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<Health>().TakeDamage(15f);
+            col.gameObject.GetComponent<Health>().TakeDamage(15f);
         }
     }
 }

@@ -22,7 +22,7 @@ public class Chest : MonoBehaviour //Ansaar
     //Initialisation
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+
         anim = GetComponent<Animator>();
         col = GetComponent<SphereCollider>();
 
@@ -48,11 +48,13 @@ public class Chest : MonoBehaviour //Ansaar
     void ToolKillDelay()
     {
         toolAccessible = true;
+        Debug.Log(toolTag);
     }
 
     //Pick Up Tool & Medpack
     private void OnTriggerStay(Collider other)
     {
+        player = GameObject.FindGameObjectWithTag("Player");
 
         if (other.tag == "Player" && Input.GetButtonDown("Interact"))
         {
@@ -60,30 +62,44 @@ public class Chest : MonoBehaviour //Ansaar
             anim.SetBool("openChest", true);
             audioSource.PlayOneShot(chestCreak, 20f);
             Invoke("ToolKillDelay", 0.2f);
-
+            Debug.Log("Killed");
         }
 
         if (toolAccessible && Input.GetButtonDown("Interact"))
         {
-            switch (toolTag)
+            Debug.Log(toolTag);
+
+            if (player.GetComponent<Inventory>() == null)
             {
-                case "Bomb_Explosive":
-                    player.GetComponent<Inventory>().explosionBomb++;
-                    activeTool.SetActive(false);
-                    break;
-                case "Bomb_Teleport":
-                    player.GetComponent<Inventory>().explosionBomb++;
-                    activeTool.SetActive(false);
-                    break;
-                case "Bomb_Gas":
-                    player.GetComponent<Inventory>().gasBomb++;
-                    activeTool.SetActive(false);
-                    break;
-                case "Bomb_Gravity":
-                    player.GetComponent<Inventory>().gravityBomb++;
-                    activeTool.SetActive(false);
-                    break;
+                Debug.Log("NoInventory");
             }
+
+            if (toolTag == "Bomb_Explosive")
+            {
+                Debug.Log("ReachedIntoIf");
+                player.GetComponent<Inventory>().explosionBomb++;
+                activeTool.SetActive(false);
+            }
+            if (toolTag == "Bomb_Teleport")
+            {
+                Debug.Log("ReachedIntoIf");
+                player.GetComponent<Inventory>().explosionBomb++;
+                activeTool.SetActive(false);
+            }
+            if (toolTag == "Bomb_Gas")
+            {
+                Debug.Log("ReachedIntoIf");
+                player.GetComponent<Inventory>().gasBomb++;
+                activeTool.SetActive(false);
+            }
+            if (toolTag == "Bomb_Gravity")
+            {
+                Debug.Log("ReachedIntoIf");
+                player.GetComponent<Inventory>().gravityBomb++;
+                activeTool.SetActive(false);
+            }
+
+            Debug.Log("Passed break");
 
             medPack.SetActive(false);
             player.GetComponent<Inventory>().medpack++;

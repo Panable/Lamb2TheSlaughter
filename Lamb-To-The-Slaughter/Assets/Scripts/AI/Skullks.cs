@@ -70,7 +70,7 @@ public class Skullks : MonoBehaviour //Ansaar
         yield return new WaitForSeconds(delay);
         Rigidbody projectileInstance = Instantiate(projectile, projectileAnchor.position, projectileAnchor.localRotation);
         projectileInstance.velocity = projectileForce * projectileAnchor.forward;
-        Instantiate(fireParticles, projectileAnchor.position, projectileAnchor.localRotation);
+        //Instantiate(fireParticles, projectileAnchor.position, projectileAnchor.localRotation);
         isShooting = false;
     }
 }
