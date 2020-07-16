@@ -11,6 +11,7 @@ public class RoomCollider : MonoBehaviour //Dhan
     bool enemiesLocated = false;
     public List<ProceduralEnemySelection> enemySpawners;
 
+    //Called when player enters room for the first time - spawns enemies locks doors and activates map location
     public void InitiateBattle()
     {
         rm.InstantiateDoorLocations();
@@ -19,6 +20,7 @@ public class RoomCollider : MonoBehaviour //Dhan
         rm.ActivateGPSPlane();
     }
 
+    //Spawn enemies in current room
     public void SpawnEnemies()
     {
         FindEnemySpawners();
@@ -30,6 +32,7 @@ public class RoomCollider : MonoBehaviour //Dhan
         StartCoroutine(CheckForEnemies());
     }
 
+    //Called to find the enemy spawners in the room
     public void FindEnemySpawners()
     {
         foreach (Transform child in transform.parent)
@@ -54,6 +57,7 @@ public class RoomCollider : MonoBehaviour //Dhan
 
     }
 
+    //Ran each (time frame) after enemies spawned to check if enemies are all gone and if they are unlock the doors
     IEnumerator CheckForEnemies()
     {
         yield return new WaitForSeconds(ProceduralEnemySelection.waitBeforeSpawn);
@@ -80,6 +84,7 @@ public class RoomCollider : MonoBehaviour //Dhan
         }
     }
 
+    //Initiate battle if player enters room for first time
     private void OnTriggerEnter(Collider other)
     {
         if (spawnedEnemies || ProceduralManager.procedurallyGenerating) return;

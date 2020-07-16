@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Audio;
 
-public class WeaponSelect : MonoBehaviour //NEEDS COMMENTING
+public class WeaponSelect : MonoBehaviour //Dhan
 {
     public enum Weapon
     {
@@ -76,14 +76,16 @@ public class WeaponSelect : MonoBehaviour //NEEDS COMMENTING
         audioSourceThrow.loop = false;
     }
 
-    //Instantiating
+    #region Initializing
+    //error checking
     private void CheckIfStartingWeaponsIsEmpty()
     {
         if (StartingWeapons.Count == 0)
         {
             Debug.LogError("No Starting Weapons Assigned");
         }
-    }
+    } 
+    //Instantiate starting avaliable weapon list
     private void AssignAvaliableWeapons()
     {
         foreach (Weapon startingWeapon in StartingWeapons)
@@ -94,6 +96,7 @@ public class WeaponSelect : MonoBehaviour //NEEDS COMMENTING
             }
         }
     }
+    //assign starting weapon list
     private void AssignStartingWeapon()
     {
         BaseWeapon weaponToStartWith = GetAvaliableWeapon(startingSelectedWeapon);
@@ -102,7 +105,9 @@ public class WeaponSelect : MonoBehaviour //NEEDS COMMENTING
         else
             Debug.LogError("Starting Weapon has not been assigned");
     }
+    #endregion
 
+    //weapon switching
     private void SwitchWeapon(BaseWeapon WeaponToSwitchTo)
     {
         if (GetAvaliableWeapon(WeaponToSwitchTo.weaponAttributes.WeaponName) != null)
@@ -111,6 +116,7 @@ public class WeaponSelect : MonoBehaviour //NEEDS COMMENTING
         }
     }
 
+    //weapon switching
     private void SwitchWeapon(Weapon weaponToSwitchTo)
     {
         BaseWeapon currentWeaponSwitch = GetAvaliableWeapon(weaponToSwitchTo);
@@ -123,6 +129,7 @@ public class WeaponSelect : MonoBehaviour //NEEDS COMMENTING
         selectedWeapon.ActivateWeaponHUD();
     }
 
+    //returns an avaliable weapon (null if no weapon is found)
     private BaseWeapon GetAvaliableWeapon(Weapon weaponToGet)
     {
         foreach (BaseWeapon weaponInAvaliableWeapon in AvaliableWeapons)
@@ -135,34 +142,41 @@ public class WeaponSelect : MonoBehaviour //NEEDS COMMENTING
         return null;
     }
 
+    //Managing input
     private void Inputs()
     {
+        //Overdrive fire
         if (Input.GetButton("Fire1") && selectedWeapon != null && selectedWeapon.current_ammo > 0 && !selectedWeapon.reloading && selectedWeapon.canShoot && PlayerHealth.overDrive)
         {
             selectedWeapon.Fire();
 
+            //Animations for weapon fire
             Instantiate(fireParticles, particlePos.transform.position, particlePos.transform.rotation);
             AOEv.color.Override(Color.white);
             AOEcA.intensity.Override(0.5f);
             StartCoroutine(cameraShake.Shake(0.15f, 3f));
             gunRecoil.StartRecoil();
 
+            //particles for weapon fire
             if (selectedWeapon.raycastHit.transform != null)
             {
                 Vector3 wallNormal = (selectedWeapon.raycastHit.normal) * 90;
                 Instantiate(wallShot, selectedWeapon.raycastHit.point, Quaternion.Euler(wallNormal.x, wallNormal.y + 90, wallNormal.z));
             }
         }
+        //Default fire
         if (Input.GetButtonDown("Fire1") && selectedWeapon != null && selectedWeapon.current_ammo > 0 && !selectedWeapon.reloading && selectedWeapon.canShoot)
         {
             selectedWeapon.Fire();
 
+            //animations
             Instantiate(fireParticles, particlePos.transform.position, particlePos.transform.rotation);
             AOEv.color.Override(Color.white);
             AOEcA.intensity.Override(0.5f);
             StartCoroutine(cameraShake.Shake(0.15f, 3f));
             gunRecoil.StartRecoil();
 
+            //particles
             if (selectedWeapon.raycastHit.transform != null)
             {
                 Vector3 wallNormal = (selectedWeapon.raycastHit.normal) * 90;
@@ -274,6 +288,8 @@ public class WeaponSelect : MonoBehaviour //NEEDS COMMENTING
             Invoke("ResetMelee", 0.2f);
         }
     }
+    
+    //check if a weapon is available 
     private bool InAvaliableWeapons(Weapon weapon)
     {
         foreach (BaseWeapon baseWeapon in AvaliableWeapons)
@@ -285,6 +301,7 @@ public class WeaponSelect : MonoBehaviour //NEEDS COMMENTING
         }
         return false;
     }
+    //convert from enum to weapon obj
     public BaseWeapon EnumToWeapon(Weapon weapon)
     {
         switch (weapon)
@@ -294,14 +311,6 @@ public class WeaponSelect : MonoBehaviour //NEEDS COMMENTING
         }
         return null;
     }
-
-    public float meleeRange = 3f;
-
-    public void MeleeAttack(RaycastHit hit)
-    {
-        anim.SetBool("CanMelee", true);
-    }
-
 
 
     void MedPack()
@@ -318,6 +327,8 @@ public class WeaponSelect : MonoBehaviour //NEEDS COMMENTING
 
     bool throwingBomb = false;
 
+    //Bomb methods for throwing and input
+    #region bombs
     public bool isBombThrowing()
     {
         player.GetComponent<WeaponSelect>().AOEsoundplay = false;
@@ -412,12 +423,7 @@ public class WeaponSelect : MonoBehaviour //NEEDS COMMENTING
         }
         anim.SetBool("GasBomb", false);
     }
-
-    void ResetMelee()
-    {
-        anim.SetBool("CanMelee", false);
-    }
-
+    #endregion
     void FindPostProcessEffects()
     {
         ChromaticAberration cA;

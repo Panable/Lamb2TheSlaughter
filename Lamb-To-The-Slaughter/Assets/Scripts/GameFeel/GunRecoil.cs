@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GunRecoil : MonoBehaviour //NEEDS COMMENTING
+public class GunRecoil : MonoBehaviour //Dhan
 {
     #region Variables
     public Vector3 originalPos;
@@ -16,21 +16,24 @@ public class GunRecoil : MonoBehaviour //NEEDS COMMENTING
     float slerpIndex;
     #endregion
 
-    //Initialisation
+    //Initialisation of weapon position and lerp position
     public void Start()
     {
         originalPos = transform.localPosition;
         lerpPos = new Vector3(originalPos.x, originalPos.y, originalPos.z - lerpBackDistance);
     }
 
+    //start recoil
     public void StartRecoil()
     {
         ResetIndexes();
         initialRecoil = true;
     }
 
+    //initial push back recoil
     public void InitialRecoil()
     {
+        //if hasn't finished lerping, lerp otherwise do the returning lerp
         if (lerpIndex <= 1)
         {
             lerpIndex += Time.deltaTime * lerpSpeed;
@@ -41,8 +44,11 @@ public class GunRecoil : MonoBehaviour //NEEDS COMMENTING
             ReturnPos();
         }
 
+        //set final weapon position
         transform.localPosition = new Vector3(originalPos.x, currentPos.y, currentPos.z);
     }
+
+    //return back recoil
     public void ReturnPos()
     {
         slerpIndex += Time.deltaTime * slerpSpeed;
@@ -54,6 +60,7 @@ public class GunRecoil : MonoBehaviour //NEEDS COMMENTING
         }
     }
 
+    //resetting current lerps
     public void ResetIndexes()
     {
         lerpIndex = 0;
