@@ -287,7 +287,11 @@ public class PlayerMovementCC : MonoBehaviour ////NEEDS COMMENTING
         cc.enabled = true;
         hasTeleported = true;
         Invoke("ChromaticAberrationReset", 1f);
-        Destroy(bomb);
+        bomb.transform.GetChild(0).gameObject.SetActive(false);
+        bomb.GetComponent<Rigidbody>().isKinematic = false;
+        bomb.GetComponent<Rigidbody>().useGravity = true;
+        bomb.GetComponent<Rigidbody>().constraints &= ~RigidbodyConstraints.FreezePosition;
+        Destroy(bomb.GetComponent<BombScript>());
     }
 
     void ChromaticAberrationReset()

@@ -8,14 +8,18 @@ public class GPSControl : MonoBehaviour //Ansaar
     [SerializeField]
     private Vector3 cameraPos;
     private Vector3 playerPos;
-
+    private Camera GPScam;
+    [SerializeField] GameObject vignette;
     public Transform player;
+    Vector3 vignetteScale;
     #endregion
 
     //Initialisation
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        GPScam = GetComponent<Camera>();
+        vignetteScale = vignette.transform.localScale;
     }
 
     //Controls GPS Camera's Rotation
@@ -26,10 +30,30 @@ public class GPSControl : MonoBehaviour //Ansaar
 
         gameObject.transform.position = cameraPos;
 
-
         if (!player)
         {
            return; 
+        }
+
+        Zoom();
+    }
+
+    //Zoom in and out on the GPS
+    void Zoom()
+    {
+        float zoomControl = Input.GetAxis("Mouse ScrollWheel");
+
+        if (zoomControl != 0f)
+        {
+            GPScam.orthographicSize += zoomControl;
+            if (GPScam.orthographicSize < 50)
+            {
+                GPScam.orthographicSize = 50;
+            }
+            else if (GPScam.orthographicSize > 100)
+            {
+                GPScam.orthographicSize = 100;
+            }
         }
     }
 }

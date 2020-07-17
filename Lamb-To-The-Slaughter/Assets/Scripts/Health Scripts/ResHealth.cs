@@ -41,7 +41,7 @@ public class ResHealth : Health //Ansaar
         particleLocation = transform.TransformPoint(mainCollider.center);
 
         health = base.currentHealth;
-        bossUI.bossHealth.SetText(health.ToString() + "%");
+        bossUI.bossHealth.SetText(Mathf.RoundToInt(health).ToString() + "%");
 
         if (health < 1)
         {

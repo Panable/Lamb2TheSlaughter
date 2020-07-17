@@ -83,7 +83,7 @@ public class Chest : MonoBehaviour //Ansaar
             if (toolTag == "Bomb_Teleport")
             {
                 Debug.Log("ReachedIntoIf");
-                player.GetComponent<Inventory>().explosionBomb++;
+                player.GetComponent<Inventory>().teleportBomb++;
                 activeTool.SetActive(false);
             }
             if (toolTag == "Bomb_Gas")

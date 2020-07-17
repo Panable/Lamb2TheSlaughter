@@ -38,6 +38,7 @@ public class BombScript : MonoBehaviour //Ansaar
     public GameObject tpParticleSystem;
     public GameObject teleportBombIcon;
     public static GameObject teleport;
+    public static bool killTeleportBomb = false;
     #endregion
 
     //Initialise
@@ -68,6 +69,12 @@ public class BombScript : MonoBehaviour //Ansaar
             case "Bomb_Teleport":
                 TeleportBomb();
                 break;
+        }
+
+        if (killTeleportBomb)
+        {
+            DeactivateTlpBomb();
+            killTeleportBomb = false;
         }
     }
 
@@ -167,6 +174,15 @@ public class BombScript : MonoBehaviour //Ansaar
     private void DeactivateGasBomb()
     {
         Destroy(gasParticleSystem);
+        Destroy(this);
+    }
+
+    void DeactivateTlpBomb()
+    {
+        Destroy(gameObject.transform.GetChild(0).gameObject);
+        GetComponent<Rigidbody>().isKinematic = false;
+        GetComponent<Rigidbody>().useGravity = false;
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         Destroy(this);
     }
 }

@@ -386,7 +386,13 @@ public class WeaponSelect : MonoBehaviour //Dhan
         if (GetComponent<Inventory>().teleportBomb >= 1 && Input.GetButtonDown("teleportBomb") && !throwingBomb && !isBombThrowing())
         {
             if (BombScript.teleport != null)
-                Destroy(BombScript.teleport);
+            {
+                BombScript.teleport.transform.GetChild(0).gameObject.SetActive(false);
+                BombScript.teleport.GetComponent<Rigidbody>().isKinematic = false;
+                BombScript.teleport.GetComponent<Rigidbody>().useGravity = true;
+                BombScript.teleport.GetComponent<Rigidbody>().constraints &= ~RigidbodyConstraints.FreezePosition;
+                Destroy(BombScript.teleport.GetComponent<BombScript>());
+            }
             throwingBomb = true;
             //instantiateBomb
             audioSourceThrow.loop = false;
