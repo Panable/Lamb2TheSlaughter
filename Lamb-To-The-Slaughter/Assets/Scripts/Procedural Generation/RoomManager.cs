@@ -21,6 +21,8 @@ public class RoomManager : MonoBehaviour //Dhan
 
     public Transform entryDoor;
     GameObject player;
+    ProceduralEnemySelection[] roomEnemySpawners;
+    [SerializeField ]bool emptyRoom;
 
     /// <summary>
     /// Force this room to generate
@@ -45,8 +47,21 @@ public class RoomManager : MonoBehaviour //Dhan
 
     private void Awake()
     {
+        FindSpawners();
         InstantiateDoorSpots();
         InstantiateCollider();
+    }
+
+    void FindSpawners()
+    {
+        roomEnemySpawners = GetComponentsInChildren<ProceduralEnemySelection>();
+        foreach (ProceduralEnemySelection spawner in roomEnemySpawners)
+        {
+            if (spawner.Enemies.Length == 0)
+            {
+                emptyRoom = true;
+            }
+        }
     }
 
     public void InstantiateDoorLocations()
@@ -101,10 +116,17 @@ public class RoomManager : MonoBehaviour //Dhan
         InstantiateDoorLocations();
         foreach (Transform door in doorLocations)
         {
-            door.GetChild(0).gameObject.SetActive(true);
-            door.GetChild(0).gameObject.GetComponent<Parasites>().DissolveIn();
-            if (door.childCount > 1)
-                door.GetChild(1).gameObject.SetActive(true);
+            if(!emptyRoom)
+            {
+                door.GetChild(0).gameObject.SetActive(true);
+                door.GetChild(0).gameObject.GetComponent<Parasites>().DissolveIn();
+                if (door.childCount > 1)
+                    door.GetChild(1).gameObject.SetActive(true);
+            }
+            else
+            {
+                return;
+            }
         }
 
     }

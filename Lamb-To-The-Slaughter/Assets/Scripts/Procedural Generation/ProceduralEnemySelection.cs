@@ -24,8 +24,15 @@ public class ProceduralEnemySelection : MonoBehaviour //Ansaar
         chanceValue = Random.Range(0, 9);
         float sizeValue = Random.Range(1f, 1.3f);
 
-        GameObject particles = Instantiate(spawnParticle, transform.position, Quaternion.Euler(-90,0,0));
-        particles.transform.localScale = ParticleScaleConfiguration(Enemies[chanceValue]) * scaleFactor;
+        if (Enemies.Length != 0)
+        {
+            GameObject particles = Instantiate(spawnParticle, transform.position, Quaternion.Euler(-90, 0, 0));
+            particles.transform.localScale = ParticleScaleConfiguration(Enemies[chanceValue]) * scaleFactor;
+        }
+        else
+        {
+            yield break;
+        }
 
         yield return new WaitForSeconds(waitBeforeSpawn);
 

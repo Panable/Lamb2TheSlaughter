@@ -56,7 +56,7 @@ public class Chest : MonoBehaviour //Ansaar
     {
         player = GameObject.FindGameObjectWithTag("Player");
 
-        if (other.tag == "Player" && Input.GetButtonDown("Interact"))
+        if (other.tag == "Player" && Input.GetButtonDown("Interact") && !toolAccessible)
         {
 
             anim.SetBool("openChest", true);
