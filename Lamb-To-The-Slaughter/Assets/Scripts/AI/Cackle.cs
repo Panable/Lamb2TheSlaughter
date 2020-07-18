@@ -27,7 +27,6 @@ public class Cackle : MonoBehaviour //Ansaar
     //Look towards the player
     private void FixedUpdate()
     {
-        startPos = transform.position;
         rotationFix = player.position;
         rotationFix = new Vector3(rotationFix.x, 0, rotationFix.z);
         transform.LookAt(rotationFix);
@@ -36,6 +35,7 @@ public class Cackle : MonoBehaviour //Ansaar
     //Use the distance from the player to determine whether to attack or not
     void Update()
     {
+        transform.position = startPos;
         distToPlayer = FindDistance(player.transform, gameObject.transform);
 
         if (distToPlayer <= hitRange)

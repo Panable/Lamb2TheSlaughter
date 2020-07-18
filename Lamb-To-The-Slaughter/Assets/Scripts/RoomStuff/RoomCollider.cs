@@ -90,10 +90,10 @@ public class RoomCollider : MonoBehaviour //Dhan
         if (spawnedEnemies || ProceduralManager.procedurallyGenerating) return;
         if (other.CompareTag("Player"))
         {
-            if (BombScript.teleport != null)
-                Destroy(BombScript.teleport);
-
             InitiateBattle();
+
+            if (BombScript.teleport != null)
+                BombScript.teleport.gameObject.GetComponent<BombScript>().enabled = false;
         }
     }
 }

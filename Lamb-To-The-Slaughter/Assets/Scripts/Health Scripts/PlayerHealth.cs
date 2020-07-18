@@ -24,6 +24,7 @@ public class PlayerHealth : Health //Ansaar(Graphics) & Lachlan(Audio & Death)
     public CameraShake cs;
     public UnityEngine.Rendering.VolumeProfile vp;
     public Color deathWarning;
+    public Color warningReset;
     public Color originalColor;
     public GameObject player;
     public GameObject deathScreen;
@@ -105,7 +106,6 @@ public class PlayerHealth : Health //Ansaar(Graphics) & Lachlan(Audio & Death)
     //Properties for when taking damage
     public override void TakeDamage(float amount)
     {
-        //we are taking dmg here
         if (delayTimer < 0)
         {
             audioSourceP.clip = playerCries[Random.Range(0, playerCries.Length)];
@@ -117,7 +117,6 @@ public class PlayerHealth : Health //Ansaar(Graphics) & Lachlan(Audio & Death)
             delayTimer = 0.2f;
         }
 
-        //add shit you want after damage is taken here
         getDamage = true;
     }
 
@@ -183,6 +182,7 @@ public class PlayerHealth : Health //Ansaar(Graphics) & Lachlan(Audio & Death)
             damageCA = cA;
         }
 
+        damageCA.colorFilter.value = warningReset;
         originalColor = damageCA.colorFilter.value;
     }
 }

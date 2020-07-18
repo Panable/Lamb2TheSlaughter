@@ -251,6 +251,7 @@ public class WeaponSelect : MonoBehaviour //Dhan
         Inputs();
         AOEgraphicsReset();
         AmmoGraphics();
+        BombThrow();
 
         aoeCooldown = Mathf.Clamp(aoeCooldown, 0, 4);
 
@@ -466,6 +467,19 @@ public class WeaponSelect : MonoBehaviour //Dhan
         foreach (Material mat in gunPower)
         {
             mat.SetColor("_EmissionColor", glassColour.Evaluate(scaledValue));
+        }
+    }
+
+    void BombThrow()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            Time.timeScale = 0.25f;
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            Time.timeScale = 1f;
         }
     }
 }

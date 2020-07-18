@@ -37,8 +37,11 @@ public class PlayerMovementCC : MonoBehaviour ////NEEDS COMMENTING
 
     GameObject tpBomb;
     BombScript bombScript;
+    public GameObject error;
     public bool hasTeleported;
     public bool canTeleport = true;
+
+    public bool TeleportEnabled;
 
     public bool jumping = true;
 
@@ -256,7 +259,7 @@ public class PlayerMovementCC : MonoBehaviour ////NEEDS COMMENTING
             anim.SetBool("GPSmode", true);
             ws.enabled = false;
             //Activate teleport bomb if inputs are pressed and ready
-            if (Input.GetButtonDown("Fire1") && canTeleport)
+            if (Input.GetButtonDown("Fire1") && canTeleport && BombScript.teleport != null)
             {
                 anim.SetBool("Teleport", true);
                 tPcA.intensity.Override(1f);
@@ -264,6 +267,7 @@ public class PlayerMovementCC : MonoBehaviour ////NEEDS COMMENTING
             }
             else
             {
+                anim.SetBool("Teleport", false);
                 teleporting = false;
             }
         }
@@ -284,6 +288,8 @@ public class PlayerMovementCC : MonoBehaviour ////NEEDS COMMENTING
         anim.SetBool("Teleport", false);
         cc.enabled = false;
         transform.position = bomb.transform.position;
+        Vector3 targetAngle = transform.eulerAngles + 180f * Vector3.up;
+        transform.eulerAngles = targetAngle;
         cc.enabled = true;
         hasTeleported = true;
         Invoke("ChromaticAberrationReset", 1f);
@@ -297,6 +303,16 @@ public class PlayerMovementCC : MonoBehaviour ////NEEDS COMMENTING
     void ChromaticAberrationReset()
     {
         tPcA.intensity.Override(0.161f);
+    }
+
+    public IEnumerator GPSError(float errorTime)
+    {
+        error.SetActive(true);
+        Debug.Log("Yeah");
+        yield return new WaitForSeconds(errorTime);
+        error.SetActive(false);
+        Debug.Log("Nah");
+        yield return null;
     }
     #endregion
 }

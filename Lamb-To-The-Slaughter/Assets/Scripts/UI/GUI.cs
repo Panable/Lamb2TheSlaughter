@@ -8,6 +8,7 @@ public class GUI : MonoBehaviour //Lachlan
 {
     GameObject player;
     bool dead;
+    bool LocatingPlayer = true;
 
     //for time alive
     public TMP_Text timertxt;
@@ -20,7 +21,6 @@ public class GUI : MonoBehaviour //Lachlan
     // Start is called before the first frame update
     void Start()
     {
-        //Time.timeScale = 1;
         player = GameObject.FindGameObjectWithTag("Player");
     }
 

@@ -142,6 +142,9 @@ public class RoomManager : MonoBehaviour //Dhan
             //player.GetComponent<PlayerMovementCC>().canTeleport = true;
             //player = null;
         }
+
+        if (BombScript.teleport != null)
+            BombScript.teleport.gameObject.GetComponent<BombScript>().enabled = true;
     }
 
     IEnumerator KillParasite(Transform door, float seconds)
