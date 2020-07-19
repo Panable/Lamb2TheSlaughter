@@ -83,7 +83,7 @@ public class WeaponSelect : MonoBehaviour //Dhan
         ph = player.GetComponent<PlayerHealth>();
         AOEv.color.Override(originalV);
         audioSourceThrow.loop = false;
-        tm = medpackButton.GetComponentInParent<ToolManager>();
+        tm = medpackButton.gameObject.transform.parent.parent.GetComponent<ToolManager>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -525,7 +525,7 @@ public class WeaponSelect : MonoBehaviour //Dhan
                 TextCorrectionForToolset(teleportButton);
                 TextCorrectionForToolset(explosiveButton);
                 tm.activeButtons.Clear();
-
+                Debug.Log("Reached Inactive");
                 bombUI.SetActive(false);
                 Time.timeScale = 1f;
                 Cursor.visible = false;
