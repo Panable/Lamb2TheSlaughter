@@ -44,6 +44,7 @@ public class PlayerMovementCC : MonoBehaviour ////NEEDS COMMENTING
     public bool TeleportEnabled;
 
     public bool jumping = true;
+    public GameObject pauseMenu;
 
     //Audio
     public AudioSource jumpSource;
@@ -114,11 +115,6 @@ public class PlayerMovementCC : MonoBehaviour ////NEEDS COMMENTING
         {
             movementSpeed = walkSpeed;
             jumpHeight = 10f;
-        }
-
-        if (Input.GetButton("PS"))
-        {
-            SceneManager.LoadScene("MainMenu");
         }
 
         if (jumpStart == true)
@@ -229,8 +225,11 @@ public class PlayerMovementCC : MonoBehaviour ////NEEDS COMMENTING
 
     private void CameraMovement()
     {
-        RotatePlayerOnMouseX();
-        RotateCameraOnMouseY();
+        if (!pauseMenu.activeInHierarchy)
+        {
+            RotatePlayerOnMouseX();
+            RotateCameraOnMouseY();
+        }
     }
 
 

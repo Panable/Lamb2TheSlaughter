@@ -11,7 +11,7 @@ public class Husk : MonoBehaviour //Ansaar & Dhan
     private bool attacking = false;
     private NavMeshAgent huskAgent;
     private Transform player;
-
+    public bool pushed;
     public Animator anim;
     #endregion
 
@@ -23,7 +23,7 @@ public class Husk : MonoBehaviour //Ansaar & Dhan
         huskAgent.isStopped = false;
     }
 
-    //Move the Husk w/ Appropriate animations
+    //Move the Husk w/ Appropriate animations. // Also checks if it has been pushed to reset velocity & Path
     private void Update()
     {
         if (huskAgent.isStopped)
@@ -36,6 +36,14 @@ public class Husk : MonoBehaviour //Ansaar & Dhan
             huskAgent.destination = player.position;
             anim.SetBool("isMoving", true);
             anim.SetBool("isAttacking", false);
+        }
+
+        pushed = player.GetComponent<WeaponSelect>().AOEsoundplay;
+
+        if (pushed == true)
+        {
+            huskAgent.isStopped = true;
+            huskAgent.ResetPath();
         }
     }
 

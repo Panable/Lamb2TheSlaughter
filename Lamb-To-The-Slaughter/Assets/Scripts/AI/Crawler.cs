@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Crawler : MonoBehaviour //Ansaar
+public class Crawler : MonoBehaviour //Ansaar + Lachlan
 {
     #region Variables
     [SerializeField]
     private Animator anim;
     private Transform player;
     private NavMeshAgent agent;
+    public bool pushed;
     #endregion
 
     //Initialisation
@@ -26,6 +27,14 @@ public class Crawler : MonoBehaviour //Ansaar
     {
         //Constantly looks at player
         transform.LookAt(player.transform.position);
+
+        pushed = player.GetComponent<WeaponSelect>().AOEsoundplay;
+
+        if (pushed == true)
+        {
+            agent.ResetPath();
+        }
+
         agent.destination = player.position;
     }
 

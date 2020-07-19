@@ -8,7 +8,7 @@ public class MaggHealth : Health //Ansaar(Particles) & Lachlan(Audio)
     #region Variables
     public GameObject deathParticles;
     public CapsuleCollider collider;
-    public Transform particleLocation;
+    public Vector3 particleLocation;
     public AudioSource audioSourceM;
     public AudioClip cryM;
     public Vector3 angryScale = new Vector3(1.5f, 1.5f, 1.5f);
@@ -18,7 +18,7 @@ public class MaggHealth : Health //Ansaar(Particles) & Lachlan(Audio)
     //Properties for when killed
     public override void OnDeath()
     {
-        GameObject particles = Instantiate(deathParticles, particleLocation.position, Quaternion.identity);
+        GameObject particles = Instantiate(deathParticles, particleLocation, Quaternion.identity);
         particles.transform.localScale = angryScale / 2;
         Destroy(gameObject);
     }
@@ -49,7 +49,7 @@ public class MaggHealth : Health //Ansaar(Particles) & Lachlan(Audio)
     {
         audioSourceM.PlayOneShot(cryM, 20f);
         base.TakeDamage(amount);
-
+        Instantiate(deathParticles, particleLocation, transform.rotation);
         unharmed = false;
     }
 

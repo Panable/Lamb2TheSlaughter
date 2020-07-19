@@ -9,8 +9,8 @@ public class Maggots : MonoBehaviour //Lachlan & Ansaar
     private NavMeshAgent maggotAgent;
     private Transform player;
     private MaggHealth mh;
-    private float wanderRadius = 50;
-    private float wanderTimer = 3.7f;
+    private float wanderRadius = 10;
+    private float wanderTimer = 3.5f;
     private float timer;
     private float bounceThreshold = 1.15f;
     private float bounceHeight;

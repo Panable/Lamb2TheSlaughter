@@ -156,7 +156,7 @@ public class WeaponSelect : MonoBehaviour //Dhan
     private void Inputs()
     {
         //Overdrive fire
-        if (Input.GetButton("Fire1") && selectedWeapon != null && selectedWeapon.current_ammo > 0 && !selectedWeapon.reloading && selectedWeapon.canShoot && PlayerHealth.overDrive && !toolsetControl)
+        if (Input.GetButton("Fire1") && selectedWeapon != null && selectedWeapon.current_ammo > 0 && !selectedWeapon.reloading && selectedWeapon.canShoot && PlayerHealth.overDrive && !toolsetControl && !pauseMenu.activeInHierarchy)
         {
             selectedWeapon.Fire();
 
@@ -175,7 +175,7 @@ public class WeaponSelect : MonoBehaviour //Dhan
             }
         }
         //Default fire
-        if (Input.GetButtonDown("Fire1") && selectedWeapon != null && selectedWeapon.current_ammo > 0 && !selectedWeapon.reloading && selectedWeapon.canShoot && !toolsetControl)
+        if (Input.GetButtonDown("Fire1") && selectedWeapon != null && selectedWeapon.current_ammo > 0 && !selectedWeapon.reloading && selectedWeapon.canShoot && !toolsetControl && !pauseMenu.activeInHierarchy)
         {
             selectedWeapon.Fire();
 
@@ -501,7 +501,7 @@ public class WeaponSelect : MonoBehaviour //Dhan
     {
         if (!pauseMenu.activeSelf)
         {
-            if (Input.GetKeyDown(KeyCode.LeftShift))
+            if (Input.GetButtonDown("toolSelect"))
             {
                 cursorLocked = false;
                 bombUI.SetActive(true);
@@ -509,9 +509,11 @@ public class WeaponSelect : MonoBehaviour //Dhan
                 Time.timeScale = 0.25f;
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
+                transform.Rotate(0, Input.GetAxis("Mouse X") * 2, 0);
+                transform.Rotate(0, Input.GetAxis("Mouse Y") * 2, 0);
             }
 
-            if (Input.GetKeyUp(KeyCode.LeftShift) && !throwingBomb)
+            if (Input.GetButtonUp("toolSelect") && !throwingBomb)
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 toolsetControl = false;

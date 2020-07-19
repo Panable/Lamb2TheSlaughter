@@ -202,6 +202,7 @@ GameObject:
   - component: {fileID: 7029996015508162002}
   - component: {fileID: 2663075366483996357}
   - component: {fileID: 1163054607813316345}
+  - component: {fileID: 2497406008310588802}
   m_Layer: 0
   m_Name: DoorParasite
   m_TagString: Untagged
@@ -257,10 +258,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dissolveOn: 0
-  dissolveControl: 1
-  dissolve: {fileID: 0}
-  matHolder: {fileID: 0}
-  rend: {fileID: 0}
+  DissolvedOut: 0
+--- !u!208 &2497406008310588802
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6328905450923259841}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &6463771099333344702
 GameObject:
   m_ObjectHideFlags: 0
