@@ -210,7 +210,7 @@ public class WeaponSelect : MonoBehaviour //Dhan
 
     bool canAOE = true;
     public float aoeCooldown = 4f;
-    bool hasScreamed;
+    public bool hasScreamed;
 
     void AOEattack()
     {
