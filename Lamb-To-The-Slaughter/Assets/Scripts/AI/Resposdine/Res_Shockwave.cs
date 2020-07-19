@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Res_Shockwave : MonoBehaviour //Ansaar
 {
-    Vector3 waveRange = new Vector3(200, 200, 100);
-    public float waveSpeed;
+    [SerializeField] Vector3 waveRange = new Vector3(200, 200, 100);
+    [SerializeField] float waveSpeed;
     Renderer rend;
     Collider col;
     public GameObject shockwaveParticles;

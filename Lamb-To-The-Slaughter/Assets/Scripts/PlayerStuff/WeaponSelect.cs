@@ -44,6 +44,9 @@ public class WeaponSelect : MonoBehaviour //Dhan
     public Material[] gunPower;
     public Material bubbleShader;
     public GameObject damageParticles;
+    public GameObject shockwave;
+    public Transform shockwaveAnchor;
+    public GameObject bombUI;
 
     //Audio
     public AudioSource audioSource;
@@ -74,6 +77,7 @@ public class WeaponSelect : MonoBehaviour //Dhan
         ph = player.GetComponent<PlayerHealth>();
         AOEv.color.Override(originalV);
         audioSourceThrow.loop = false;
+
     }
 
     #region Initializing
@@ -193,7 +197,7 @@ public class WeaponSelect : MonoBehaviour //Dhan
 
         if (Input.GetButton("AOE") && selectedWeapon != null && canAOE)
         {
-            Invoke("AOEattack", 0.3f);
+            AOEattack();
         }
     }
 
@@ -211,7 +215,8 @@ public class WeaponSelect : MonoBehaviour //Dhan
         AOEsoundplay = true;
         AOEcA.intensity.Override(0.4f);
         AOEv.color.Override(Color.white);
-
+        float randRot = UnityEngine.Random.Range(0f, 90f);
+        Instantiate(shockwave, shockwaveAnchor.position, Quaternion.Euler(270f, randRot, 0));
         Collider[] nearbyRb = Physics.OverlapSphere(transform.position, AOEradius);
         foreach (Collider hit in nearbyRb)
         {
@@ -474,12 +479,18 @@ public class WeaponSelect : MonoBehaviour //Dhan
     {
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
+            bombUI.SetActive(true);
             Time.timeScale = 0.25f;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
 
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
+            bombUI.SetActive(false);
             Time.timeScale = 1f;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
     }
 }
