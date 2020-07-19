@@ -501,7 +501,7 @@ public class WeaponSelect : MonoBehaviour //Dhan
     {
         if (!pauseMenu.activeSelf)
         {
-            if (Input.GetButtonDown("toolSelect"))
+            if (Input.GetKeyDown(KeyCode.LeftShift))
             {
                 cursorLocked = false;
                 bombUI.SetActive(true);
@@ -509,11 +509,9 @@ public class WeaponSelect : MonoBehaviour //Dhan
                 Time.timeScale = 0.25f;
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
-                transform.Rotate(0, Input.GetAxis("Mouse X") * 2, 0);
-                transform.Rotate(0, Input.GetAxis("Mouse Y") * 2, 0);
             }
 
-            if (Input.GetButtonUp("toolSelect") && !throwingBomb)
+            if (Input.GetKeyUp(KeyCode.LeftShift) && !throwingBomb)
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 toolsetControl = false;
@@ -527,7 +525,6 @@ public class WeaponSelect : MonoBehaviour //Dhan
                 TextCorrectionForToolset(teleportButton);
                 TextCorrectionForToolset(explosiveButton);
                 tm.activeButtons.Clear();
-                Debug.Log("Reached Inactive");
                 bombUI.SetActive(false);
                 Time.timeScale = 1f;
                 Cursor.visible = false;

@@ -194,6 +194,7 @@ GameObject:
   - component: {fileID: 3213613678153376133}
   - component: {fileID: 7364688317127307579}
   - component: {fileID: 6872009568928701534}
+  - component: {fileID: 7837773359687952940}
   m_Layer: 0
   m_Name: Magg
   m_TagString: Enemy
@@ -260,7 +261,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 7565288397815936542}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 6
+  m_Radius: 2.53
   m_Speed: 4.5
   m_Acceleration: 360
   avoidancePriority: 13
@@ -307,7 +308,7 @@ MonoBehaviour:
   deathParticles: {fileID: 1426344824135656055, guid: 48d77c6c4472d44ba8638099af421e30,
     type: 3}
   collider: {fileID: 559131754791518287}
-  particleLocation: {x: 1, y: 1, z: 1}
+  particleLocation: {fileID: 135626585193118393}
   audioSourceM: {fileID: 0}
   cryM: {fileID: 8300000, guid: 9d8c3984e1c994af58d67280c4fb23a1, type: 3}
   angryScale: {x: 1.5, y: 1.5, z: 1.5}
@@ -425,6 +426,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &7837773359687952940
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7565288397815936542}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.4465551, y: 2.4465542, z: 4.702202}
+  m_Center: {x: -0.0122590065, y: 1.2626705, z: 0.1348486}
 --- !u!1 &8158616773860510899
 GameObject:
   m_ObjectHideFlags: 0

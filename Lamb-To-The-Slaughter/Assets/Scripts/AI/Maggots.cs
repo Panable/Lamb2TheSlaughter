@@ -17,6 +17,7 @@ public class Maggots : MonoBehaviour //Lachlan & Ansaar
     private float colSpeed = 30f;
     private float colHeight = 4f;
     private Vector3 colPos;
+    Vector3 targetPosition;
     private CapsuleCollider col;
     private AudioSource audioSource;
     private bool justBounced;
@@ -56,6 +57,12 @@ public class Maggots : MonoBehaviour //Lachlan & Ansaar
         }
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(maggotAgent.destination, 1f);
+    }
+
     //Control between Roam AI & Raged AI
     void Update()
     {
@@ -78,9 +85,11 @@ public class Maggots : MonoBehaviour //Lachlan & Ansaar
     //Set a random destination for the Roam AI
     public void NewBouncePos()
     {
+
         if (timer >= wanderTimer)
         {
             Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
+            targetPosition = newPos;
             maggotAgent.SetDestination(newPos);
             timer = 0;
         }

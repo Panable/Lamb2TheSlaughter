@@ -133,11 +133,11 @@ public class CameraMovement : MonoBehaviour //Ansaar
     //Determine which position the camera is in
     public void PositionCount()
     {
-        if (Input.GetButtonDown("Right"))
+        if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             posCount = posCount + 1;
         }
-        else if (Input.GetButtonDown("Left"))
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             posCount = posCount - 1;
         }

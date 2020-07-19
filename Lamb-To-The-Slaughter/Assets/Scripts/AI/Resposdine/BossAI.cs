@@ -147,7 +147,7 @@ public class BossAI : MonoBehaviour //Ansaar
 				SpawnAttack(false);
 				if (shootTimer <= 0)
                 {
-                    TransitionStage(10, 1);
+                    TransitionStage(60, 0.5f);
 					shootTimer = shootDelay;
                 }
 				
@@ -181,7 +181,7 @@ public class BossAI : MonoBehaviour //Ansaar
 				canShockwave = false;
 				if (shootTimer <= 0)
 				{
-					TransitionStage(30, 0.5f);
+					TransitionStage(100, 0.25f);
 					shootTimer = shootDelay;
 				}
 			}
