@@ -69,9 +69,9 @@ public class PlayerHealth : Health //Ansaar(Graphics) & Lachlan(Audio & Death)
     //Regulate Health GUI & Death Check
     void Update()
     {
-        if (Input.GetButtonDown("Medpack"))
+        if (Input.GetButtonDown("Fire1"))
         {
-            Invoke("OnMedPackUpdate", 0.2f);
+            Invoke("OnMedPackUpdate", 0.1f);
         }
 
         UIHealthShuffle();

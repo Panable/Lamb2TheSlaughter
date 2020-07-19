@@ -21,7 +21,7 @@ public class WeaponSelect : MonoBehaviour //Dhan
     public GunRecoil gunRecoil;
     public ParticleSystem reloadSmoke;
     public GameObject wallShot;
-
+    public GameObject pauseMenu;
     public LayerMask ignore;
 
     [HideInInspector]
@@ -65,6 +65,12 @@ public class WeaponSelect : MonoBehaviour //Dhan
     [SerializeField] float horizontalVelocity;
 
     public GameObject player;
+    public ToolSetButton medpackButton;
+    public ToolSetButton gasButton;
+    public ToolSetButton gravityButton;
+    public ToolSetButton teleportButton;
+    public ToolSetButton explosiveButton;
+    ToolManager tm;
 
 
     private void Start()
@@ -77,7 +83,8 @@ public class WeaponSelect : MonoBehaviour //Dhan
         ph = player.GetComponent<PlayerHealth>();
         AOEv.color.Override(originalV);
         audioSourceThrow.loop = false;
-
+        tm = medpackButton.GetComponentInParent<ToolManager>();
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     #region Initializing
@@ -149,7 +156,7 @@ public class WeaponSelect : MonoBehaviour //Dhan
     private void Inputs()
     {
         //Overdrive fire
-        if (Input.GetButton("Fire1") && selectedWeapon != null && selectedWeapon.current_ammo > 0 && !selectedWeapon.reloading && selectedWeapon.canShoot && PlayerHealth.overDrive)
+        if (Input.GetButton("Fire1") && selectedWeapon != null && selectedWeapon.current_ammo > 0 && !selectedWeapon.reloading && selectedWeapon.canShoot && PlayerHealth.overDrive && !toolsetControl)
         {
             selectedWeapon.Fire();
 
@@ -168,7 +175,7 @@ public class WeaponSelect : MonoBehaviour //Dhan
             }
         }
         //Default fire
-        if (Input.GetButtonDown("Fire1") && selectedWeapon != null && selectedWeapon.current_ammo > 0 && !selectedWeapon.reloading && selectedWeapon.canShoot)
+        if (Input.GetButtonDown("Fire1") && selectedWeapon != null && selectedWeapon.current_ammo > 0 && !selectedWeapon.reloading && selectedWeapon.canShoot && !toolsetControl)
         {
             selectedWeapon.Fire();
 
@@ -320,11 +327,17 @@ public class WeaponSelect : MonoBehaviour //Dhan
 
     void MedPack()
     {
-        if (Input.GetButtonDown("Medpack") && GetComponent<Inventory>().medpack >= 1)
+        if (medpackButton.clicked && GetComponent<Inventory>().medpack >= 1)
         {
             audioSource.PlayOneShot(heal, 30f);
             GetComponent<Health>().currentHealth += 10;
             GetComponent<Inventory>().medpack--;
+            Cursor.lockState = CursorLockMode.Locked;
+            medpackButton.clicked = false;
+        }
+        else if (medpackButton.clicked)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
         }
     }
 
@@ -344,9 +357,9 @@ public class WeaponSelect : MonoBehaviour //Dhan
         return gravityBomb || gasBomb || explosiveBomb || teleportBomb;
     }
 
-    IEnumerator GravityBomb()
+    public IEnumerator GravityBomb()
     {
-        if (GetComponent<Inventory>().gravityBomb >= 1 && Input.GetButtonDown("gravityBomb") && !throwingBomb && !isBombThrowing())
+        if (GetComponent<Inventory>().gravityBomb >= 1 && gravityButton.clicked && !throwingBomb && !isBombThrowing())
         {
             throwingBomb = true;
             //Instantiate Bomb Here
@@ -355,21 +368,21 @@ public class WeaponSelect : MonoBehaviour //Dhan
             audioSourceThrow.Play();
             anim.SetBool("GravityBomb", true);
             GetComponent<Inventory>().gravityBomb--;
-
             Debug.Log("instantiating");
             yield return new WaitForSeconds(timetowait);
             Rigidbody rb = Instantiate<Rigidbody>(gravityBomb, bombSpawner.transform.position, Quaternion.identity);
             Vector3 location = selectedWeapon.ShootRaycastWithoutRange().point;
             rb.velocity = ((location - rb.transform.position).normalized * horizontalVelocity);
+            Cursor.lockState = CursorLockMode.Locked;
+            gravityButton.clicked = false;
             throwingBomb = false;
             anim.SetBool("GravityBomb", false);
-            
         }
     }
 
     IEnumerator ExplosiveBomb()
     {
-        if (GetComponent<Inventory>().explosionBomb >= 1 && Input.GetButtonDown("explosionBomb") && !throwingBomb && !isBombThrowing())
+        if (GetComponent<Inventory>().explosionBomb >= 1 && explosiveButton.clicked && !throwingBomb && !isBombThrowing())
         {
             throwingBomb = true;
             //instantiateBombs
@@ -382,6 +395,8 @@ public class WeaponSelect : MonoBehaviour //Dhan
             Rigidbody rb = Instantiate<Rigidbody>(explosiveBomb, bombSpawner.transform.position, Quaternion.identity);
             Vector3 location = selectedWeapon.ShootRaycastWithoutRange().point;
             rb.velocity = ((location - rb.transform.position).normalized * horizontalVelocity);
+            Cursor.lockState = CursorLockMode.Locked;
+            explosiveButton.clicked = false;
             throwingBomb = false;
             anim.SetBool("ExplosiveBomb", false);
         }
@@ -389,7 +404,7 @@ public class WeaponSelect : MonoBehaviour //Dhan
 
     IEnumerator TeleportBomb()
     {
-        if (GetComponent<Inventory>().teleportBomb >= 1 && Input.GetButtonDown("teleportBomb") && !throwingBomb && !isBombThrowing())
+        if (GetComponent<Inventory>().teleportBomb >= 1 && teleportButton.clicked && !throwingBomb && !isBombThrowing())
         {
             if (BombScript.teleport != null)
             {
@@ -410,6 +425,8 @@ public class WeaponSelect : MonoBehaviour //Dhan
             Rigidbody rb = Instantiate<Rigidbody>(teleportBomb, bombSpawner.transform.position, Quaternion.identity);
             Vector3 location = selectedWeapon.ShootRaycastWithoutRange().point;
             rb.velocity = ((location - rb.transform.position).normalized * horizontalVelocity);
+            Cursor.lockState = CursorLockMode.Locked;
+            teleportButton.clicked = false;
             throwingBomb = false;
             anim.SetBool("TeleportBomb", false);
         }
@@ -417,7 +434,7 @@ public class WeaponSelect : MonoBehaviour //Dhan
 
     IEnumerator GasBomb()
     {
-        if (GetComponent<Inventory>().gasBomb >= 1 && Input.GetButtonDown("gasBomb") && !throwingBomb && !isBombThrowing())
+        if (GetComponent<Inventory>().gasBomb >= 1 && gasButton.clicked && !throwingBomb && !isBombThrowing())
         {
             throwingBomb = true;
             //instantiateBomb
@@ -430,9 +447,11 @@ public class WeaponSelect : MonoBehaviour //Dhan
             Rigidbody rb = Instantiate<Rigidbody>(gasBomb, bombSpawner.transform.position, Quaternion.identity);
             Vector3 location = selectedWeapon.ShootRaycastWithoutRange().point;
             rb.velocity = ((location - rb.transform.position).normalized * horizontalVelocity);
+            Cursor.lockState = CursorLockMode.Locked;
+            gasButton.clicked = false;
             throwingBomb = false;
+            anim.SetBool("GasBomb", false);
         }
-        anim.SetBool("GasBomb", false);
     }
     #endregion
     void FindPostProcessEffects()
@@ -475,22 +494,59 @@ public class WeaponSelect : MonoBehaviour //Dhan
         }
     }
 
+    public bool toolsetControl = false;
+    bool cursorLocked = true;
+
     void BombThrow()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (!pauseMenu.activeSelf)
         {
-            bombUI.SetActive(true);
-            Time.timeScale = 0.25f;
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                cursorLocked = false;
+                bombUI.SetActive(true);
+                toolsetControl = true;
+                Time.timeScale = 0.25f;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+
+            if (Input.GetKeyUp(KeyCode.LeftShift) && !throwingBomb)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                toolsetControl = false;
+            }
+
+            if (!toolsetControl)
+            {
+                TextCorrectionForToolset(medpackButton);
+                TextCorrectionForToolset(gasButton);
+                TextCorrectionForToolset(gravityButton);
+                TextCorrectionForToolset(teleportButton);
+                TextCorrectionForToolset(explosiveButton);
+                tm.activeButtons.Clear();
+
+                bombUI.SetActive(false);
+                Time.timeScale = 1f;
+                Cursor.visible = false;
+            }
+        }
+        else
+        {
+            Time.timeScale = 0f;
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
 
-        if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            bombUI.SetActive(false);
-            Time.timeScale = 1f;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        }
+    }
+
+    void TextCorrectionForToolset(ToolSetButton button)
+    {
+        button.highlight = false;
+        button.buttonActive = false;
+        button.clicked = false;
+        button.centreText.SetText("Tools");
+        button.centreText.color = Color.white;
+        button.centreText.fontSize = 36f;
     }
 }

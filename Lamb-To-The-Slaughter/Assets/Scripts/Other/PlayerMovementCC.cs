@@ -90,10 +90,19 @@ public class PlayerMovementCC : MonoBehaviour ////NEEDS COMMENTING
             anim.SetFloat("Speed", 0f);
         }
 
-        CameraMovement();
         Inputs();
         Movement();
         GPSmode();
+        CameraMovement();
+
+        //if (!ws.toolsetControl)
+        //{
+        //    CameraMovement();
+        //}
+        //else
+        //{
+        //    return;
+        //}
 
         //activate overdrive if avaliable
         if (PlayerHealth.overDrive)
