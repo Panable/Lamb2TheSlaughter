@@ -54,7 +54,7 @@ public class ProceduralManager : MonoBehaviour //Dhan
         {
             Destroy(bossroomcurrent);
         }
-        numberOfRoomsToGenerate = 2;
+        numberOfRoomsToGenerate = 20;
         numberOfRoomsGenerated = 0;
         procedurallyGenerating = true;
         doorPrefabs = new Dictionary<char, Transform>();
