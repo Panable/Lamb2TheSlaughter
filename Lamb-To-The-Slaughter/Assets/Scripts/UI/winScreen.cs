@@ -5,7 +5,7 @@ public class winScreen : MonoBehaviour //Lachlan
 {
     //Timer value and TXT object
     public TMP_Text timerTxt;
-    public float timerValue;
+    public int timerValue;
 
     //to allow the pause screen to be destoryed
     public GameObject pauseScreen;
