@@ -13,8 +13,8 @@ public class winScreen : MonoBehaviour //Lachlan
     // Set Timer value and allow for buttons to be pressed by unlocking cursor
     void Start()
     {
-        timerValue = GameObject.FindGameObjectWithTag("Canvas").GetComponent<GUI>().timer;
-        timerTxt.SetText(timerValue.ToString());
+        timerValue = Mathf.RoundToInt(GameObject.FindGameObjectWithTag("Canvas").GetComponent<GUI>().timer);
+        timerTxt.SetText(timerValue.ToString() + " seconds.");
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }

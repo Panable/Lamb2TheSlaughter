@@ -182,9 +182,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6d2d544a09a6416ebea77dde5f50dbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Injured: {fileID: 4933148978096647423, guid: f0911f7fe556f4b249fab1a5968f1e97, type: 3}
-  wanderRadius: 100
-  wanderTimer: 3
+  maggotAgent: {fileID: 0}
+  bounce: {fileID: 0}
   mainBone: {fileID: 9129735116913610257}
 --- !u!195 &9185336532002366293
 NavMeshAgent:
@@ -195,7 +194,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 889799571581065348}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 2.89
   m_Speed: 4.5
   m_Acceleration: 8
   avoidancePriority: 50

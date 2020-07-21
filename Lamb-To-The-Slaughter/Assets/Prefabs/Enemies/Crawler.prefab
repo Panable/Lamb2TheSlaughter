@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 5377038534910262343}
   - component: {fileID: 4767601787961615655}
   - component: {fileID: 5696055263102449256}
+  - component: {fileID: -982324592221624184}
   m_Layer: 0
   m_Name: Crawler
   m_TagString: Enemy
@@ -205,9 +206,9 @@ NavMeshAgent:
   m_GameObject: {fileID: 372075594148939898}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 8
-  m_Speed: 6.2
-  m_Acceleration: 400
+  m_Radius: 5.62
+  m_Speed: 8
+  m_Acceleration: 20
   avoidancePriority: 2
   m_AngularSpeed: 360
   m_StoppingDistance: 1
@@ -231,6 +232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
+  pushed: 0
 --- !u!114 &5377038534910262343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,10 +271,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 2.240974
-  m_Height: 8.155206
+  m_Radius: 2.78
+  m_Height: 12.24
   m_Direction: 2
-  m_Center: {x: 0.13391972, y: 2.1809998, z: 0.3634993}
+  m_Center: {x: 0.13391972, y: 2.52, z: 2.13}
 --- !u!82 &5696055263102449256
 AudioSource:
   m_ObjectHideFlags: 0
@@ -370,6 +372,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-982324592221624184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 372075594148939898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ad24851cc3a7490a966844aa99c9758, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &634093192233529851
 GameObject:
   m_ObjectHideFlags: 0

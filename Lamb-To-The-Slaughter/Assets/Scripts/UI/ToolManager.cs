@@ -5,6 +5,7 @@ using TMPro;
 
 public class ToolManager : MonoBehaviour //Ansaar
 {
+    #region Variables 
     [SerializeField] ToolSetButton[] buttons;
     [SerializeField] List<ToolSetButton> inactiveButtons;
     [SerializeField] Color numberColor;
@@ -14,7 +15,9 @@ public class ToolManager : MonoBehaviour //Ansaar
     public List<ToolSetButton> activeButtons;
     public bool bombThrown;
     public TMP_Text text;
-    // Start is called before the first frame update
+    #endregion
+
+    //Initialise
     void OnEnable()
     {
         centreText.gameObject.SetActive(true);
@@ -31,13 +34,14 @@ public class ToolManager : MonoBehaviour //Ansaar
         }
     }
 
+    //Essentially reset this ui element when deactivated
     private void OnDisable()
     {
         inactiveButtons.Clear();
         centreText.gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
+    //Regulate which button is active, and display appropriate text
     void Update()
     {
         for (int i = 0; i < inactiveButtons.Count; i++)
@@ -72,19 +76,8 @@ public class ToolManager : MonoBehaviour //Ansaar
 
             if(activeButtons[0].clicked)
             {
-                //TextCorrectionForToolset(buttons);
                 weaponSelect.toolsetControl = false;
             }
-        }
-    }
-
-    void TextCorrectionForToolset(ToolSetButton[] button)
-    {
-        for (int i = 0; i < button.Length; i++)
-        {
-            button[i].centreText.SetText("Tools");
-            button[i].centreText.color = Color.white;
-            button[i].centreText.fontSize = 36f;
         }
     }
 }
