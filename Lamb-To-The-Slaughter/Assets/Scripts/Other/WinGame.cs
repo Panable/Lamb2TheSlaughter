@@ -10,7 +10,7 @@ public class WinGame : MonoBehaviour //Lachlan
 
     private void Awake() //Find WinScreen and disable it (so it doesn't appear when loading)
     {
-        //winScreen = GameObject.FindGameObjectWithTag("WinScreen");
+        winScreen = GameObject.FindGameObjectWithTag("WinScreen");
         winScreen.SetActive(false);
     }
 
@@ -25,7 +25,7 @@ public class WinGame : MonoBehaviour //Lachlan
 
         if (!winScreen) //Find the winScreen incase Awake function fails.
         {
-            //winScreen = GameObject.FindGameObjectWithTag("WinScreen");
+            winScreen = GameObject.FindGameObjectWithTag("WinScreen");
             Debug.Log("Finding Win Screen");
             return;
         }

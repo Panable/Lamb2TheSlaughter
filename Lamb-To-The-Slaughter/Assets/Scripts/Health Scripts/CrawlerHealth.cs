@@ -30,8 +30,6 @@ public class CrawlerHealth : Health //Ansaar(Particles) & Lachlan(Audio)
         audioSourceC.Play();
         base.TakeDamage(amount);
         Instantiate(hurtParticles, particleLocation, transform.rotation);
-        Rigidbody forceRb = GetComponent<Rigidbody>();
-        forceRb.AddRelativeForce(Vector3.forward, ForceMode.Impulse);
     }
 
     //Update the location of the particles

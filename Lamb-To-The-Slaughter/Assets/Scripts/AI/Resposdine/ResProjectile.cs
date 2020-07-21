@@ -14,7 +14,6 @@ public class ResProjectile : MonoBehaviour //Ansaar
     public ResHealth rHealth;
     public GameObject flares;
     public Vector3 hitScale;
-    [SerializeField] float fade = 1;
     #endregion
 
     //Initialisation
@@ -32,13 +31,8 @@ public class ResProjectile : MonoBehaviour //Ansaar
     {
         if (rHealth == null)
         {
-            rend.material.SetFloat("Fade", fade);
-            fade -= 0.05f;
+            rend.material.color += new Color(0.1f, 0.1f, 0.1f, -0.02f);
             sc.enabled = false;
-            if (fade < 0.05)
-            {
-                Destroy(gameObject);
-            }
         }
     }
 

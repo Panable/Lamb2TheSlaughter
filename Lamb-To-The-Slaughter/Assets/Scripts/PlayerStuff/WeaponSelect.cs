@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Audio;
 
-public class WeaponSelect : MonoBehaviour //Dhan (Functionality), Ansaar (Graphics) & Lachlan (Audio)
+public class WeaponSelect : MonoBehaviour //Dhan
 {
     public enum Weapon
     {
@@ -47,7 +47,6 @@ public class WeaponSelect : MonoBehaviour //Dhan (Functionality), Ansaar (Graphi
     public GameObject shockwave;
     public Transform shockwaveAnchor;
     public GameObject bombUI;
-    public GameObject crosshair;
 
     //Audio
     public AudioSource audioSource;
@@ -73,7 +72,7 @@ public class WeaponSelect : MonoBehaviour //Dhan (Functionality), Ansaar (Graphi
     public ToolSetButton explosiveButton;
     ToolManager tm;
 
-    //Initialisation
+
     private void Start()
     {
         CheckIfStartingWeaponsIsEmpty();
@@ -213,7 +212,6 @@ public class WeaponSelect : MonoBehaviour //Dhan (Functionality), Ansaar (Graphi
     public float aoeCooldown = 4f;
     public bool hasScreamed;
 
-    //Scream Attack Function
     void AOEattack()
     {
         canAOE = false;
@@ -249,7 +247,6 @@ public class WeaponSelect : MonoBehaviour //Dhan (Functionality), Ansaar (Graphi
         canAOE = true;
     }
 
-    //Reset Post-Processing Graphics 
     public void AOEgraphicsReset()
     {
         if (PlayerHealth.overDrive)
@@ -261,7 +258,6 @@ public class WeaponSelect : MonoBehaviour //Dhan (Functionality), Ansaar (Graphi
         AOEv.color.value = Color.Lerp(AOEv.color.value, setV, 5f * Time.deltaTime);
     }
 
-    //Main Functionality is called & regulated here
     private void Update()
     {
         Inputs();
@@ -328,7 +324,7 @@ public class WeaponSelect : MonoBehaviour //Dhan (Functionality), Ansaar (Graphi
         return null;
     }
 
-    //Use Medpack Function
+
     void MedPack()
     {
         if (medpackButton.clicked && GetComponent<Inventory>().medpack >= 1)
@@ -361,7 +357,6 @@ public class WeaponSelect : MonoBehaviour //Dhan (Functionality), Ansaar (Graphi
         return gravityBomb || gasBomb || explosiveBomb || teleportBomb;
     }
 
-    //Gravity Bomb Functionality
     public IEnumerator GravityBomb()
     {
         if (GetComponent<Inventory>().gravityBomb >= 1 && gravityButton.clicked && !throwingBomb && !isBombThrowing())
@@ -385,7 +380,6 @@ public class WeaponSelect : MonoBehaviour //Dhan (Functionality), Ansaar (Graphi
         }
     }
 
-    //Explosive Bomb Functionality
     IEnumerator ExplosiveBomb()
     {
         if (GetComponent<Inventory>().explosionBomb >= 1 && explosiveButton.clicked && !throwingBomb && !isBombThrowing())
@@ -408,7 +402,6 @@ public class WeaponSelect : MonoBehaviour //Dhan (Functionality), Ansaar (Graphi
         }
     }
 
-    //Teleport Bomb Functionality
     IEnumerator TeleportBomb()
     {
         if (GetComponent<Inventory>().teleportBomb >= 1 && teleportButton.clicked && !throwingBomb && !isBombThrowing())
@@ -439,7 +432,6 @@ public class WeaponSelect : MonoBehaviour //Dhan (Functionality), Ansaar (Graphi
         }
     }
 
-    //Gas Bomb Functionality
     IEnumerator GasBomb()
     {
         if (GetComponent<Inventory>().gasBomb >= 1 && gasButton.clicked && !throwingBomb && !isBombThrowing())
@@ -462,8 +454,6 @@ public class WeaponSelect : MonoBehaviour //Dhan (Functionality), Ansaar (Graphi
         }
     }
     #endregion
-
-    //Post processing configuration
     void FindPostProcessEffects()
     {
         ChromaticAberration cA;
@@ -490,7 +480,6 @@ public class WeaponSelect : MonoBehaviour //Dhan (Functionality), Ansaar (Graphi
         StartCoroutine(coroutineMethod);
     }
 
-    //Chnage ammo color
     void AmmoGraphics()
     {
         float currentAmmo = selectedWeapon.current_ammo;
@@ -508,7 +497,6 @@ public class WeaponSelect : MonoBehaviour //Dhan (Functionality), Ansaar (Graphi
     public bool toolsetControl = false;
     bool cursorLocked = true;
 
-    //Input & Controls for Toolset UI
     void BombThrow()
     {
         if (!pauseMenu.activeSelf)
@@ -516,7 +504,6 @@ public class WeaponSelect : MonoBehaviour //Dhan (Functionality), Ansaar (Graphi
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
                 cursorLocked = false;
-                crosshair.SetActive(false);
                 bombUI.SetActive(true);
                 toolsetControl = true;
                 Time.timeScale = 0.25f;
@@ -539,7 +526,6 @@ public class WeaponSelect : MonoBehaviour //Dhan (Functionality), Ansaar (Graphi
                 TextCorrectionForToolset(explosiveButton);
                 tm.activeButtons.Clear();
                 bombUI.SetActive(false);
-                crosshair.SetActive(true);
                 Time.timeScale = 1f;
                 Cursor.visible = false;
             }
