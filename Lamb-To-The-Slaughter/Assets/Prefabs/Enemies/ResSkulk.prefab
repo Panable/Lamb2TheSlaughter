@@ -5037,14 +5037,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  targetDist: 0
+  fireParticles: {fileID: 1215457330992485314, guid: 7f0e459eb83fd446292f9f9d28fd9555,
+    type: 3}
   projectile: {fileID: 3558047018506738054, guid: b2d9ca2f5fda7469081b146aa0e771eb,
     type: 3}
   projectileAnchor: {fileID: 520247860281996090}
-  projectileForce: 30
-  shootDelay: 1
-  fireParticles: {fileID: 1215457330992485314, guid: 7f0e459eb83fd446292f9f9d28fd9555,
-    type: 3}
 --- !u!114 &520247860163681216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5176,7 +5173,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.754
   m_Pitch: 1
   Loop: 0
   Mute: 0

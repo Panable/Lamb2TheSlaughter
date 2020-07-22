@@ -58,7 +58,6 @@ public class BossAI : MonoBehaviour //Ansaar
 
     [Header("Audio")]
 	public AudioSource audioSource;
-	public AudioClip[] meleeAttack;
 	public AudioClip[] projectileAttack;
 	public AudioClip[] spawnAttack;
     #endregion
@@ -288,8 +287,6 @@ public class BossAI : MonoBehaviour //Ansaar
 		if (canMelee)
 		{
 			strikeCount = Random.Range(1, strikeTypes);
-            audioSource.clip = meleeAttack[Random.Range(0, meleeAttack.Length)];
-			audioSource.Play();
 			canMelee = false;
 		}
 

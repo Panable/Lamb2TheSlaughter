@@ -4951,7 +4951,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.705
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5194,7 +5194,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.78
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -5395,6 +5395,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24518ab7b1d8f41d4a715abdad7d9f94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roomObjects: []
+  culledObjects: []
 --- !u!114 &1444958675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5522,6 +5524,7 @@ MonoBehaviour:
   mouseSensitivity: 4.2
   pitchRange: 50
   playerCamera: {fileID: 2670884381572610043}
+  GPScamera: {fileID: 0}
   tPcA: {fileID: 0}
   vp: {fileID: 11400000, guid: ea32cb5486db94f528318b981ba47556, type: 2}
   jumpHeight: 10
@@ -5531,9 +5534,12 @@ MonoBehaviour:
   forwardDirection: 0
   strafeDirection: 0
   anim: {fileID: 2670884381363490629}
+  error: {fileID: 0}
   hasTeleported: 0
   canTeleport: 1
+  TeleportEnabled: 0
   jumping: 1
+  pauseMenu: {fileID: 0}
   jumpSource: {fileID: 6168932854668945685}
   teleporting: 0
 --- !u!143 &2670884381575440729
@@ -5576,6 +5582,7 @@ MonoBehaviour:
   reloadSmoke: {fileID: 8828792117823002555}
   wallShot: {fileID: 7568909950540034120, guid: 5aed813ac285e40ce89b00d8147ea010,
     type: 3}
+  pauseMenu: {fileID: 0}
   ignore:
     serializedVersion: 2
     m_Bits: 0
@@ -5618,6 +5625,9 @@ MonoBehaviour:
   - {fileID: 0}
   bubbleShader: {fileID: 0}
   damageParticles: {fileID: 0}
+  shockwave: {fileID: 0}
+  shockwaveAnchor: {fileID: 0}
+  bombUI: {fileID: 0}
   audioSource: {fileID: 1164532300639660390}
   heal: {fileID: 8300000, guid: d215bedc627634c959a576d560f54f34, type: 3}
   AOEsoundplay: 0
@@ -5638,9 +5648,15 @@ MonoBehaviour:
   bombSpawner: {fileID: 5071576979530367810}
   horizontalVelocity: 45.38
   player: {fileID: 0}
+  medpackButton: {fileID: 0}
+  gasButton: {fileID: 0}
+  gravityButton: {fileID: 0}
+  teleportButton: {fileID: 0}
+  explosiveButton: {fileID: 0}
   aoeCooldown: 4
-  meleeRange: 3
+  hasScreamed: 0
   timetowait: 0.7
+  toolsetControl: 0
 --- !u!114 &4966732780099105064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5663,6 +5679,7 @@ MonoBehaviour:
   cs: {fileID: 0}
   vp: {fileID: 11400000, guid: ea32cb5486db94f528318b981ba47556, type: 2}
   deathWarning: {r: 1, g: 0.75, b: 0.75, a: 1}
+  warningReset: {r: 0, g: 0, b: 0, a: 0}
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   player: {fileID: 6210760925820087454}
   deathScreen: {fileID: 0}
@@ -5775,7 +5792,7 @@ AudioSource:
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.705
   m_Pitch: 1
   Loop: 0
   Mute: 0

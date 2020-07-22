@@ -98,6 +98,8 @@ MonoBehaviour:
   waveSpeed: 1
   shockwaveParticles: {fileID: 384100228009526266, guid: b45d5330ba6cf40a38aa07daae2771ee,
     type: 3}
+  shockSource: {fileID: -3515867357222403498}
+  shockwaveSFX: {fileID: 8300000, guid: 922ee7faf8494402bbb5514474d785f4, type: 3}
 --- !u!64 &8296172669265808026
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -124,14 +126,14 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 24300002, guid: 93edea050b15140dfad56a92e79a0bee,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: e53c993d1da2b40dbba240f1a8af0cf7, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
+  m_PlayOnAwake: 0
+  m_Volume: 0.234
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 60
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -169,7 +171,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0

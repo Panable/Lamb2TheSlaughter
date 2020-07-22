@@ -9,6 +9,8 @@ public class Res_Shockwave : MonoBehaviour //Ansaar
     Renderer rend;
     Collider col;
     public GameObject shockwaveParticles;
+    public AudioSource shockSource;
+    public AudioClip shockwaveSFX;
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +18,7 @@ public class Res_Shockwave : MonoBehaviour //Ansaar
         rend = GetComponent<Renderer>();
         col = GetComponent<MeshCollider>();
         Instantiate(shockwaveParticles, transform.position, Quaternion.Euler(-90, 0, 0));
+        shockSource.PlayOneShot(shockwaveSFX, 1);
     }
 
     // Update is called once per frame
