@@ -74,6 +74,7 @@ public class Maggots : MonoBehaviour //Lachlan & Ansaar
         }
         else if(!mh.unharmed)
         {
+            maggotAgent.speed = 6f;
             maggotAgent.SetDestination(player.position);
             bouncyBoi();
             BounceSound();
@@ -118,7 +119,6 @@ public class Maggots : MonoBehaviour //Lachlan & Ansaar
         if (bounceHeight > bounceThreshold)
         {
             col.center = Vector3.Lerp(col.center, bouncePos, colSpeed * Time.deltaTime);
-            maggotAgent.speed = 4.5f;
         }
         else if (bounceHeight < bounceThreshold)
         {
@@ -127,7 +127,6 @@ public class Maggots : MonoBehaviour //Lachlan & Ansaar
             {
                 justBounced = true;
             }
-            maggotAgent.speed = 0f;
         }
     }
 

@@ -97,7 +97,7 @@ public class BossAI : MonoBehaviour //Ansaar
     void Update()
     {
 		rHealth = rH.currentHealth;
-		weapon.enabled = canMelee;
+		//weapon.enabled = canMelee;
 
 		if (resAI.isStopped == false)
 		{

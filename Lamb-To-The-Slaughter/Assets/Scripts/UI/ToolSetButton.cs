@@ -25,19 +25,21 @@ public class ToolSetButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     public TMP_Text centreText;
     #endregion
 
-    // Start is called before the first frame update
+    //Initialise when opening
     void OnEnable()
     {
         highlight = false;
         buttonActive = false;
     }
 
+    //Initialise when closing
     void OnDisable()
     {
         highlight = false;
         buttonActive = false;
     }
 
+    //Determine what tool this button is for
     void FindType()
     {
         switch (toolType)
@@ -60,7 +62,7 @@ public class ToolSetButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         }
     }
 
-    // Update is called once per frame
+    //Control button's graphics
     void Update()
     {
         FindType();
@@ -77,6 +79,7 @@ public class ToolSetButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         }
     }
 
+    //Set bools when mouse is over button
     public void OnPointerEnter(PointerEventData eventData)
     {
         highlight = true;
@@ -84,6 +87,7 @@ public class ToolSetButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         Debug.ClearDeveloperConsole();
     }
 
+    //Set bools when mouse has left button
     public void OnPointerExit(PointerEventData eventData)
     {
         highlight = false;
@@ -91,6 +95,7 @@ public class ToolSetButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         Debug.ClearDeveloperConsole();
     }
 
+    //Set bool when button is clicked
     public void BombSelected()
     {
         clicked = true;

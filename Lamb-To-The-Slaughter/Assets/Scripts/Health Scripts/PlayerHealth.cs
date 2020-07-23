@@ -69,7 +69,7 @@ public class PlayerHealth : Health //Ansaar(Graphics) & Lachlan(Audio & Death)
     //Regulate Health GUI & Death Check
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") || Input.GetButton("Medpack"))
         {
             Invoke("OnMedPackUpdate", 0.1f);
         }

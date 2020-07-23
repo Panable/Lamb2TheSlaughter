@@ -9,6 +9,7 @@ public class Chest : MonoBehaviour //Ansaar
     private Collider col;
     private int num;
     private string toolTag;
+    bool canGrab;
 
     public bool toolAccessible;
     public GameObject activeTool;
@@ -17,6 +18,7 @@ public class Chest : MonoBehaviour //Ansaar
     public AudioSource audioSource;
     public AudioClip chestCreak;
     public GameObject[] chestContents;
+    float dist;
     #endregion
 
     //Initialisation
@@ -48,7 +50,6 @@ public class Chest : MonoBehaviour //Ansaar
     void ToolKillDelay()
     {
         toolAccessible = true;
-        Debug.Log(toolTag);
     }
 
     //Pick Up Tool & Medpack
@@ -62,48 +63,63 @@ public class Chest : MonoBehaviour //Ansaar
             anim.SetBool("openChest", true);
             audioSource.PlayOneShot(chestCreak, 20f);
             Invoke("ToolKillDelay", 0.2f);
-            Debug.Log("Killed");
         }
 
         if (toolAccessible && Input.GetButtonDown("Interact"))
         {
-            Debug.Log(toolTag);
-
-            if (player.GetComponent<Inventory>() == null)
-            {
-                Debug.Log("NoInventory");
-            }
-
             if (toolTag == "Bomb_Explosive")
             {
-                Debug.Log("ReachedIntoIf");
+                canGrab = true;
                 player.GetComponent<Inventory>().explosionBomb++;
-                activeTool.SetActive(false);
+                //activeTool.SetActive(false);
             }
             if (toolTag == "Bomb_Teleport")
             {
-                Debug.Log("ReachedIntoIf");
+                canGrab = true;
                 player.GetComponent<Inventory>().teleportBomb++;
-                activeTool.SetActive(false);
+                //activeTool.SetActive(false);
             }
             if (toolTag == "Bomb_Gas")
             {
-                Debug.Log("ReachedIntoIf");
+                canGrab = true;
                 player.GetComponent<Inventory>().gasBomb++;
-                activeTool.SetActive(false);
+                //activeTool.SetActive(false);
             }
             if (toolTag == "Bomb_Gravity")
             {
-                Debug.Log("ReachedIntoIf");
+                canGrab = true;
                 player.GetComponent<Inventory>().gravityBomb++;
-                activeTool.SetActive(false);
+                //activeTool.SetActive(false);
             }
 
-            Debug.Log("Passed break");
-
-            medPack.SetActive(false);
+            canGrab = true;
+            //medPack.SetActive(false);
             player.GetComponent<Inventory>().medpack++;
             col.enabled = false;
+        }
+    }
+
+    void Grab(GameObject tool, Transform player)
+    {
+        tool.GetComponent<Collider>().enabled = false;
+        tool.transform.position = Vector3.Lerp(tool.transform.position, player.position, 10 * Time.deltaTime);
+    }
+
+    private void Update()
+    {
+        if (canGrab)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+            Grab(activeTool, player.transform);
+            Grab(medPack, player.transform);
+            dist = (activeTool.transform.position - player.transform.position).sqrMagnitude;
+            if (dist < 0.1)
+            {
+                Destroy(activeTool);
+                Destroy(medPack);
+                Destroy(this);
+            }
+
         }
     }
 }

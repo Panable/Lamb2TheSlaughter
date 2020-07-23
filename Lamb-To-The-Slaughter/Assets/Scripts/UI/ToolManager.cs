@@ -14,7 +14,8 @@ public class ToolManager : MonoBehaviour //Ansaar
     public List<ToolSetButton> activeButtons;
     public bool bombThrown;
     public TMP_Text text;
-    // Start is called before the first frame update
+
+    //Set tool select menu to default when enabling
     void OnEnable()
     {
         centreText.gameObject.SetActive(true);
@@ -31,13 +32,14 @@ public class ToolManager : MonoBehaviour //Ansaar
         }
     }
 
+    //Clear list when disabled
     private void OnDisable()
     {
         inactiveButtons.Clear();
         centreText.gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
+    //Keep track of active buttons to control centre text
     void Update()
     {
         for (int i = 0; i < inactiveButtons.Count; i++)
@@ -72,19 +74,8 @@ public class ToolManager : MonoBehaviour //Ansaar
 
             if(activeButtons[0].clicked)
             {
-                //TextCorrectionForToolset(buttons);
                 weaponSelect.toolsetControl = false;
             }
-        }
-    }
-
-    void TextCorrectionForToolset(ToolSetButton[] button)
-    {
-        for (int i = 0; i < button.Length; i++)
-        {
-            button[i].centreText.SetText("Tools");
-            button[i].centreText.color = Color.white;
-            button[i].centreText.fontSize = 36f;
         }
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Audio;
 
-public class WeaponSelect : MonoBehaviour //Dhan
+public class WeaponSelect : MonoBehaviour //Dhan (Functionality), Ansaar (Graphics) & Lachlan (Audio)
 {
     public enum Weapon
     {
@@ -47,6 +47,7 @@ public class WeaponSelect : MonoBehaviour //Dhan
     public GameObject shockwave;
     public Transform shockwaveAnchor;
     public GameObject bombUI;
+    public GameObject crossHair;
 
     //Audio
     public AudioSource audioSource;
@@ -72,7 +73,7 @@ public class WeaponSelect : MonoBehaviour //Dhan
     public ToolSetButton explosiveButton;
     ToolManager tm;
 
-
+    //Initialisation
     private void Start()
     {
         CheckIfStartingWeaponsIsEmpty();
@@ -212,6 +213,7 @@ public class WeaponSelect : MonoBehaviour //Dhan
     public float aoeCooldown = 4f;
     public bool hasScreamed;
 
+    //Scream Attack
     void AOEattack()
     {
         canAOE = false;
@@ -238,13 +240,6 @@ public class WeaponSelect : MonoBehaviour //Dhan
 
         aoeCooldown = 0f;
         hasScreamed = true;
-
-        //Invoke("AOECooldown", aoeCooldown);
-    }
-
-    void AOECooldown()
-    {
-        canAOE = true;
     }
 
     public void AOEgraphicsReset()
@@ -258,6 +253,7 @@ public class WeaponSelect : MonoBehaviour //Dhan
         AOEv.color.value = Color.Lerp(AOEv.color.value, setV, 5f * Time.deltaTime);
     }
 
+    //Regulate inputs and their respective functions
     private void Update()
     {
         Inputs();
@@ -324,7 +320,7 @@ public class WeaponSelect : MonoBehaviour //Dhan
         return null;
     }
 
-
+    //Functionality for the medpack
     void MedPack()
     {
         if (Input.GetButton("Medpack") && GetComponent<Inventory>().medpack >= 1)
@@ -363,6 +359,7 @@ public class WeaponSelect : MonoBehaviour //Dhan
         return gravityBomb || gasBomb || explosiveBomb || teleportBomb;
     }
 
+    //Functionality for Gravity Bomb
     public IEnumerator GravityBomb()
     {
         if (GetComponent<Inventory>().gravityBomb >= 1 && gravityButton.clicked && !throwingBomb && !isBombThrowing())
@@ -386,6 +383,7 @@ public class WeaponSelect : MonoBehaviour //Dhan
         }
     }
 
+    //Functionality for Explosive Bomb
     IEnumerator ExplosiveBomb()
     {
         if (GetComponent<Inventory>().explosionBomb >= 1 && explosiveButton.clicked && !throwingBomb && !isBombThrowing())
@@ -408,6 +406,7 @@ public class WeaponSelect : MonoBehaviour //Dhan
         }
     }
 
+    //Functionality for Teleport Bomb
     IEnumerator TeleportBomb()
     {
         if (GetComponent<Inventory>().teleportBomb >= 1 && teleportButton.clicked && !throwingBomb && !isBombThrowing())
@@ -438,6 +437,8 @@ public class WeaponSelect : MonoBehaviour //Dhan
         }
     }
 
+
+    //Functionality for Gas Bomb
     IEnumerator GasBomb()
     {
         if (GetComponent<Inventory>().gasBomb >= 1 && gasButton.clicked && !throwingBomb && !isBombThrowing())
@@ -460,6 +461,8 @@ public class WeaponSelect : MonoBehaviour //Dhan
         }
     }
     #endregion
+
+    //Post processing effects configuration
     void FindPostProcessEffects()
     {
         ChromaticAberration cA;
@@ -486,6 +489,7 @@ public class WeaponSelect : MonoBehaviour //Dhan
         StartCoroutine(coroutineMethod);
     }
 
+    //Controls ammo graphics
     void AmmoGraphics()
     {
         float currentAmmo = selectedWeapon.current_ammo;
@@ -503,6 +507,7 @@ public class WeaponSelect : MonoBehaviour //Dhan
     public bool toolsetControl = false;
     bool cursorLocked = true;
 
+    //Controls the toolselect menu
     void BombThrow()
     {
         if (!pauseMenu.activeSelf)
@@ -510,6 +515,7 @@ public class WeaponSelect : MonoBehaviour //Dhan
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
                 cursorLocked = false;
+                crossHair.SetActive(false);
                 bombUI.SetActive(true);
                 toolsetControl = true;
                 Time.timeScale = 0.25f;
@@ -532,6 +538,7 @@ public class WeaponSelect : MonoBehaviour //Dhan
                 TextCorrectionForToolset(explosiveButton);
                 tm.activeButtons.Clear();
                 bombUI.SetActive(false);
+                crossHair.SetActive(true);
                 Time.timeScale = 1f;
                 Cursor.visible = false;
             }
