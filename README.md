@@ -1,2 +1,2 @@
 # Lamb2TheSlaughter
-Don't fuck this up lachlan
+This is a very cool game.
